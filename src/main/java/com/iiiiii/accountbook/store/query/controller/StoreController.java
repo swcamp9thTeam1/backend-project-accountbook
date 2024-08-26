@@ -30,9 +30,11 @@ public class StoreController {
     }
 
     @GetMapping("/search")
-    public List<StoreDTO> searchStore(@RequestParam Boolean isGood) {
+    public List<StoreDTO> searchStore(@RequestParam Boolean isGood, @RequestParam Boolean isManyReview) {
         StoreSearchCriteria criteria = new StoreSearchCriteria();
-        criteria.setGood(isGood);
+
+        criteria.setIsGood(isGood);
+        criteria.setIsManyReview(isManyReview);
 
         return storeService.searchStore(criteria);
     }

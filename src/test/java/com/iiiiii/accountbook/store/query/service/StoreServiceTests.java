@@ -41,8 +41,8 @@ class StoreServiceTests {
     private static Stream<Arguments> storeSearchCriteria() {
         return Stream.of(
                 Arguments.of(new StoreSearchCriteria()),
-                Arguments.of(new StoreSearchCriteria(false)),
-                Arguments.of(new StoreSearchCriteria(true))
+                Arguments.of(new StoreSearchCriteria(false, true)),
+                Arguments.of(new StoreSearchCriteria(true, true))
         );
     }
 
@@ -60,8 +60,11 @@ class StoreServiceTests {
         List<StoreDTO> foundStores = storeService.searchStore(criteria);
 
         if (!foundStores.isEmpty()) {   // 결과 목록이 비어있지 않을 때
-            if (criteria.getGood()) {   // 착한가격업소를 조회하는 경우
+            if (criteria.getIsGood() != null) {   // 착한가격업소를 조회하는 경우
                 assertEquals(YesOrNo.Y, foundStores.get(0).getIsGood());
+            }
+            if (criteria.getIsManyReview() != null) {
+                // TODO:: stores 중 code 하나 골라서 가게 리뷰 실제로 5개 넘는지 체크해야 하나..
             }
         }
     }
