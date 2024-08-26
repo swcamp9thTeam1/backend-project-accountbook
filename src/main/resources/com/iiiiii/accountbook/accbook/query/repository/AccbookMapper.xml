@@ -1,0 +1,35 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.accbook.query.repository.AccbookMapper">
+
+    <!-- result map-->
+    <resultMap id="accbookResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccbookDTO">
+        <id property="accbookCode" column="CODE" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="amount" column="AMOUNT" />
+        <result property="isRegular" column="IS_REGULAR" />
+        <result property="title" column="TITLE" />
+        <result property="memberCode" column="MEMBER_CODE" />
+        <result property="accCategoryCode" column="ACC_CATEGORY_CODE" />
+        <result property="storeCode" column="STORE_CODE" />
+        <result property="assetCode" column="ASSET_CODE" />
+    </resultMap>
+
+    <!-- query -->
+    <select id="selectDailyAccbookBy" resultMap="accbookResultMap">
+        SELECT
+        A.CODE
+        , A.CREATED_AT
+        , A.IS_REGULAR
+        , A.TITLE
+        , A.MEMBER_CODE
+        , A.ACC_CATEGORY_CODE
+        , A.STORE_CODE
+        , A.ASSET_CODE
+        FROM ACCBOOK A
+        WHERE A.MEMBER_CODE = #{ memberCode }
+        AND DATE(A.created_at) = #{ findDate };
+    </select>
+
+</mapper>

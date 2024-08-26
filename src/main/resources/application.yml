@@ -1,6 +1,6 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/accbookdb
+    url: jdbc:mariadb://localhost:3307/accbookdb
     username: iiiiii
     password: iiiiii
