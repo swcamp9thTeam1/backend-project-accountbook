@@ -9,6 +9,8 @@
 DROP TABLE IF EXISTS accbook;
 DROP TABLE IF EXISTS store;
 DROP TABLE IF EXISTS member;
+DROP TABLE IF EXISTS store_review;
+DROP TABLE IF EXISTS review_file;
 ------------------------
 -- CREATE TABLE DDL
 -- 부모 테이블 생성 -> 자식 테이블 생성
@@ -16,7 +18,7 @@ DROP TABLE IF EXISTS member;
     
 -- member(회원)
 CREATE TABLE IF NOT EXISTS member (
-	code INT PRIMARY KEY AUTO_INCREMENT,
+    code INT PRIMARY KEY AUTO_INCREMENT,
     id VARCHAR(255) NOT NULL,
     nickname VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
@@ -48,8 +50,7 @@ CREATE TABLE IF NOT EXISTS store (
 -- acc_category(가계부 카테고리)
     
 -- accbook(가계부내역)
-CREATE TABLE IF NOT EXISTS accbook
-(
+CREATE TABLE IF NOT EXISTS accbook(
     code INT PRIMARY KEY AUTO_INCREMENT,
     created_at DATETIME NOT NULL,
     amount BIGINT NOT NULL,
@@ -70,6 +71,17 @@ CREATE TABLE IF NOT EXISTS accbook
 -- regualr_expense(고정지출)
 
 -- store_review(가게 리뷰)
+CREATE TABLE store_review(
+    code INT PRIMARY KEY AUTO_INCREMENT,      
+    created_at DATETIME NOT NULL,          
+    visitors INT NOT NULL,                 
+    toal_expense BIGINT NOT NULL,          
+    one_line_review VARCHAR(255) NOT NULL,
+    member_code INT NOT NULL,              
+    store_code INT NOT NULL,                                   
+    FOREIGN KEY (member_code) REFERENCES member(code),  
+    FOREIGN KEY (store_code) REFERENCES store(code)     
+   )ENGINE=INNODB;
     
 -- community_post(커뮤니티 게시글)
 
@@ -80,6 +92,13 @@ CREATE TABLE IF NOT EXISTS accbook
 -- acc_group_post_comment(그룹 게시글 댓글)
 
 -- review_file(리뷰 첨부파일)
+CREATE TABLE review_file(
+	code INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	path VARCHAR(255) NOT NULL,
+	store_review_code INT NOT NULL, 
+	FOREIGN KEY (store_review_code) REFERENCES store_review(code)
+)ENGINE=INNODB;
 
 -- community_file(커뮤니티 첨부파일)
 
