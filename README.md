@@ -1,4 +1,6 @@
 # backend-project-accountbook
+## 개념 모델링
+<img width="899" alt="스크린샷 2024-08-26 오후 6 06 23" src="https://github.com/user-attachments/assets/f4a04b44-11ab-4be8-a536-29994f2e142b">
 
 ## DDL
 ```sql
