@@ -20,8 +20,8 @@ DROP TABLE IF EXISTS store;
     
 -- store(가게)
 CREATE TABLE IF NOT EXISTS store (
-    store_code INT PRIMARY KEY AUTO_INCREMENT,
-    store_name VARCHAR(255) NOT NULL,
+    code INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
     latitude VARCHAR(255) NOT NULL,
     longitude VARCHAR(255) NOT NULL,
