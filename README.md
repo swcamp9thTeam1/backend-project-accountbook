@@ -8,14 +8,22 @@
 -----------------------
 DROP TABLE IF EXISTS accbook;
 DROP TABLE IF EXISTS store;
-
+DROP TABLE IF EXISTS member;
 ------------------------
 -- CREATE TABLE DDL
 -- 부모 테이블 생성 -> 자식 테이블 생성
 ------------------------
     
 -- member(회원)
-    
+CREATE TABLE IF NOT EXISTS member (
+	code INT PRIMARY KEY AUTO_INCREMENT,
+    id VARCHAR(255) NOT NULL,
+    nickname VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    is_admin CHAR(1) NOT NULL CHECK (is_admin IN ('Y', 'N')),
+    monthly_budget BIGINT NOT NULL
+	) ENGINE = INNODB;
 -- asset(자산)
     
 -- store(가게)
