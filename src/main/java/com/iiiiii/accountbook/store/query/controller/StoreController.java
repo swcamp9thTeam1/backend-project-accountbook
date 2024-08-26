@@ -1,12 +1,10 @@
 package com.iiiiii.accountbook.store.query.controller;
 
+import com.iiiiii.accountbook.store.common.StoreSearchCriteria;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import com.iiiiii.accountbook.store.query.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +27,13 @@ public class StoreController {
     @GetMapping("/{storeCode}")
     public StoreDTO findStoreById(@PathVariable int storeCode) {
         return storeService.findStoreById(storeCode);
+    }
+
+    @GetMapping("/search")
+    public List<StoreDTO> searchStore(@RequestParam Boolean isGood) {
+        StoreSearchCriteria criteria = new StoreSearchCriteria();
+        criteria.setGood(isGood);
+
+        return storeService.searchStore(criteria);
     }
 }
