@@ -5,8 +5,8 @@
 
     <!-- result map-->
     <resultMap id="storeResultMap" type="com.iiiiii.accountbook.store.query.dto.StoreDTO">
-        <id property="storeCode" column="STORE_CODE" />
-        <result property="storeName" column="STORE_NAME" />
+        <id property="storeCode" column="CODE" />
+        <result property="storeName" column="NAME" />
         <result property="address" column="ADDRESS" />
         <result property="latitude" column="LATITUDE" />
         <result property="longitude" column="LONGITUDE" />
@@ -18,8 +18,8 @@
     <!-- query -->
     <select id="selectAllStores" resultMap="storeResultMap">
         SELECT
-               A.STORE_CODE
-             , A.STORE_NAME
+               A.CODE
+             , A.NAME
              , A.ADDRESS
              , A.LATITUDE
              , A.LONGITUDE
@@ -27,6 +27,20 @@
              , A.GOOD_MENU_NAME
              , A.GOOD_MENU_PRICE
           FROM STORE A
+    </select>
+
+    <select id="selectStoreById" parameterType="_int" resultMap="storeResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.ADDRESS
+             , A.LATITUDE
+             , A.LONGITUDE
+             , A.IS_GOOD
+             , A.GOOD_MENU_NAME
+             , A.GOOD_MENU_PRICE
+          FROM STORE A
+         WHERE A.CODE = #{ storeCode }
     </select>
 
 </mapper>

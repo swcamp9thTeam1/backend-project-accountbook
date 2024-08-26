@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface StoreMapper {
     List<StoreDTO> selectAllStores();
+
+    StoreDTO selectStoreById(int storeCode);
 }

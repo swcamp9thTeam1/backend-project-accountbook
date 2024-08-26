@@ -23,4 +23,11 @@ public class StoreService {
 
         return stores;
     }
+
+    public StoreDTO findStoreById(int storeCode) {
+        StoreDTO store = storeMapper.selectStoreById(storeCode);
+        log.info("store: {}", store);
+
+        return store;
+    }
 }
