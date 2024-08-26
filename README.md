@@ -1,5 +1,32 @@
 # backend-project-accountbook
 
+## DDD
+---
+### 회원, 자산, 고정지출 Context
+![image](https://github.com/user-attachments/assets/03d2772f-02ea-4679-8afc-de16827e99dc)
+
+### 가계부내역, 가계부카테고리, 가계부댓글 Context
+![image](https://github.com/user-attachments/assets/b9efce50-3e4b-4e8c-b9f4-1c4fedd8e6a1)
+
+###  
+
+
+## 개념 모델링
+![image](https://github.com/user-attachments/assets/31ecba32-3a0e-4591-a62f-481c805a88ab)
+
+<br>
+
+## 논리 모델링
+![공유가계부_논리모델링](https://github.com/user-attachments/assets/82e6e139-fae1-4988-917c-31661c5befb7)
+
+<br>
+
+## 물리 모델링
+![공유가계부_물리모델링](https://github.com/user-attachments/assets/af109269-49c2-450d-b174-f5c36e75ddda)
+
+
+
+---
 ## DDL
 ```sql
 -----------------------
