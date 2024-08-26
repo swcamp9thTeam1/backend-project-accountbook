@@ -7,10 +7,12 @@
 -- 자식 테이블 삭제 -> 부모 테이블 삭제
 -----------------------
 DROP TABLE IF EXISTS accbook;
+DROP TABLE IF EXISTS asset;
+DROP TABLE IF EXISTS acc_category;
+DROP TABLE IF EXISTS review_file;
+DROP TABLE IF EXISTS store_review;
 DROP TABLE IF EXISTS store;
 DROP TABLE IF EXISTS member;
-DROP TABLE IF EXISTS store_review;
-DROP TABLE IF EXISTS review_file;
 ------------------------
 -- CREATE TABLE DDL
 -- 부모 테이블 생성 -> 자식 테이블 생성
@@ -26,7 +28,23 @@ CREATE TABLE IF NOT EXISTS member (
     is_admin CHAR(1) NOT NULL CHECK (is_admin IN ('Y', 'N')),
     monthly_budget BIGINT NOT NULL
 	) ENGINE = INNODB;
+
 -- asset(자산)
+CREATE TABLE if NOT EXISTS asset
+(
+    code INT AUTO_INCREMENT
+  , category VARCHAR(255) NOT NULL
+  , name VARCHAR(255) NOT NULL
+  , balance BIGINT NOT NULL
+  , payment_date INT
+  , is_deleted CHAR(1) NOT NULL
+  , member_code INT NOT NULL
+  , PRIMARY KEY(code)
+  , FOREIGN KEY(member_code) REFERENCES member(code)
+  , CHECK(category IN ('M', 'B', 'C', 'CC', 'S', 'L'))
+  , CHECK(is_deleted IN ('Y', 'N'))
+)
+ENGINE=INNODB;
     
 -- store(가게)
 CREATE TABLE IF NOT EXISTS store (
@@ -48,6 +66,23 @@ CREATE TABLE IF NOT EXISTS store (
 -- acc_group_post(그룹 게시글)
 
 -- acc_category(가계부 카테고리)
+CREATE TABLE if NOT EXISTS acc_category
+(
+  code INT AUTO_INCREMENT
+  , name VARCHAR(255) NOT NULL
+  , finance_type CHAR(1) NOT NULL
+  , visibility CHAR(1) NOT NULL DEFAULT 'Y'
+  , is_deleted CHAR(1) NOT NULL
+  , member_code INT NOT NULL
+  , parent_code INT
+  , PRIMARY KEY(code)
+  , FOREIGN KEY(member_code) REFERENCES member(code)
+  , FOREIGN KEY(parent_code) REFERENCES acc_category(code)
+  , CHECK(finance_type IN ('I', 'O'))
+  , CHECK(visibility IN ('Y', 'N'))
+  , CHECK(is_deleted IN ('Y', 'N'))
+)
+ENGINE=INNODB;
     
 -- accbook(가계부내역)
 CREATE TABLE IF NOT EXISTS accbook(
@@ -93,12 +128,12 @@ CREATE TABLE store_review(
 
 -- review_file(리뷰 첨부파일)
 CREATE TABLE review_file(
-	code INT PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(255) NOT NULL,
-	path VARCHAR(255) NOT NULL,
-	store_review_code INT NOT NULL, 
-	FOREIGN KEY (store_review_code) REFERENCES store_review(code)
-)ENGINE=INNODB;
+  code INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  path VARCHAR(255) NOT NULL,
+  store_review_code INT NOT NULL, 
+  FOREIGN KEY (store_review_code) REFERENCES store_review(code)
+) ENGINE=INNODB;
 
 -- community_file(커뮤니티 첨부파일)
 
