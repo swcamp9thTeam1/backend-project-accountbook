@@ -6,6 +6,7 @@
 -- DROP TABLE DDL
 -- 자식 테이블 삭제 -> 부모 테이블 삭제
 -----------------------
+DROP TABLE IF EXISTS acc_comment;
 DROP TABLE IF EXISTS accbook;
 DROP TABLE IF EXISTS asset;
 DROP TABLE IF EXISTS acc_category;
@@ -85,7 +86,7 @@ CREATE TABLE if NOT EXISTS acc_category
 ENGINE=INNODB;
     
 -- accbook(가계부내역)
-CREATE TABLE IF NOT EXISTS accbook(
+CREATE TABLE IF NOT EXISTS accbook (
     code INT PRIMARY KEY AUTO_INCREMENT,
     created_at DATETIME NOT NULL,
     amount BIGINT NOT NULL,
@@ -98,10 +99,22 @@ CREATE TABLE IF NOT EXISTS accbook(
     FOREIGN KEY (member_code) REFERENCES member(code),
     FOREIGN KEY (acc_category_code) REFERENCES acc_category(code),
     FOREIGN KEY (store_code) REFERENCES store(code),
-    FOREIGN KEY (asset_code) REFERENCES asset(code)
-    ) ENGINE=INNODB;
+    FOREIGN KEY (asset_code) REFERENCES asset(code),
+    CHECK ( is_regular IN ('Y', 'N') )
+) ENGINE=INNODB;
 
 -- acc_comment(가계부 댓글)
+CREATE TABLE IF NOT EXISTS acc_comment (
+    code INT PRIMARY KEY AUTO_INCREMENT,
+    created_at DATETIME NOT NULL,
+    detail VARCHAR(255) NOT NULL,
+    parent_code INT DEFAULT NULL,
+    accbook_code INT NOT NULL,
+    member_code INT NULL,
+    FOREIGN KEY (parent_code) REFERENCES acc_comment(code) ON DELETE CASCADE,
+    FOREIGN KEY (accbook_code) REFERENCES accbook(code),
+    FOREIGN KEY (member_code) REFERENCES member(code)
+) ENGINE=INNODB;
 
 -- regualr_expense(고정지출)
 
