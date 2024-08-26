@@ -123,7 +123,7 @@ CREATE TABLE store_review(
     code INT PRIMARY KEY AUTO_INCREMENT,      
     created_at DATETIME NOT NULL,          
     visitors INT NOT NULL,                 
-    toal_expense BIGINT NOT NULL,          
+    total_expense BIGINT NOT NULL,          
     one_line_review VARCHAR(255) NOT NULL,
     member_code INT NOT NULL,              
     store_code INT NOT NULL,                                   
