@@ -1,13 +1,12 @@
 package com.iiiiii.accountbook.store.command.application.service;
 
 import com.iiiiii.accountbook.common.YesOrNo;
+import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
+import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +14,36 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("StoreServiceCommand")
 @Slf4j
 public class StoreService {
 
+    private final StoreRepository storeRepository;
+
+    public StoreService(StoreRepository storeRepository) {
+        this.storeRepository = storeRepository;
+    }
+
     @Transactional
     public void registerStore(MultipartFile file, String extension) throws Exception {
         List<StoreDTO> newStores = parsingStoreExcel(file, extension);
+
+        List<Store> storeEntities = newStores.stream().map(newStoreDTO -> {
+            Store store = new Store();
+            store.setStoreName(newStoreDTO.getStoreName());
+            store.setAddress(newStoreDTO.getAddress());
+            store.setLatitude(newStoreDTO.getLatitude());
+            store.setLongitude(newStoreDTO.getLongitude());
+            store.setIsGood(newStoreDTO.getIsGood());
+            store.setGoodMenuName(newStoreDTO.getGoodMenuName());
+            store.setGoodMenuPrice(newStoreDTO.getGoodMenuPrice());
+
+            return store;
+        }).collect(Collectors.toList());
+
+        storeRepository.saveAll(storeEntities);
     }
 
     private List<StoreDTO> parsingStoreExcel(MultipartFile file, String extension) throws Exception {
@@ -44,27 +65,36 @@ public class StoreService {
 
             if (row == null) continue;
 
+//            log.info("행번호: {}", i);
+
             StoreDTO newStore = new StoreDTO();     // 착한가격업소 데이터 셋팅을 위해
             newStore.setIsGood(YesOrNo.Y);
             newStore.setLatitude("37.497436");      // TODO:: 위도 임시데이터
             newStore.setLongitude("126.927531");    // TODO:: 경도 임시데이터
 
-            for (int j = 0; j <= row.getLastCellNum(); j++) {   // 행의 cell 가져오기
+            for (int j = 0; j < row.getLastCellNum(); j++) {   // 행의 cell 가져오기
                 Cell cell = row.getCell(j);
 
-                if (cell == null) continue;
+//                log.info("행번호 {} CELL: {}", i, cell);
 
-                // log.info("{}, {}, {}", j, cell, cell.getCellType());
+                if (cell == null) break;
 
                 // 0번 인덱스에 들어있는 데이터를 Number형으로 바꿨을 때 예외가 나면 다음 행으로 건너뛰기
-                try {
+                if (j == 0) {
                     String stringNo = cell.getStringCellValue();
-                    int no = Integer.parseInt(stringNo);
-                } catch (NumberFormatException e) {
-                    break;
+
+                    try {
+                        int no = Integer.parseInt(stringNo);
+                    } catch (NumberFormatException e) {
+                        break;
+                    }
                 }
 
-                if (j == 2) newStore.setStoreName(cell.getStringCellValue());
+//                log.info("{}, {}, {}", j, cell, cell.getCellType());
+
+                if (j == 2) {
+                    newStore.setStoreName(cell.getStringCellValue());
+                }
                 if (j == 3) newStore.setGoodMenuName(cell.getStringCellValue());
                 if (j == 4) {
                     int price = (int) cell.getNumericCellValue();
@@ -73,7 +103,14 @@ public class StoreService {
                 if (j == 6) newStore.setAddress(cell.getStringCellValue());
             }
 
-            newStores.add(newStore);
+//            log.info("{}", newStore);
+
+            // 값이 있을 때에만 추가
+            if (newStore.getStoreName() != null && newStore.getGoodMenuName() != null &&
+            newStore.getGoodMenuPrice() != null && newStore.getAddress() != null &&
+            newStore.getLatitude() != null && newStore.getLongitude() != null) {
+                newStores.add(newStore);
+            }
         }
 
         return newStores;
