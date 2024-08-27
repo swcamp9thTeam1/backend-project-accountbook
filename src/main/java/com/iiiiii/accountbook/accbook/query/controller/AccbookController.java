@@ -30,6 +30,14 @@ public class AccbookController {
         return accbookService.findDailyAccbookBy(memberCode, findDate);
     }
 
+    @GetMapping("weekly")
+    List<AccbookDTO> findWeeklyAccbookBy(
+            @RequestParam("memberCode") Integer memberCode,
+            @RequestParam("findDate") String findDate,
+            @RequestParam("weekNo") Integer weekNo) {
+        return accbookService.findWeeklyAccbookBy(memberCode, findDate, weekNo);
+    }
+
     @GetMapping("monthly")
     List<AccbookDTO> findMonthlyAccbookBy(
             @RequestParam("memberCode") Integer memberCode,

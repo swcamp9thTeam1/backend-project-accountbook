@@ -28,8 +28,13 @@ public class AccbookService {
         return accbookMapper.selectDailyAccbookBy(memberCode, findDate);
     }
 
-    public List<AccbookDTO> findMonthlyAccbookBy(int memberCode, String findDate) {
-        return accbookMapper.selectMonthlyAccbookBy(memberCode, findDate);
+
+    public List<AccbookDTO> findWeeklyAccbookBy(Integer memberCode, String findDate, Integer weekNo) {
+        return accbookMapper.selectWeeklyAccbookBy(memberCode, findDate, weekNo);
+    }
+
+    public List<AccbookDTO> findMonthlyAccbookBy(int memberCode, String findDateString) {
+        return accbookMapper.selectMonthlyAccbookBy(memberCode, findDateString);
     }
 
     public List<AccbookTop3CategoryDTO> findMonthlyTop3CategoriesBy(Integer memberCode, String findDateString) {
@@ -39,7 +44,6 @@ public class AccbookService {
     public List<AccbookCategoryStatsDTO> findMonthlyCategoryStatBy(Integer memberCode, String findDateString) {
         return accbookMapper.selectMonthlyCategoryStats(memberCode, findDateString);
     }
-
     private Date convertStringToDate(String dateString) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
