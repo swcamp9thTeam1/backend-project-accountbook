@@ -53,4 +53,17 @@ class AccbookServiceTests {
         assertDoesNotThrow(() -> accbookService.findMonthlyTop3CategoriesBy(memberCode, findDate));
 
     }
+
+    @DisplayName("월별 전체 카테고리 수입, 지출 통계 조회 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndDate")
+    public void testFindMonthlyCategoryStatBy(int memberCode, String findDate) {
+        // given
+
+        // when
+
+        // then
+        assertDoesNotThrow(() -> accbookService.findMonthlyCategoryStatBy(memberCode, findDate));
+
+    }
 }
