@@ -36,6 +36,7 @@
         SELECT
         A.CODE
         , A.CREATED_AT
+        , A.AMOUNT
         , A.IS_REGULAR
         , A.TITLE
         , A.MEMBER_CODE
@@ -44,13 +45,31 @@
         , A.ASSET_CODE
         FROM ACCBOOK A
         WHERE A.MEMBER_CODE = #{ memberCode }
-        AND DATE(A.created_at) = #{ findDate };
+        AND DATE_FORMAT(A.created_at, '%Y-%m-%d') = #{ findDate };
+    </select>
+    
+    <select id="selectWeeklyAccbookBy" resultMap="accbookResultMap">
+        SELECT
+          A.CODE
+        , A.CREATED_AT
+        , A.AMOUNT
+        , A.IS_REGULAR
+        , A.TITLE
+        , A.MEMBER_CODE
+        , A.ACC_CATEGORY_CODE
+        , A.STORE_CODE
+        , A.ASSET_CODE
+        FROM accbook A
+        WHERE A.member_code = #{ memberCode }
+        AND DATE_FORMAT(A.created_at, '%Y-%m') = #{ findDate }
+        AND WEEK(A.created_at, 1) - WEEK(DATE_SUB(A.created_at, INTERVAL DAYOFMONTH(A.created_at) - 1 DAY), 1) + 1 = #{ weekNo };
     </select>
 
     <select id="selectMonthlyAccbookBy" resultMap="accbookResultMap">
         SELECT
         A.CODE
         , A.CREATED_AT
+        , A.AMOUNT
         , A.IS_REGULAR
         , A.TITLE
         , A.MEMBER_CODE
@@ -59,7 +78,7 @@
         , A.ASSET_CODE
         FROM ACCBOOK A
         WHERE A.MEMBER_CODE = #{ memberCode }
-        AND DATE_FORMAT(A.created_at, '%Y-%m') = #{ findDate };
+        AND DATE_FORMAT(A.created_at, '%Y-%m') = DATE_FORMAT(STR_TO_DATE(#{ findDate }, '%Y-%m-%d'), '%Y-%m');
     </select>
 
     <select id="selectMonthlyTop3Categories" resultMap="accbookTop3CategoryResultMap">

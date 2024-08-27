@@ -25,11 +25,39 @@ class AccbookServiceTests {
 
     private static Stream<Arguments> provideMemberCodeAndDate() {
         return Stream.of(
-                Arguments.of(1, "2024-08")
+                Arguments.of(1, "2024-08-01")
         );
     }
 
+    private static Stream<Arguments> provideMemberCodeAndDateAndWeekNo() {
+        return Stream.of(
+                Arguments.of(1, "2024-07", 3)
+        );
+    }
 
+    @DisplayName("일자별 가계부 목록 조회 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndDate")
+    public void testFindDailyAccbookBy(int memberCode, String findDate) {
+        // given
+
+        // when
+
+        // then
+        assertDoesNotThrow(() -> accbookService.findDailyAccbookBy(memberCode, findDate));
+    }
+
+    @DisplayName("주별 가계부 목록 조회 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndDateAndWeekNo")
+    public void testFindWeeklyAccbookBy(int memberCode, String findDate, Integer weekNo) {
+        // given
+
+        // when
+
+        // then
+        assertDoesNotThrow(() -> accbookService.findWeeklyAccbookBy(memberCode, findDate, weekNo));
+    }
     @DisplayName("월별 가계부 목록 조회 테스트")
     @ParameterizedTest
     @MethodSource("provideMemberCodeAndDate")
@@ -39,7 +67,8 @@ class AccbookServiceTests {
         // when
 
         // then
-        assertDoesNotThrow(() -> accbookService.findMonthlyAccbookBy(1, "2024-07"));
+        assertDoesNotThrow(() -> accbookService.findMonthlyAccbookBy(memberCode, findDate));
+        assertDoesNotThrow(() -> accbookService.findMonthlyAccbookBy(1, "2024-08-01"));
     }
     @DisplayName("월별 Top3 지출 카테고리 조회 테스트")
     @ParameterizedTest
