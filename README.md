@@ -3,32 +3,32 @@
 ---
 ## DDL
 ```sql
------------------------
+-- ---------------------
 -- DROP TABLE DDL
 -- 자식 테이블 삭제 -> 부모 테이블 삭제
------------------------
-DROP TABLE IF EXISTS member;
-DROP TABLE IF EXISTS acc_group;
-DROP TABLE IF EXISTS acc_group_member;
-DROP TABLE IF EXISTS acc_group_post;
-DROP TABLE IF EXISTS acc_group_post_file;
-DROP TABLE if EXISTS acc_group_post_comment;
-DROP TABLE IF EXISTS store;
-DROP TABLE IF EXISTS store_review;
-DROP TABLE IF EXISTS store_review_file;
-DROP TABLE IF EXISTS acc_category;
-DROP TABLE IF EXISTS asset;
-DROP TABLE IF EXISTS regular_expense;
-DROP TABLE IF EXISTS accbook;
-DROP TABLE IF EXISTS acc_comment;
-DROP TABLE IF EXISTS community_post;
-DROP TABLE IF EXISTS community_post_file;
-DROP TABLE IF EXISTS community_post_comment;
+-- ---------------------
 DROP TABLE IF EXISTS community_post_scrap;
-------------------------
+DROP TABLE IF EXISTS community_post_comment;
+DROP TABLE IF EXISTS community_post_file;
+DROP TABLE IF EXISTS community_post;
+DROP TABLE IF EXISTS acc_comment;
+DROP TABLE IF EXISTS accbook;
+DROP TABLE IF EXISTS regular_expense;
+DROP TABLE IF EXISTS asset;
+DROP TABLE IF EXISTS acc_category;
+DROP TABLE IF EXISTS store_review_file;
+DROP TABLE IF EXISTS store_review;
+DROP TABLE IF EXISTS store;
+DROP TABLE IF EXISTS acc_group_post_comment;
+DROP TABLE IF EXISTS acc_group_post_file;
+DROP TABLE IF EXISTS acc_group_post;
+DROP TABLE IF EXISTS acc_group_member;
+DROP TABLE IF EXISTS acc_group;
+DROP TABLE IF EXISTS member;
+-- ----------------------
 -- CREATE TABLE DDL
 -- 부모 테이블 생성 -> 자식 테이블 생성
-------------------------
+-- ----------------------
     
 -- member(회원)
 CREATE TABLE member (
