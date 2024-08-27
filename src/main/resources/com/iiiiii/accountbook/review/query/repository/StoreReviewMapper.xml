@@ -1,0 +1,68 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.review.query.repository.StoreReviewMapper">
+
+
+    <!-- 주석. result map -->
+    <resultMap id = "storeReviewResultMap" type="com.iiiiii.accountbook.review.query.dto.StoreReviewDTO">
+        <id property = "code" column = "CODE" />
+        <result property = "createdAt" column = "CREATED_AT" />
+        <result property = "visitors" column = "VISITORS" />
+        <result property = "totalExpense" column = "TOTAL_EXPENSE" />
+        <result property = "oneLineReview" column = "ONE_LINE_REVIEW" />
+        <result property = "memberCode" column = "MEMBER_CODE"/>
+        <result property = "storeCode" column = "STORE_CODE" />
+    </resultMap>
+
+    <!-- 주석. query -->
+    <!-- 주석. 리뷰 추가 -->
+    <insert id ="insertReview" parameterType = "com.iiiiii.accountbook.review.query.dto.StoreReviewDTO" useGeneratedKeys="true" keyProperty="code">
+        INSERT
+            INTO STORE_REVIEW
+            (
+                CREATED_AT
+                , VISITORS
+                , TOTAL_EXPENSE
+                , ONE_LINE_REVIEW
+                , MEMBER_CODE
+                , STORE_CODE
+            )
+            VALUES
+            (
+                  #{ createdAt }
+                , #{ visitors }
+                , #{ totalExpense }
+                , #{ oneLineReview }
+                , #{ memberCode }
+                , #{ storeCode}
+            )
+    </insert>
+
+    <!-- 주석. 리뷰 수정 ->-->
+    <update id="updateReview" parameterType="com.iiiiii.accountbook.review.query.dto.StoreReviewDTO">
+        UPDATE
+            STORE_REVIEW
+              SET CREATED_AT = #{ createdAt }
+            , VISITORS  = #{ visitors }
+            , TOTAL_EXPENSE = #{ totalExpense }
+            , ONE_LINE_REVIEW = # { oneLineReview }
+            , MEMBER_CODE = #{ memberCode }
+            , STORE_CODE = #{ storeCode }
+          WHERE CODE = #{ code }
+    </update>
+
+    <!-- 주석. 리뷰 삭제 -->
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM STORE_REVIEW
+        WHERE CODE = #{code}
+    </delete>
+
+    <!-- 주석. 리뷰 조회 by Id-->
+    <select id="selectReviewById" parameterType="int" resultMap="storeReviewResultMap">
+        SELECT CODE, CREATED_AT, VISITORS, TOTAL_EXPENSE, ONE_LINE_REVIEW, MEMBER_CODE, STORE_CODE
+        FROM STORE_REVIEW
+        WHERE CODE = #{code}
+    </select>
+
+</mapper>
