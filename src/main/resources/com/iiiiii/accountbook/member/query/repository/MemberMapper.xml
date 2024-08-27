@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.member.query.repository.MemberMapper">
+
+    <!-- result map-->
+<!--    <resultMap id="memberResultMap" type="com.iiiiii.accountbook.member.query.dto.MemberDTO">-->
+<!--        <id property="memberCode" column="CODE" />-->
+<!--        <result property="memberId" column="ID" />-->
+<!--        <result property="email" column="EMAIL" />-->
+<!--        <result property="memberPassword" column="PASSWORD" />-->
+<!--        <result property="nickname" column="NICKNAME" />-->
+<!--        <result property="isAdmin" column="IS_ADMIN" />-->
+<!--        <result property="monthlyBudget" column="MONTHLY_BUDGET" />-->
+<!--    </resultMap>-->
+
+    <!-- 닉네임으로 회원 존재 여부 확인 -->
+    <select id="existsByNickname" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE nickname = #{ nickname };
+<!--        WHERE nickname = 'nick1';-->
+
+    </select>
+
+    <!-- 이메일로 회원 존재 여부 확인 -->
+    <select id="existsByEmail" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE email = #{ email };
+    </select>
+
+    <!-- 새로운 회원 추가 -->
+    <insert id="insertMember" useGeneratedKeys="true" keyProperty="memberCode">
+        INSERT INTO member
+            (
+                id,
+                email,
+                password,
+                nickname,
+                is_admin,
+                monthly_budget
+            )
+        VALUES
+            (
+                #{ memberId },
+                #{ email },
+                #{ memberPassword },
+                #{ nickname },
+                #{ isAdmin },
+                #{ monthlyBudget }
+            )
+    </insert>
+
+</mapper>
