@@ -43,4 +43,28 @@
          WHERE A.CODE = #{ storeCode }
     </select>
 
+    <select id="searchStore" parameterType="com.iiiiii.accountbook.store.common.StoreSearchCriteria"
+            resultMap="storeResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.ADDRESS
+             , A.LATITUDE
+             , A.LONGITUDE
+             , A.IS_GOOD
+             , A.GOOD_MENU_NAME
+             , A.GOOD_MENU_PRICE
+          FROM STORE A
+        <if test="isManyReview != null">
+          JOIN STORE_REVIEW B ON (A.CODE = B.STORE_CODE)
+        </if>
+        <if test="isGood == true">
+            WHERE A.IS_GOOD = 'Y'
+        </if>
+        <if test="isManyReview != null">
+            GROUP BY A.CODE
+            HAVING COUNT(A.CODE) >= 5
+        </if>
+    </select>
+
 </mapper>

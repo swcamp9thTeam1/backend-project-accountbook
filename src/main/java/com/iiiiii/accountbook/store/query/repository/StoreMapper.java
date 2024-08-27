@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.store.query.repository;
 
+import com.iiiiii.accountbook.store.common.StoreSearchCriteria;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,4 +11,6 @@ public interface StoreMapper {
     List<StoreDTO> selectAllStores();
 
     StoreDTO selectStoreById(int storeCode);
+
+    List<StoreDTO> searchStore(StoreSearchCriteria criteria);
 }
