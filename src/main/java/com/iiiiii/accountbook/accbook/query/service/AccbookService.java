@@ -31,8 +31,8 @@ public class AccbookService {
         return accbookMapper.selectWeeklyAccbookBy(memberCode, findDate, weekNo);
     }
 
-    public List<AccbookDTO> findMonthlyAccbookBy(int memberCode, String findDateString) {
-        return accbookMapper.selectMonthlyAccbookBy(memberCode, findDateString);
+    public List<AccbookDTO> findMonthlyAccbookBy(int memberCode, String findDate) {
+        return accbookMapper.selectMonthlyAccbookBy(memberCode, findDate);
     }
 
     public List<AccbookTop3CategoryDTO> findMonthlyTop3CategoriesBy(Integer memberCode, String findDateString) {

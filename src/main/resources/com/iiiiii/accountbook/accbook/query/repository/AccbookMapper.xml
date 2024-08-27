@@ -78,7 +78,7 @@
         , A.ASSET_CODE
         FROM ACCBOOK A
         WHERE A.MEMBER_CODE = #{ memberCode }
-        AND DATE_FORMAT(A.created_at, '%Y-%m') = #{ findDate };
+        AND DATE_FORMAT(A.created_at, '%Y-%m') = DATE_FORMAT(STR_TO_DATE(#{ findDate }, '%Y-%m-%d'), '%Y-%m');
     </select>
 
     <select id="selectMonthlyTop3Categories" resultMap="accbookTop3CategoryResultMap">

@@ -67,7 +67,8 @@ class AccbookServiceTests {
         // when
 
         // then
-        assertDoesNotThrow(() -> accbookService.findMonthlyAccbookBy(1, "2024-07"));
+        assertDoesNotThrow(() -> accbookService.findMonthlyAccbookBy(memberCode, findDate));
+        assertDoesNotThrow(() -> accbookService.findMonthlyAccbookBy(1, "2024-08-01"));
     }
     @DisplayName("월별 Top3 지출 카테고리 조회 테스트")
     @ParameterizedTest
