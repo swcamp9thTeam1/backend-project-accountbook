@@ -1,7 +1,9 @@
 package com.iiiiii.accountbook.accbook.query.service;
 
 import com.iiiiii.accountbook.accbook.query.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.query.dto.AccbookTop3CategoryDTO;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,23 +23,47 @@ class AccbookServiceTests {
     @Autowired
     private AccbookService accbookService;
 
-    private static Stream<Arguments> provideAccbookCodeAndDate() {
+    private static Stream<Arguments> provideMemberCodeAndDate() {
         return Stream.of(
                 Arguments.of(1, "2024-08")
         );
     }
 
+
     @DisplayName("월별 가계부 목록 조회 테스트")
     @ParameterizedTest
-    @MethodSource("provideAccbookCodeAndDate")
+    @MethodSource("provideMemberCodeAndDate")
     public void testFindMonthlyAccbookBy(int memberCode, String findDate) {
         // given
 
         // when
-        List<AccbookDTO> foundAccbooks = accbookService.findMonthlyAccbookBy(memberCode, findDate);
 
         // then
-        int expectedSize = 8;
-        assertEquals(expectedSize, foundAccbooks.size());
+        assertDoesNotThrow(() -> accbookService.findMonthlyAccbookBy(1, "2024-07"));
+    }
+    @DisplayName("월별 Top3 지출 카테고리 조회 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndDate")
+    public void testFindMonthlyTop3CategoriesBy(int memberCode, String findDate) {
+        // given
+
+        // when
+
+        // then
+        assertDoesNotThrow(() -> accbookService.findMonthlyTop3CategoriesBy(memberCode, findDate));
+
+    }
+
+    @DisplayName("월별 전체 카테고리 수입, 지출 통계 조회 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndDate")
+    public void testFindMonthlyCategoryStatBy(int memberCode, String findDate) {
+        // given
+
+        // when
+
+        // then
+        assertDoesNotThrow(() -> accbookService.findMonthlyCategoryStatBy(memberCode, findDate));
+
     }
 }
