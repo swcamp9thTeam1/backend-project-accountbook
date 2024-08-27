@@ -45,7 +45,7 @@
         , A.ASSET_CODE
         FROM ACCBOOK A
         WHERE A.MEMBER_CODE = #{ memberCode }
-        AND DATE(A.created_at) = #{ findDate };
+        AND DATE_FORMAT(A.created_at, '%Y-%m-%d') = #{ findDate };
     </select>
     
     <select id="selectWeeklyAccbookBy" resultMap="accbookResultMap">

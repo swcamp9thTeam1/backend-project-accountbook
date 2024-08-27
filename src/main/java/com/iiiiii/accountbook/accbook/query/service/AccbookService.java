@@ -22,9 +22,7 @@ public class AccbookService {
         this.accbookMapper = accbookMapper;
     }
 
-    public List<AccbookDTO> findDailyAccbookBy(int memberCode, String findDateString) {
-
-        java.util.Date findDate = convertStringToDate(findDateString);
+    public List<AccbookDTO> findDailyAccbookBy(int memberCode, String findDate) {
         return accbookMapper.selectDailyAccbookBy(memberCode, findDate);
     }
 
@@ -43,13 +41,5 @@ public class AccbookService {
 
     public List<AccbookCategoryStatsDTO> findMonthlyCategoryStatBy(Integer memberCode, String findDateString) {
         return accbookMapper.selectMonthlyCategoryStats(memberCode, findDateString);
-    }
-    private Date convertStringToDate(String dateString) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            return simpleDateFormat.parse(dateString);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Invalid date format: " + dateString);
-        }
     }
 }
