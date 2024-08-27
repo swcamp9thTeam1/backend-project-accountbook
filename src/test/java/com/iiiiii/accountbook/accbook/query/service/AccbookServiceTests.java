@@ -29,7 +29,24 @@ class AccbookServiceTests {
         );
     }
 
+    private static Stream<Arguments> provideMemberCodeAndDateAndWeekNo() {
+        return Stream.of(
+                Arguments.of(1, "2024-07", 3)
+        );
+    }
 
+
+    @DisplayName("주별 가계부 목록 조회 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndDateAndWeekNo")
+    public void testFindWeeklyAccbookBy(int memberCode, String findDate, Integer weekNo) {
+        // given
+
+        // when
+
+        // then
+        assertDoesNotThrow(() -> accbookService.findWeeklyAccbookBy(memberCode, findDate, weekNo));
+    }
     @DisplayName("월별 가계부 목록 조회 테스트")
     @ParameterizedTest
     @MethodSource("provideMemberCodeAndDate")
