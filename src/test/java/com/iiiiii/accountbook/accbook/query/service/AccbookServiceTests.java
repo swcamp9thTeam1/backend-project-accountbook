@@ -25,7 +25,7 @@ class AccbookServiceTests {
 
     private static Stream<Arguments> provideMemberCodeAndDate() {
         return Stream.of(
-                Arguments.of(1, "2024-08")
+                Arguments.of(1, "2024-08-01")
         );
     }
 
@@ -35,6 +35,17 @@ class AccbookServiceTests {
         );
     }
 
+    @DisplayName("일자별 가계부 목록 조회 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndDate")
+    public void testFindDailyAccbookBy(int memberCode, String findDate) {
+        // given
+
+        // when
+
+        // then
+        assertDoesNotThrow(() -> accbookService.findDailyAccbookBy(memberCode, findDate));
+    }
 
     @DisplayName("주별 가계부 목록 조회 테스트")
     @ParameterizedTest
