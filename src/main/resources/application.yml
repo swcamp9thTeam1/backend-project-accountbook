@@ -6,3 +6,12 @@ spring:
     url: jdbc:log4jdbc:mariadb://localhost:${DB_PORT:3306}/accbookdb
     username: iiiiii
     password: iiiiii
+
+  # jpa
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        '[format_sql]': true  # change to pretty SQL text
