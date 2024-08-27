@@ -1,0 +1,70 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.store.query.repository.StoreMapper">
+
+    <!-- result map-->
+    <resultMap id="storeResultMap" type="com.iiiiii.accountbook.store.query.dto.StoreDTO">
+        <id property="storeCode" column="CODE" />
+        <result property="storeName" column="NAME" />
+        <result property="address" column="ADDRESS" />
+        <result property="latitude" column="LATITUDE" />
+        <result property="longitude" column="LONGITUDE" />
+        <result property="isGood" column="IS_GOOD" />
+        <result property="goodMenuName" column="GOOD_MENU_NAME" />
+        <result property="goodMenuPrice" column="GOOD_MENU_PRICE" />
+    </resultMap>
+
+    <!-- query -->
+    <select id="selectAllStores" resultMap="storeResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.ADDRESS
+             , A.LATITUDE
+             , A.LONGITUDE
+             , A.IS_GOOD
+             , A.GOOD_MENU_NAME
+             , A.GOOD_MENU_PRICE
+          FROM STORE A
+    </select>
+
+    <select id="selectStoreById" parameterType="_int" resultMap="storeResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.ADDRESS
+             , A.LATITUDE
+             , A.LONGITUDE
+             , A.IS_GOOD
+             , A.GOOD_MENU_NAME
+             , A.GOOD_MENU_PRICE
+          FROM STORE A
+         WHERE A.CODE = #{ storeCode }
+    </select>
+
+    <select id="searchStore" parameterType="com.iiiiii.accountbook.store.common.StoreSearchCriteria"
+            resultMap="storeResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.ADDRESS
+             , A.LATITUDE
+             , A.LONGITUDE
+             , A.IS_GOOD
+             , A.GOOD_MENU_NAME
+             , A.GOOD_MENU_PRICE
+          FROM STORE A
+        <if test="isManyReview != null">
+          JOIN STORE_REVIEW B ON (A.CODE = B.STORE_CODE)
+        </if>
+        <if test="isGood == true">
+            WHERE A.IS_GOOD = 'Y'
+        </if>
+        <if test="isManyReview != null">
+            GROUP BY A.CODE
+            HAVING COUNT(A.CODE) >= 5
+        </if>
+    </select>
+
+</mapper>

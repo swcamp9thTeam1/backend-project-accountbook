@@ -1,4 +1,41 @@
 package com.iiiiii.accountbook.store.query.service;
 
+import com.iiiiii.accountbook.store.common.StoreSearchCriteria;
+import com.iiiiii.accountbook.store.query.dto.StoreDTO;
+import com.iiiiii.accountbook.store.query.repository.StoreMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@Slf4j
 public class StoreService {
+
+    private final StoreMapper storeMapper;
+
+    public StoreService(StoreMapper storeMapper) {
+        this.storeMapper = storeMapper;
+    }
+
+    public List<StoreDTO> findAllStores() {
+        List<StoreDTO> stores = storeMapper.selectAllStores();
+        log.info("stores: {}", stores);
+
+        return stores;
+    }
+
+    public StoreDTO findStoreById(int storeCode) {
+        StoreDTO store = storeMapper.selectStoreById(storeCode);
+        log.info("store: {}", store);
+
+        return store;
+    }
+
+    public List<StoreDTO> searchStore(StoreSearchCriteria criteria) {
+        List<StoreDTO> stores = storeMapper.searchStore(criteria);
+        log.info("stores: {}", stores);
+
+        return stores;
+    }
 }
