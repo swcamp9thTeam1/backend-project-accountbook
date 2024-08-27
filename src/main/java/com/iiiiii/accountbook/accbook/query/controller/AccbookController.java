@@ -1,6 +1,7 @@
 package com.iiiiii.accountbook.accbook.query.controller;
 
 import com.iiiiii.accountbook.accbook.query.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.query.dto.AccbookTop3CategoryDTO;
 import com.iiiiii.accountbook.accbook.query.service.AccbookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,5 +34,12 @@ public class AccbookController {
             @RequestParam("memberCode") Integer memberCode,
             @RequestParam("findDate") String findDate) {
         return accbookService.findMonthlyAccbookBy(memberCode, findDate);
+    }
+
+    @GetMapping("search/monthly-top3-categories")
+    List<AccbookTop3CategoryDTO> findMonthlyTop3CategoriesBy(
+            @RequestParam("memberCode") Integer memberCode,
+            @RequestParam("findDate") String findDate) {
+        return accbookService.findMonthlyTop3CategoriesBy(memberCode, findDate);
     }
 }
