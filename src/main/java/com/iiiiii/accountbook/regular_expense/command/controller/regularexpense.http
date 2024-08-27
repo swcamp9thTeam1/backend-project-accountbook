@@ -1,8 +1,0 @@
-### GET request to regular expense list
-GET http://localhost:8080
-
-### GET request to regular expense list
-GET localhost:8080/regular-expenses/
-
-### GET request to regular expense list
-GET localhost:8080/regular-expenses/1
