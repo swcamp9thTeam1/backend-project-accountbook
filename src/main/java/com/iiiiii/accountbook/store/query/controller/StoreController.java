@@ -25,7 +25,7 @@ public class StoreController {
         this.storeService = storeService;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<ResponseMessage> findAllStores() {
         List<StoreDTO> stores = storeService.findAllStores();
 
@@ -49,7 +49,9 @@ public class StoreController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ResponseMessageGeneric<List<StoreDTO>>> searchStore(@RequestParam Boolean isGood, @RequestParam Boolean isManyReview) {
+    public ResponseEntity<ResponseMessageGeneric<List<StoreDTO>>> searchStore(
+            @RequestParam(name = "is-good") Boolean isGood,
+            @RequestParam(name = "is-many-review") Boolean isManyReview) {
         StoreSearchCriteria criteria = new StoreSearchCriteria();
 
         criteria.setIsGood(isGood);

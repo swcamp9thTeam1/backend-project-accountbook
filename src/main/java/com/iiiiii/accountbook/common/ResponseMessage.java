@@ -18,4 +18,8 @@ public class ResponseMessage {
         this.statusText = statusText;
         this.result = result;
     }
+
+    public ResponseMessage(String message) {
+        this.message = message;
+    }
 }
