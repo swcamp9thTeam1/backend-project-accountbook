@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.accbook.query.controller;
 
+import com.iiiiii.accountbook.accbook.query.dto.AccbookCategoryStatsDTO;
 import com.iiiiii.accountbook.accbook.query.dto.AccbookDTO;
 import com.iiiiii.accountbook.accbook.query.dto.AccbookTop3CategoryDTO;
 import com.iiiiii.accountbook.accbook.query.service.AccbookService;
@@ -41,5 +42,12 @@ public class AccbookController {
             @RequestParam("memberCode") Integer memberCode,
             @RequestParam("findDate") String findDate) {
         return accbookService.findMonthlyTop3CategoriesBy(memberCode, findDate);
+    }
+
+    @GetMapping("search/monthly-category-stat")
+    List<AccbookCategoryStatsDTO> findMonthlyCategoryStatBy(
+            @RequestParam("memberCode") Integer memberCode,
+            @RequestParam("findDate") String findDate) {
+        return accbookService.findMonthlyCategoryStatBy(memberCode, findDate);
     }
 }
