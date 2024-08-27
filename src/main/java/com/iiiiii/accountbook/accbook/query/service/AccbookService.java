@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.accbook.query.service;
 
+import com.iiiiii.accountbook.accbook.query.dto.AccbookCategoryStatsDTO;
 import com.iiiiii.accountbook.accbook.query.dto.AccbookDTO;
 import com.iiiiii.accountbook.accbook.query.dto.AccbookTop3CategoryDTO;
 import com.iiiiii.accountbook.accbook.query.repository.AccbookMapper;
@@ -35,6 +36,10 @@ public class AccbookService {
         return accbookMapper.selectMonthlyTop3Categories(memberCode, findDateString);
     }
 
+    public List<AccbookCategoryStatsDTO> findMonthlyCategoryStatBy(Integer memberCode, String findDateString) {
+        return accbookMapper.selectMonthlyCategoryStats(memberCode, findDateString);
+    }
+
     private Date convertStringToDate(String dateString) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -43,5 +48,4 @@ public class AccbookService {
             throw new IllegalArgumentException("Invalid date format: " + dateString);
         }
     }
-
 }
