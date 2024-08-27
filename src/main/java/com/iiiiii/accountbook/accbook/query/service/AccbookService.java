@@ -26,6 +26,10 @@ public class AccbookService {
         return accbookMapper.selectDailyAccbookBy(memberCode, findDate);
     }
 
+    public List<AccbookDTO> findMonthlyAccbookBy(int memberCode, String findDateString) {
+        return accbookMapper.selectMonthlyAccbookBy(memberCode, findDateString);
+    }
+
     private Date convertStringToDate(String dateString) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {

@@ -32,4 +32,19 @@
         AND DATE(A.created_at) = #{ findDate };
     </select>
 
+    <select id="selectMonthlyAccbookBy" resultMap="accbookResultMap">
+        SELECT
+        A.CODE
+        , A.CREATED_AT
+        , A.IS_REGULAR
+        , A.TITLE
+        , A.MEMBER_CODE
+        , A.ACC_CATEGORY_CODE
+        , A.STORE_CODE
+        , A.ASSET_CODE
+        FROM ACCBOOK A
+        WHERE A.MEMBER_CODE = #{ memberCode }
+        AND DATE_FORMAT(A.created_at, '%Y-%m') = #{ findDate };
+    </select>
+
 </mapper>
