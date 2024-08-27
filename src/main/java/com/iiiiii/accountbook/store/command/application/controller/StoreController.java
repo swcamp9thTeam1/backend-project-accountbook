@@ -1,8 +1,10 @@
 package com.iiiiii.accountbook.store.command.application.controller;
 
 import com.iiiiii.accountbook.exception.NotValidRequestException;
+import com.iiiiii.accountbook.store.command.application.service.StoreService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,13 @@ import java.net.URI;
 @Slf4j
 public class StoreController {
 
+    private StoreService storeService;
+
+    @Autowired
+    public StoreController(StoreService storeService) {
+        this.storeService = storeService;
+    }
+
     @PostMapping("/file")
     public ResponseEntity<?> registerStore(@RequestParam("file") MultipartFile file)
             throws Exception {
@@ -26,6 +35,8 @@ public class StoreController {
         if (!"xls".equals(extension) && !"xlsx".equals(extension)) {
             throw new NotValidRequestException("엑셀 파일만 업로드 해주세요.");
         }
+
+        storeService.registerStore(file, extension);
 
         return ResponseEntity
                 .created(URI.create("/stores/search?is-good=true"))
