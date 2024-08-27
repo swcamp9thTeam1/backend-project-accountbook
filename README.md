@@ -113,7 +113,7 @@ CREATE TABLE store_review (
   created_at DATETIME NOT NULL,
   visitors INT NOT NULL,
   total_expense BIGINT NOT NULL,
-  one_line_view VARCHAR(255) NOT NULL,
+  one_line_review VARCHAR(255) NOT NULL,
   member_code INT NOT NULL,
   store_code INT NOT NULL,
   FOREIGN KEY (member_code) REFERENCES member(code),
