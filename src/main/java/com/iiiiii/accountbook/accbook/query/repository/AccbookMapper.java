@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface AccbookMapper {
     List<AccbookDTO> selectDailyAccbookBy(int memberCode, Date findDate);
+
+    List<AccbookDTO> selectMonthlyAccbookBy(int memberCode, String findDate);
 }
