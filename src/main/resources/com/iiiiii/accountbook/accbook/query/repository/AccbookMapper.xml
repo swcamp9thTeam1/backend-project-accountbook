@@ -33,6 +33,7 @@
     <resultMap id="accCommentResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccCommentDTO">
         <result property="detail" column="DETAIL"/>
         <result property="createdAt" column="CREATED_AT"/>
+        <result property="commentCode" column="COMMENT_CODE"/>
         <result property="parentCode" column="PARENT_CODE"/>
         <result property="memberCode" column="MEMBER_CODE"/>
     </resultMap>
@@ -148,6 +149,7 @@
         SELECT
                B.detail
              , B.created_at
+             , B.code AS comment_code
              , B.parent_code
              , B.member_code
          FROM accbook A, acc_comment B
