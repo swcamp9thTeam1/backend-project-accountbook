@@ -30,6 +30,27 @@
         <result property="totalSpent" column="TOTAL_SPENT"/>
     </resultMap>
 
+    <resultMap id="accCommentResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccCommentDTO">
+        <result property="detail" column="DETAIL"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="parentCode" column="PARENT_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+    </resultMap>
+
+    <resultMap id="accbookDetailResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccbookDetailDTO">
+        <id property="accbookCode" column="CODE" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="amount" column="AMOUNT" />
+        <result property="isRegular" column="IS_REGULAR" />
+        <result property="title" column="TITLE" />
+        <result property="accCategoryName" column="ACC_CATEGORY_NAME" />
+        <result property="storeName" column="STORE_NAME" />
+        <result property="assetName" column="ASSET_NAME" />
+
+        <!-- AccCommentDTO 리스트 매핑 -->
+        <collection property="accCommentDTOList" ofType="com.iiiiii.accountbook.accbook.query.dto.AccCommentDTO"
+                    select="selectAccCommentBy" column="CODE"/>
+    </resultMap>
 
     <!-- query -->
     <select id="selectDailyAccbookBy" resultMap="accbookResultMap">
@@ -47,7 +68,7 @@
         WHERE A.MEMBER_CODE = #{ memberCode }
         AND DATE_FORMAT(A.created_at, '%Y-%m-%d') = #{ findDate };
     </select>
-    
+
     <select id="selectWeeklyAccbookBy" resultMap="accbookResultMap">
         SELECT
           A.CODE
@@ -121,5 +142,32 @@
                 GROUP BY YEAR(B.created_at), MONTH(B.created_at), B.acc_category_code
          ) AS A
         ORDER BY A.finance_type, A.total_spent DESC;
+    </select>
+
+    <select id="selectAccCommentBy" resultMap="accCommentResultMap">
+        SELECT
+               B.detail
+             , B.created_at
+             , B.parent_code
+             , B.member_code
+         FROM accbook A, acc_comment B
+        WHERE A.code = B.accbook_code AND A.code = #{ accbookCode };
+    </select>
+
+    <select id="selectAccbookDetailBy" resultMap="accbookDetailResultMap">
+        SELECT
+               A.code
+             , A.created_at
+             , A.is_regular
+             , A.amount
+             , A.is_regular
+             , A.title
+             , B.name AS acc_category_name
+             , C.name AS store_name
+             , D.name AS asset_name
+          FROM accbook A LEFT JOIN acc_category B ON A.acc_category_code = B.code
+                         LEFT JOIN store C ON A.store_code = C.code
+                         LEFT JOIN asset D ON A.asset_code = D.code
+         WHERE A.code = #{ accbookCode };
     </select>
 </mapper>
