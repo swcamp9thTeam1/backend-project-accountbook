@@ -2,6 +2,7 @@ package com.iiiiii.accountbook.accbook.query.controller;
 
 import com.iiiiii.accountbook.accbook.query.dto.AccbookCategoryStatsDTO;
 import com.iiiiii.accountbook.accbook.query.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.query.dto.AccbookDetailDTO;
 import com.iiiiii.accountbook.accbook.query.dto.AccbookTop3CategoryDTO;
 import com.iiiiii.accountbook.accbook.query.service.AccbookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,11 @@ public class AccbookController {
             @RequestParam("memberCode") Integer memberCode,
             @RequestParam("findDate") String findDate) {
         return accbookService.findMonthlyCategoryStatBy(memberCode, findDate);
+    }
+
+    @GetMapping("search/detail")
+    AccbookDetailDTO findAccbookDetailBy(
+            @RequestParam("accbookCode") Integer accbookCode) {
+        return accbookService.findAccbookDetailBy(accbookCode);
     }
 }

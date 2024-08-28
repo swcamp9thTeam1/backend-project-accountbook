@@ -2,6 +2,7 @@ package com.iiiiii.accountbook.accbook.query.service;
 
 import com.iiiiii.accountbook.accbook.query.dto.AccbookCategoryStatsDTO;
 import com.iiiiii.accountbook.accbook.query.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.query.dto.AccbookDetailDTO;
 import com.iiiiii.accountbook.accbook.query.dto.AccbookTop3CategoryDTO;
 import com.iiiiii.accountbook.accbook.query.repository.AccbookMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -42,4 +43,10 @@ public class AccbookService {
     public List<AccbookCategoryStatsDTO> findMonthlyCategoryStatBy(Integer memberCode, String findDateString) {
         return accbookMapper.selectMonthlyCategoryStats(memberCode, findDateString);
     }
+
+    public AccbookDetailDTO findAccbookDetailBy(Integer accbookCode) {
+        return accbookMapper.selectAccbookDetailBy(accbookCode);
+    }
+
+
 }
