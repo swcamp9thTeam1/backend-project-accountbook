@@ -95,4 +95,16 @@ class AccbookServiceTests {
         assertDoesNotThrow(() -> accbookService.findMonthlyCategoryStatBy(memberCode, findDate));
 
     }
+    @DisplayName("가계부 코멘트 조회 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndDate")
+    public void testfindAccbookDetailBy(int accbookCode) {
+        // given
+
+        // when
+
+        // then
+        assertDoesNotThrow(() -> accbookService.findAccbookDetailBy(accbookCode));
+
+    }
 }
