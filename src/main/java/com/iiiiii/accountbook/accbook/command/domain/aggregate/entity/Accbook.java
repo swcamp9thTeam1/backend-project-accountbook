@@ -42,5 +42,4 @@ public class Accbook {
     @Column(name = "asset_code", nullable = false)
     private Integer assetCode;
 
-
 }

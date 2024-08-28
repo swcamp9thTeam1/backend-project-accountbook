@@ -5,8 +5,6 @@ import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accountbook.accbook.command.domain.repository.AccbookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("AccbookServiceCommand")
@@ -19,7 +17,7 @@ public class AccbookService {
         this.accbookRepository = accbookRepository;
     }
 
-    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Transactional
     public Accbook registAccbook(AccbookDTO newAccbook) {
 
         // 1. 새로 등록한 가계부 추출 (DTO에서)
@@ -41,6 +39,26 @@ public class AccbookService {
         //                              가게가 존재하지 않는 경우 -> store DB에 등록
 
         accbookRepository.save(accbook);
+        return accbook;
+    }
+
+    @Transactional
+    public Accbook modifyAccbook(int accbookCode, AccbookDTO modifyAccbook) {
+
+        // 영속 상태인 엔티티 만들기
+        Accbook accbook = accbookRepository.findById(accbookCode).orElseThrow(IllegalArgumentException::new);
+
+        // 영속 엔티티 수정 (수정값이 null 값인 경우 기존값 유지)
+        if (modifyAccbook.getCreatedAt() != null) accbook.setCreatedAt(modifyAccbook.getCreatedAt());
+        if (modifyAccbook.getTitle() != null) accbook.setTitle(modifyAccbook.getTitle());
+        if (modifyAccbook.getAmount() != null) accbook.setAmount(modifyAccbook.getAmount());
+        if (modifyAccbook.getIsRegular() != null) accbook.setIsRegular(modifyAccbook.getIsRegular());
+        if (modifyAccbook.getMemberCode() != null) accbook.setMemberCode(modifyAccbook.getMemberCode());
+        if (modifyAccbook.getAccCategoryCode() != null) accbook.setAccCategoryCode(modifyAccbook.getAccCategoryCode());
+        if (modifyAccbook.getStoreCode() != null) accbook.setStoreCode(modifyAccbook.getStoreCode());
+        if (modifyAccbook.getAssetCode() != null) accbook.setAssetCode(modifyAccbook.getAssetCode());
+
+        // 트랜젝션 커밋 시 JPA가 자동으로 변경된 엔티티를 DB에 반영 (Dirty Checking)
         return accbook;
     }
 }
