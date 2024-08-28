@@ -26,8 +26,8 @@ public class StoreController {
         this.storeService = storeService;
     }
 
-    @PostMapping("/file")
-    public ResponseEntity<?> registerStore(@RequestParam("file") MultipartFile file)
+    @PostMapping("/good")
+    public ResponseEntity<?> registerGoodStore(@RequestParam("file") MultipartFile file)
             throws Exception {
 
         // 엑셀 파일인지 확인
@@ -36,7 +36,7 @@ public class StoreController {
             throw new NotValidRequestException("엑셀 파일만 업로드 해주세요.");
         }
 
-        storeService.registerStore(file, extension);
+        storeService.registerGoodStore(file, extension);
 
         return ResponseEntity
                 .created(URI.create("/stores/search?is-good=true"))

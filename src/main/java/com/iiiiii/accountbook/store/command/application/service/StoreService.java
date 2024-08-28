@@ -27,7 +27,7 @@ public class StoreService {
     }
 
     @Transactional
-    public void registerStore(MultipartFile file, String extension) throws Exception {
+    public void registerGoodStore(MultipartFile file, String extension) throws Exception {
         List<StoreDTO> newStores = parsingStoreExcel(file, extension);
 
         List<Store> storeEntities = newStores.stream().map(newStoreDTO -> {
