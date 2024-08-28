@@ -117,7 +117,7 @@ CREATE TABLE store_review (
   member_code INT NOT NULL,
   store_code INT NOT NULL,
   FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (store_code) REFERENCES store(code)
+  FOREIGN KEY (store_code) REFERENCES store(code) ON DELETE SET NULL
 )ENGINE=INNODB;
 
 -- store_review_file(가게 리뷰 첨부파일)
@@ -186,7 +186,7 @@ CREATE TABLE accbook (
   asset_code INT NOT NULL,
   FOREIGN KEY (member_code) REFERENCES member(code),
   FOREIGN KEY (acc_category_code) REFERENCES acc_category(code),
-  FOREIGN KEY (store_code) REFERENCES store(code),
+  FOREIGN KEY (store_code) REFERENCES store(code) ON DELETE SET NULL,
   FOREIGN KEY (asset_code) REFERENCES asset(code),
   CHECK (is_regular IN ('Y', 'N'))
 )ENGINE=INNODB;
