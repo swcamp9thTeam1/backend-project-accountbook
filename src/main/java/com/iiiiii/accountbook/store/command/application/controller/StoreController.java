@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.net.URI;
 
 @RestController("StoreControllerCommand")
@@ -19,7 +20,7 @@ import java.net.URI;
 @Slf4j
 public class StoreController {
 
-    private StoreService storeService;
+    private final StoreService storeService;
 
     @Autowired
     public StoreController(StoreService storeService) {
@@ -27,16 +28,9 @@ public class StoreController {
     }
 
     @PostMapping("/good")
-    public ResponseEntity<?> registerGoodStore(@RequestParam("file") MultipartFile file)
-            throws Exception {
+    public ResponseEntity<?> registerGoodStore(@RequestParam("file") MultipartFile file) throws Exception {
 
-        // 엑셀 파일인지 확인
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        if (!"xls".equals(extension) && !"xlsx".equals(extension)) {
-            throw new NotValidRequestException("엑셀 파일만 업로드 해주세요.");
-        }
-
-        storeService.registerGoodStore(file, extension);
+        storeService.registerGoodStore(file);
 
         return ResponseEntity
                 .created(URI.create("/stores/search?is-good=true"))

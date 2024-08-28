@@ -1,10 +1,12 @@
 package com.iiiiii.accountbook.store.command.application.service;
 
 import com.iiiiii.accountbook.common.YesOrNo;
+import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -12,6 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +33,14 @@ public class StoreService {
     }
 
     @Transactional
-    public void registerGoodStore(MultipartFile file, String extension) throws Exception {
+    public void registerGoodStore(MultipartFile file) throws Exception {
+
+        // 엑셀 파일인지 확인
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        if (!"xls".equals(extension) && !"xlsx".equals(extension)) {
+            throw new NotValidRequestException("엑셀 파일만 업로드 해주세요.");
+        }
+
         List<StoreDTO> newStores = parsingStoreExcel(file, extension);
 
         List<Store> storeEntities = newStores.stream().map(newStoreDTO -> {
