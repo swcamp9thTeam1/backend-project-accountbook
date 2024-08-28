@@ -8,16 +8,15 @@ import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -127,5 +126,15 @@ public class StoreService {
         }
 
         return newStores;
+    }
+
+    @Transactional
+    public void modifyGoodStoreToN(int storeCode) {
+
+        // 가게를 삭제하지 않고, 착한가격업소 정보만 비운다. (UPDATE)
+        Store foundStore = storeRepository.findById(storeCode).orElseThrow(IllegalArgumentException::new);
+        foundStore.setIsGood(YesOrNo.N);
+        foundStore.setGoodMenuName(null);
+        foundStore.setGoodMenuPrice(null);
     }
 }
