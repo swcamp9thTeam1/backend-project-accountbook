@@ -44,4 +44,12 @@ public class AccbookController {
                 .ok(new ResponseMessage(ResponseStatusText.OK, responseMap));
     }
 
+    @DeleteMapping("/remove/{accbookCode}")
+    public ResponseEntity<?> removeAccbook(@PathVariable Integer accbookCode) {
+        accbookService.removeAccbook(accbookCode);
+
+        return ResponseEntity
+                .noContent().build();
+    }
+
 }

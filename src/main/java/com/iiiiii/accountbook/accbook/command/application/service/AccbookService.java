@@ -61,4 +61,10 @@ public class AccbookService {
         // 트랜젝션 커밋 시 JPA가 자동으로 변경된 엔티티를 DB에 반영 (Dirty Checking)
         return accbook;
     }
+
+    @Transactional
+    public void removeAccbook(Integer accbookCode) {
+        Accbook accbook = accbookRepository.findById(accbookCode).orElseThrow(IllegalArgumentException::new);
+        accbookRepository.delete(accbook);
+    }
 }
