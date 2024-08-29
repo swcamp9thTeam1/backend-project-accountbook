@@ -32,13 +32,14 @@ public class StoreController {
                 .build();
     }
 
-    @PutMapping("/good/{storeCode}")
+    @PutMapping("/good/{storeCode}/change-n")
     public ResponseEntity<?> modifyGoodStoreToN(@PathVariable int storeCode) {
 
         storeService.modifyGoodStoreToN(storeCode);
 
         return ResponseEntity
                 .noContent()
+                .header("Content-Location", "/stores/" + storeCode)
                 .build();
     }
 
