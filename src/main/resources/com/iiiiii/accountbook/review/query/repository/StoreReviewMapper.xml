@@ -6,7 +6,7 @@
 
     <!-- 주석. result map -->
     <resultMap id = "storeReviewResultMap" type="com.iiiiii.accountbook.review.query.dto.StoreReviewDTO">
-        <id property = "code" column = "CODE" />
+        <id property = "storeReviewCode" column = "CODE" />
         <result property = "createdAt" column = "CREATED_AT" />
         <result property = "visitors" column = "VISITORS" />
         <result property = "totalExpense" column = "TOTAL_EXPENSE" />
@@ -30,26 +30,26 @@
             )
             VALUES
             (
-                  #{ createdAt }
-                , #{ visitors }
-                , #{ totalExpense }
-                , #{ oneLineReview }
-                , #{ memberCode }
-                , #{ storeCode}
+                  #{createdAt}
+                , #{visitors}
+                , #{totalExpense}
+                , #{oneLineReview}
+                , #{memberCode}
+                , #{storeCode}
             )
     </insert>
 
     <!-- 주석. 리뷰 수정 ->-->
-    <update id="updateReview" parameterType="com.iiiiii.accountbook.review.query.dto.StoreReviewDTO">
+    <update id="updateReview" parameterType="com.iiiiii.accountbook.review.query.dto.StoreReviewDTO" useGeneratedKeys="true" keyProperty="code">
         UPDATE
             STORE_REVIEW
-              SET CREATED_AT = #{ createdAt }
-            , VISITORS  = #{ visitors }
-            , TOTAL_EXPENSE = #{ totalExpense }
-            , ONE_LINE_REVIEW = # { oneLineReview }
-            , MEMBER_CODE = #{ memberCode }
-            , STORE_CODE = #{ storeCode }
-          WHERE CODE = #{ code }
+              SET CREATED_AT = #{createdAt}
+            , VISITORS  = #{visitors}
+            , TOTAL_EXPENSE = #{totalExpense}
+            , ONE_LINE_REVIEW = #{oneLineReview}
+            , MEMBER_CODE = #{memberCode}
+            , STORE_CODE = #{storeCode}
+          WHERE CODE = #{code}
     </update>
 
     <!-- 주석. 리뷰 삭제 -->
