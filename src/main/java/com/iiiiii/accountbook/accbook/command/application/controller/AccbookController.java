@@ -46,7 +46,7 @@ public class AccbookController {
         responseMap.put("accbook", accbook);
 
         return ResponseEntity
-                .ok(new ResponseMessage(ResponseStatusText.OK, responseMap));
+                .ok(new ResponseMessage(responseMap));
     }
 
     @DeleteMapping("/remove/{accbookCode}")
@@ -64,7 +64,7 @@ public class AccbookController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("accComment", savedAccComment);
         return ResponseEntity
-                .ok(new ResponseMessage(ResponseStatusText.OK, responseMap));
+                .ok(new ResponseMessage(responseMap));
 
     }
 }
