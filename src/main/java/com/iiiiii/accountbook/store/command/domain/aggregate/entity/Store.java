@@ -6,10 +6,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "store")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
-@Setter
 @ToString
 public class Store {
 
@@ -32,11 +29,41 @@ public class Store {
 
     @Column(name = "is_good", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Setter
     private YesOrNo isGood;
 
     @Column(name = "good_menu_name")
+    @Setter
     private String goodMenuName;
 
     @Column(name = "good_menu_price")
+    @Setter
     private Integer goodMenuPrice;
+
+    public Store() {}
+
+    public Store(String storeName, String address, String latitude,
+                 String longitude, YesOrNo isGood, String goodMenuName,
+                 Integer goodMenuPrice) {
+        this.storeName = storeName;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.isGood = isGood;
+        this.goodMenuName = goodMenuName;
+        this.goodMenuPrice = goodMenuPrice;
+    }
+
+    public Store(int storeCode, String storeName, String address,
+                 String latitude, String longitude, YesOrNo isGood, String goodMenuName,
+                 Integer goodMenuPrice) {
+        this.storeCode = storeCode;
+        this.storeName = storeName;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.isGood = isGood;
+        this.goodMenuName = goodMenuName;
+        this.goodMenuPrice = goodMenuPrice;
+    }
 }

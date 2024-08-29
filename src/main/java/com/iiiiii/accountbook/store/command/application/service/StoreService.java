@@ -45,18 +45,15 @@ public class StoreService {
 
         List<StoreDTO> newStores = parsingStoreExcel(file, extension);
 
-        List<Store> storeEntities = newStores.stream().map(newStoreDTO -> {
-            Store store = new Store();
-            store.setStoreName(newStoreDTO.getStoreName());
-            store.setAddress(newStoreDTO.getAddress());
-            store.setLatitude(newStoreDTO.getLatitude());
-            store.setLongitude(newStoreDTO.getLongitude());
-            store.setIsGood(newStoreDTO.getIsGood());
-            store.setGoodMenuName(newStoreDTO.getGoodMenuName());
-            store.setGoodMenuPrice(newStoreDTO.getGoodMenuPrice());
-
-            return store;
-        }).collect(Collectors.toList());
+        List<Store> storeEntities = newStores.stream().map(newStoreDTO -> new Store(
+                newStoreDTO.getStoreName(),
+                newStoreDTO.getAddress(),
+                newStoreDTO.getLatitude(),
+                newStoreDTO.getLongitude(),
+                newStoreDTO.getIsGood(),
+                newStoreDTO.getGoodMenuName(),
+                newStoreDTO.getGoodMenuPrice()
+        )).collect(Collectors.toList());
 
         storeRepository.saveAll(storeEntities);
     }
