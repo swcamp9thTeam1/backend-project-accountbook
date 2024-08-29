@@ -32,20 +32,14 @@ public class StoreController {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("stores", stores);
 
-        return ResponseEntity.ok(new ResponseMessage(
-                ResponseStatusText.OK,
-                resultMap
-        ));
+        return ResponseEntity.ok(new ResponseMessage(resultMap));
     }
 
     @GetMapping("/{storeCode}")
     public ResponseEntity<ResponseMessageGeneric<StoreDTO>> findStoreById(@PathVariable int storeCode) {
         StoreDTO foundStore = storeService.findStoreById(storeCode);
 
-        return ResponseEntity.ok(new ResponseMessageGeneric<>(
-                ResponseStatusText.OK,
-                foundStore
-        ));
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(foundStore));
     }
 
     @GetMapping("/search")
@@ -59,9 +53,6 @@ public class StoreController {
 
         List<StoreDTO> stores = storeService.searchStore(criteria);
 
-        return ResponseEntity.ok(new ResponseMessageGeneric<>(
-                ResponseStatusText.OK,
-                stores
-        ));
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(stores));
     }
 }

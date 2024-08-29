@@ -7,13 +7,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ResponseError extends ResponseMessage {
+public class ResponseError extends ResponseCommon {
 
     private final String errCode;
 
     public ResponseError(Exception e, String errMessage) {
-        super(errMessage);
+        super(ResponseStatusText.FAIL, errMessage);
         this.errCode = e.getClass().getSimpleName();
-        setStatusText(ResponseStatusText.FAIL);
     }
 }

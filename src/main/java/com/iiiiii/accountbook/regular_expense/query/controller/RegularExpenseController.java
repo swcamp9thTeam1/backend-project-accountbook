@@ -43,7 +43,7 @@ public class RegularExpenseController {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new ResponseMessage(ResponseStatusText.OK,"조회 성공!", responseMap));
+                .body(new ResponseMessage("조회 성공!", responseMap));
     }
 
     @GetMapping("/{memberCode}")
@@ -62,6 +62,6 @@ public class RegularExpenseController {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new ResponseMessage(ResponseStatusText.OK, "조회 성공!", responseMap));
+                .body(new ResponseMessage("조회 성공!", responseMap));
     }
 }
