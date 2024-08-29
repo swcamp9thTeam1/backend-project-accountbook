@@ -48,15 +48,15 @@ public class AccbookService {
         // 영속 상태인 엔티티 만들기
         Accbook accbook = accbookRepository.findById(accbookCode).orElseThrow(IllegalArgumentException::new);
 
-        // 영속 엔티티 수정 (수정값이 null 값인 경우 기존값 유지)
-        if (modifyAccbook.getCreatedAt() != null) accbook.setCreatedAt(modifyAccbook.getCreatedAt());
-        if (modifyAccbook.getTitle() != null) accbook.setTitle(modifyAccbook.getTitle());
-        if (modifyAccbook.getAmount() != null) accbook.setAmount(modifyAccbook.getAmount());
-        if (modifyAccbook.getIsRegular() != null) accbook.setIsRegular(modifyAccbook.getIsRegular());
-        if (modifyAccbook.getMemberCode() != null) accbook.setMemberCode(modifyAccbook.getMemberCode());
-        if (modifyAccbook.getAccCategoryCode() != null) accbook.setAccCategoryCode(modifyAccbook.getAccCategoryCode());
-        if (modifyAccbook.getStoreCode() != null) accbook.setStoreCode(modifyAccbook.getStoreCode());
-        if (modifyAccbook.getAssetCode() != null) accbook.setAssetCode(modifyAccbook.getAssetCode());
+        // 영속 엔티티에 변경된 값 저장 (기존값 + 수정값 상태로 가져온다고 가정)
+        accbook.setCreatedAt(modifyAccbook.getCreatedAt());
+        accbook.setTitle(modifyAccbook.getTitle());
+        accbook.setAmount(modifyAccbook.getAmount());
+        accbook.setIsRegular(modifyAccbook.getIsRegular());
+        accbook.setMemberCode(modifyAccbook.getMemberCode());
+        accbook.setAccCategoryCode(modifyAccbook.getAccCategoryCode());
+        accbook.setStoreCode(modifyAccbook.getStoreCode());
+        accbook.setAssetCode(modifyAccbook.getAssetCode());
 
         // 트랜젝션 커밋 시 JPA가 자동으로 변경된 엔티티를 DB에 반영 (Dirty Checking)
         return accbook;
