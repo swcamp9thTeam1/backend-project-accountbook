@@ -12,4 +12,6 @@ public interface RegularExpenseMapper {
     List<RegularExpenseDTO> findAllRegularExpenses();
 
     List<ResponseRegularExpenseDTO> findOneMemberRegularExpenses(int memberCode);
+
+    RegularExpenseDTO findOneRegularExpense(int regularExpenseCode);
 }
