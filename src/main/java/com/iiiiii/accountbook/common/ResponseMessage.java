@@ -1,25 +1,26 @@
 package com.iiiiii.accountbook.common;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Map;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class ResponseMessage {
-    private ResponseStatusText statusText;      // 응답 상태 (OK, FAIL)
-    private String message;                     // 응답 메시지
+public class ResponseMessage extends ResponseCommon {
     private Map<String, Object> result;         // 응답 데이터
 
-    public ResponseMessage(ResponseStatusText statusText, Map<String, Object> result) {
-        this.statusText = statusText;
+    public ResponseMessage() {}
+
+    public ResponseMessage(Map<String, Object> result) {
+        super(ResponseStatusText.OK);
         this.result = result;
     }
 
-    public ResponseMessage(String message) {
-        this.message = message;
+    public ResponseMessage(String message, Map<String, Object> result) {
+        super(ResponseStatusText.OK, message);
+        this.result = result;
     }
 }
