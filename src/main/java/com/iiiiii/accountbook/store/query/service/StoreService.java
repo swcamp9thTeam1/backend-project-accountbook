@@ -4,6 +4,7 @@ import com.iiiiii.accountbook.store.common.StoreSearchCriteria;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import com.iiiiii.accountbook.store.query.repository.StoreMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class StoreService {
 
     private final StoreMapper storeMapper;
 
+    @Autowired
     public StoreService(StoreMapper storeMapper) {
         this.storeMapper = storeMapper;
     }
