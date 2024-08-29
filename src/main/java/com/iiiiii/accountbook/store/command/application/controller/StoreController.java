@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.store.command.application.controller;
 
+import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.application.service.StoreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,16 @@ public class StoreController {
     public ResponseEntity<?> modifyGoodStoreToN(@PathVariable int storeCode) {
 
         storeService.modifyGoodStoreToN(storeCode);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
+    @DeleteMapping("/{storeCode}")
+    public ResponseEntity<?> removeStore(@PathVariable int storeCode) throws NotValidRequestException {
+
+        storeService.removeStore(storeCode);
 
         return ResponseEntity
                 .noContent()

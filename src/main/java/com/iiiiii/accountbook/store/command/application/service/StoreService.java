@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -138,5 +139,15 @@ public class StoreService {
         foundStore.setIsGood(YesOrNo.N);
         foundStore.setGoodMenuName(null);
         foundStore.setGoodMenuPrice(null);
+    }
+
+    @Transactional
+    public void removeStore(int storeCode) throws NotValidRequestException {
+
+        if (!storeRepository.existsById(storeCode)) {
+            throw new NotValidRequestException("존재하지 않는 가게는 삭제할 수 없습니다.");
+        }
+
+        storeRepository.deleteById(storeCode);
     }
 }
