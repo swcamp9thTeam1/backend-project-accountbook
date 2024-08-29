@@ -12,7 +12,7 @@ import java.util.Map;
 public class ResponseMessage extends ResponseCommon {
     private Map<String, Object> result;         // 응답 데이터
 
-    public ResponseMessage(ResponseStatusText ok, Map<String, Object> responseMap) {}
+    public ResponseMessage() {}
 
     public ResponseMessage(Map<String, Object> result) {
         super(ResponseStatusText.OK);
