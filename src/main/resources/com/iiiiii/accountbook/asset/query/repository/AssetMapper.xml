@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.asset.command.repository.AssetRepository">
+
+    <resultMap id="assetResultMap" type="com.iiiiii.accountbook.asset.command.dto.AssetDTO">
+        <id property="code" column="CODE"/>
+        <result property="category" column="CATEGORY"/>
+        <result property="name" column="NAME"/>
+        <result property="balance" column="BALANCE"/>
+        <result property="paymentDate" column="PAYMENT_DATE"/>
+        <result property="isDeleted" column="IS_DELETED"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+    </resultMap>
+
+</mapper>
