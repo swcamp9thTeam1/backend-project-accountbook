@@ -4,6 +4,7 @@ import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccbookDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accountbook.accbook.command.domain.repository.AccbookRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ public class AccbookService {
 
     private final AccbookRepository accbookRepository;
 
+    @Autowired
     public AccbookService(AccbookRepository accbookRepository) {
         this.accbookRepository = accbookRepository;
     }
