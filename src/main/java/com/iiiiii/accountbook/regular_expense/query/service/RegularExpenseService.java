@@ -31,4 +31,11 @@ public class RegularExpenseService {
         return regularExpenses;
 
     }
+
+    // 고정 지출 번호로 조회
+    public RegularExpenseDTO findOneRegularExpenses(int regularExpenseCode) {
+        RegularExpenseDTO result = reMapper.findOneRegularExpense(regularExpenseCode);
+
+        return result;
+    }
 }

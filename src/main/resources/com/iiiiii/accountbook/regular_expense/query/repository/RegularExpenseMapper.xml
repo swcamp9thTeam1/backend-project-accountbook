@@ -45,4 +45,17 @@
            FROM regular_expense A
           WHERE A.MEMBER_CODE = #{memberCode}
     </select>
+
+    <select id="findOneRegularExpense" resultMap="responseResultMap1" parameterType="_int">
+         SELECT
+                A.CODE
+              , A.EXPENSE_DATE
+              , A.NAME
+              , A.AMOUNT
+              , A.MEMBER_CODE
+              , A.ASSET_CODE
+              , A.ACC_CATEGORY_CODE
+           FROM regular_expense A
+          WHERE A.CODE = #{regularExpenseCode}
+    </select>
 </mapper>

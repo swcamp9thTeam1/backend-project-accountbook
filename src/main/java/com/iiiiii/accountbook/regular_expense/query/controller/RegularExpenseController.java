@@ -17,9 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController("queryController")
-@RequestMapping("/regular-expenses")
-@MapperScan("com.iiiiii.accountbook.regular_expense.query")
+@RestController
+@RequestMapping("/regular-expense")
 public class RegularExpenseController {
     private RegularExpenseService regularExpenseService;
 
@@ -43,7 +42,7 @@ public class RegularExpenseController {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new ResponseMessage("조회 성공!", responseMap));
+                .body(new ResponseMessage(ResponseStatusText.OK,"조회 성공!", responseMap));
     }
 
     @GetMapping("/{memberCode}")
@@ -62,6 +61,25 @@ public class RegularExpenseController {
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(new ResponseMessage("조회 성공!", responseMap));
+                .body(new ResponseMessage(ResponseStatusText.OK, "조회 성공!", responseMap));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<ResponseMessage> findOneRegularExpenses(@RequestParam("regularExpenseCode") int regularExpenseCode) {
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(new MediaType("application", "json"
+                , Charset.forName("UTF-8")));
+
+        RegularExpenseDTO regularExpenses = regularExpenseService.findOneRegularExpenses(regularExpenseCode);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("regularExpenseCode", regularExpenseCode);
+        responseMap.put("regularExpenses", regularExpenses);
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new ResponseMessage(ResponseStatusText.OK, "조회 성공!", responseMap));
     }
 }
