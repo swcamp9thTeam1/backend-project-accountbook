@@ -1,6 +1,9 @@
 package com.iiiiii.accountbook.accbook.command.application.controller;
 
+import com.iiiiii.accountbook.accbook.command.application.service.AccCommentService;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccCommentDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.AccComment;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accountbook.accbook.command.application.service.AccbookService;
 import com.iiiiii.accountbook.common.ResponseMessage;
@@ -18,10 +21,12 @@ import java.util.Map;
 public class AccbookController {
 
     private AccbookService accbookService;
+    private AccCommentService accCommentService;
 
     @Autowired
-    public AccbookController(AccbookService accbookService) {
+    public AccbookController(AccbookService accbookService, AccCommentService accCommentService) {
         this.accbookService = accbookService;
+        this.accCommentService = accCommentService;
     }
 
     @PostMapping("/regist")
@@ -52,4 +57,14 @@ public class AccbookController {
                 .noContent().build();
     }
 
+    @PostMapping("/comment/regist")
+    public ResponseEntity<?> registAccComment(@RequestBody AccCommentDTO newAccCommentDTO) {
+        AccComment savedAccComment = accCommentService.registAccbookComment(newAccCommentDTO);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("accComment", savedAccComment);
+        return ResponseEntity
+                .ok(new ResponseMessage(ResponseStatusText.OK, responseMap));
+
+    }
 }
