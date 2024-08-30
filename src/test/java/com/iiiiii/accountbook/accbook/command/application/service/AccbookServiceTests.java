@@ -55,4 +55,48 @@ class AccbookServiceTests {
         assertNotNull(actualAccbook);    // 가계부 내역이 생성되었는지 확인
         assertNotNull(accbookRepository.findById(actualAccbook.getAccbookCode())); // 가계부 내역이 DB에 저장되었는지 확인
     }
+
+    @DisplayName("가계부 수정 테스트")
+    @ParameterizedTest
+    @MethodSource("provideAccbook")
+    void testModifyAccbook(String createdAt, String title, Long amount, YesOrNo isRegular,
+                                  Integer memberCode, Integer accCategoryCode, Integer storeCode, Integer assetCode) {
+
+        // given
+        Accbook initialAccbook = new Accbook();
+        initialAccbook.setCreatedAt(createdAt);
+        initialAccbook.setTitle("네이버쇼핑");       // 초기값 (수정할 값과 다르게 설정)
+        initialAccbook.setAmount(40000L);          // 초기값
+        initialAccbook.setIsRegular(isRegular);
+        initialAccbook.setMemberCode(memberCode);
+        initialAccbook.setAccCategoryCode(accCategoryCode);
+        initialAccbook.setStoreCode(storeCode);
+        initialAccbook.setAssetCode(assetCode);
+
+        accbookRepository.save(initialAccbook);
+
+        AccbookDTO modifyAccbookDTO = new AccbookDTO();
+        modifyAccbookDTO.setCreatedAt(createdAt);
+        modifyAccbookDTO.setTitle(title);
+        modifyAccbookDTO.setAmount(amount);
+        modifyAccbookDTO.setIsRegular(isRegular);
+        modifyAccbookDTO.setMemberCode(memberCode);
+        modifyAccbookDTO.setAccCategoryCode(accCategoryCode);
+        modifyAccbookDTO.setStoreCode(storeCode);
+        modifyAccbookDTO.setAssetCode(assetCode);
+
+        // when
+        Accbook modifiedAccbook = accbookService.modifyAccbook(initialAccbook.getAccbookCode(), modifyAccbookDTO);
+
+        // then
+        // 수정 후 값을 검증 (modifiedAccbook, modifyAccbookDTO 비교)
+        assertEquals(modifiedAccbook.getCreatedAt(), modifyAccbookDTO.getCreatedAt());
+        assertEquals(modifiedAccbook.getTitle(), modifyAccbookDTO.getTitle());
+        assertEquals(modifiedAccbook.getAmount(), modifyAccbookDTO.getAmount());
+        assertEquals(modifiedAccbook.getIsRegular(), modifyAccbookDTO.getIsRegular());
+        assertEquals(modifiedAccbook.getMemberCode(), modifyAccbookDTO.getMemberCode());
+        assertEquals(modifiedAccbook.getAccCategoryCode(), modifyAccbookDTO.getAccCategoryCode());
+        assertEquals(modifiedAccbook.getStoreCode(), modifyAccbookDTO.getStoreCode());
+        assertEquals(modifiedAccbook.getAssetCode(), modifyAccbookDTO.getAssetCode());
+    }
 }
