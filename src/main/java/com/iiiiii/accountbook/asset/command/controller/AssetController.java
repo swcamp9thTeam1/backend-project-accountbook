@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-@RestController
+@RestController("AssetControllerCommand")
 @RequestMapping("/assets")
 @Slf4j
 public class AssetController {
@@ -26,7 +26,7 @@ public class AssetController {
     }
 
     /* 자산 등록 */
-    @PostMapping("/regist")
+    @PostMapping("")
     public ResponseEntity<?> registAsset(@RequestBody AssetDTO newAsset) {
         assetService.registAsset(newAsset);
 

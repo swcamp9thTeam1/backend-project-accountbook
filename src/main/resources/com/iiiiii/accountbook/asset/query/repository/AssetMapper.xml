@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.iiiiii.accountbook.asset.command.repository.AssetRepository">
+<mapper namespace="com.iiiiii.accountbook.asset.query.repository.AssetMapper">
 
-    <resultMap id="assetResultMap" type="com.iiiiii.accountbook.asset.command.dto.AssetDTO">
+    <resultMap id="assetResultMap" type="com.iiiiii.accountbook.asset.query.dto.AssetDTO">
         <id property="code" column="CODE"/>
         <result property="category" column="CATEGORY"/>
         <result property="name" column="NAME"/>
@@ -13,5 +13,18 @@
         <result property="isDeleted" column="IS_DELETED"/>
         <result property="memberCode" column="MEMBER_CODE"/>
     </resultMap>
+
+    <select id="selectMyAllAssets" resultMap="assetResultMap" parameterType="_int">
+        SELECT
+               A.CODE
+             , A.CATEGORY
+             , A.NAME
+             , A.BALANCE
+             , A.PAYMENT_DATE
+             , A.IS_DELETED
+             , A.MEMBER_CODE
+          FROM ASSET A
+         WHERE A.MEMBER_CODE = #{memberCode}
+    </select>
 
 </mapper>
