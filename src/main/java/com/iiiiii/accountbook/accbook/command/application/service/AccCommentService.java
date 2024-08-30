@@ -1,6 +1,7 @@
 package com.iiiiii.accountbook.accbook.command.application.service;
 
-import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccCommentDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.CreateAccCommentDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.UpdateAccCommentDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.AccComment;
 import com.iiiiii.accountbook.accbook.command.domain.repository.AccCommentRepository;
 
@@ -21,7 +22,7 @@ public class AccCommentService {
     }
 
     @Transactional
-    public AccComment registAccbookComment(Integer accbookCode, AccCommentDTO newAccCommentDTO) {
+    public AccComment registAccbookComment(Integer accbookCode, CreateAccCommentDTO newAccCommentDTO) {
 
         AccComment accComment = new AccComment();
 
@@ -36,15 +37,11 @@ public class AccCommentService {
     }
 
     @Transactional
-    public AccComment modifyAccComment(Integer accbookCode, Integer accCommentCode, AccCommentDTO modifyAccComment) {
+    public AccComment modifyAccComment(Integer accCommentCode, UpdateAccCommentDTO modifyAccComment) {
 
         AccComment accComment = accCommentRepository.findById(accCommentCode).orElseThrow(IllegalArgumentException::new);
 
-        accComment.setAccbookCode(accbookCode);
-        accComment.setCreatedAt(modifyAccComment.getCreatedAt());
         accComment.setDetail(modifyAccComment.getDetail());
-        accComment.setParentCode(modifyAccComment.getParentCode());
-        accComment.setMemberCode(modifyAccComment.getMemberCode());
 
         return accComment;
     }

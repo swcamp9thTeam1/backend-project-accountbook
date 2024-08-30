@@ -1,10 +1,10 @@
 package com.iiiiii.accountbook.accbook.command.application.service;
 
-import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccCommentDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.CreateAccCommentDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.UpdateAccCommentDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.AccComment;
 import com.iiiiii.accountbook.accbook.command.domain.repository.AccCommentRepository;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -39,7 +39,7 @@ class AccCommentServiceTests {
     void testRegistAccbookComment(Integer accbookCode, String createdAt, String detail,
                                   Integer parentCode, Integer memberCode) {
         // given
-        AccCommentDTO newAccCommentDTO = new AccCommentDTO();
+        CreateAccCommentDTO newAccCommentDTO = new CreateAccCommentDTO();
         newAccCommentDTO.setCreatedAt(createdAt);
         newAccCommentDTO.setDetail(detail);
         newAccCommentDTO.setParentCode(parentCode);
@@ -68,20 +68,14 @@ class AccCommentServiceTests {
 
         accCommentRepository.save(initialAccComment);
 
-        AccCommentDTO modifyAccCommentDTO = new AccCommentDTO();
-        modifyAccCommentDTO.setCreatedAt(createdAt);
+        UpdateAccCommentDTO modifyAccCommentDTO = new UpdateAccCommentDTO();
         modifyAccCommentDTO.setDetail(detail);
-        modifyAccCommentDTO.setParentCode(parentCode);
-        modifyAccCommentDTO.setMemberCode(memberCode);
 
         // when
-        AccComment modifiedAccComment = accCommentService.modifyAccComment(accbookCode, initialAccComment.getAccCommentCode(), modifyAccCommentDTO);
+        AccComment modifiedAccComment = accCommentService.modifyAccComment(initialAccComment.getAccCommentCode(), modifyAccCommentDTO);
 
         // then
-        assertEquals(modifiedAccComment.getCreatedAt(), modifyAccCommentDTO.getCreatedAt());
-        assertEquals(modifiedAccComment.getDetail(), modifyAccCommentDTO.getDetail());
-        assertEquals(modifiedAccComment.getParentCode(), modifyAccCommentDTO.getParentCode());
-        assertEquals(modifiedAccComment.getMemberCode(), modifyAccCommentDTO.getMemberCode());
+        assertEquals(modifyAccCommentDTO.getDetail(), modifiedAccComment.getDetail());
     }
 
     @DisplayName("가계부 코멘트 삭제 테스트")
