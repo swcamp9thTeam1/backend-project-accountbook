@@ -48,4 +48,10 @@ public class AccCommentService {
 
         return accComment;
     }
+
+    @Transactional
+    public void removeAccComment(int accCommentCode) {
+        AccComment accComment = accCommentRepository.findById(accCommentCode).orElseThrow(IllegalArgumentException::new);
+        accCommentRepository.delete(accComment);
+    }
 }

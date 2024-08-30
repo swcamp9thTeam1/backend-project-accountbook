@@ -70,7 +70,6 @@ public class AccbookController {
 
     }
 
-
     @PutMapping("/comment/{accCommentCode}")
     public ResponseEntity<?> modifyAccComment(@RequestBody AccCommentDTO newAccCommentDTO, @PathVariable Integer accCommentCode) {
         AccComment accComment = accCommentService.modifyAccComment(accCommentCode, newAccCommentDTO);
@@ -80,5 +79,13 @@ public class AccbookController {
 
         return ResponseEntity
                 .ok(new ResponseMessage(responseMap));
+    }
+
+    @DeleteMapping("/comment/{accCommentCode}")
+    public ResponseEntity<?> removeAccComment(@PathVariable Integer accCommentCode) {
+        accCommentService.removeAccComment(accCommentCode);
+
+        return ResponseEntity
+                .noContent().build();
     }
 }
