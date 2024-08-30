@@ -25,6 +25,7 @@ public class AssetController {
     public void registAsset() {
     }
 
+    /* 자산 등록 */
     @PostMapping("/regist")
     public ResponseEntity<?> registAsset(@RequestBody AssetDTO newAsset) {
         assetService.registAsset(newAsset);
