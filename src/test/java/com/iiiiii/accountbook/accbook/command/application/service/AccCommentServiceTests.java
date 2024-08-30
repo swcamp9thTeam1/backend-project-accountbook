@@ -45,7 +45,7 @@ class AccCommentServiceTests {
         newAccCommentDTO.setAccbookCode(accbookCode);
         newAccCommentDTO.setMemberCode(memberCode);
 
-        // given
+        // when
         AccComment actualAccComment = accCommentService.registAccbookComment(newAccCommentDTO);
 
         // then
