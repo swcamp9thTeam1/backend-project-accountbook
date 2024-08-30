@@ -21,14 +21,14 @@ public class AccCommentService {
     }
 
     @Transactional
-    public AccComment registAccbookComment(AccCommentDTO newAccCommentDTO) {
+    public AccComment registAccbookComment(Integer accbookCode, AccCommentDTO newAccCommentDTO) {
 
         AccComment accComment = new AccComment();
 
+        accComment.setAccbookCode(accbookCode);
         accComment.setCreatedAt(newAccCommentDTO.getCreatedAt());
         accComment.setDetail(newAccCommentDTO.getDetail());
         accComment.setParentCode(newAccCommentDTO.getParentCode());
-        accComment.setAccbookCode(newAccCommentDTO.getAccbookCode());
         accComment.setMemberCode(newAccCommentDTO.getMemberCode());
 
         accCommentRepository.save(accComment);
@@ -36,21 +36,21 @@ public class AccCommentService {
     }
 
     @Transactional
-    public AccComment modifyAccComment(int accCommentCode, AccCommentDTO modifyAccComment) {
+    public AccComment modifyAccComment(Integer accbookCode, Integer accCommentCode, AccCommentDTO modifyAccComment) {
 
         AccComment accComment = accCommentRepository.findById(accCommentCode).orElseThrow(IllegalArgumentException::new);
 
+        accComment.setAccbookCode(accbookCode);
         accComment.setCreatedAt(modifyAccComment.getCreatedAt());
         accComment.setDetail(modifyAccComment.getDetail());
         accComment.setParentCode(modifyAccComment.getParentCode());
-        accComment.setAccbookCode(modifyAccComment.getAccbookCode());
         accComment.setMemberCode(modifyAccComment.getMemberCode());
 
         return accComment;
     }
 
     @Transactional
-    public void removeAccComment(int accCommentCode) {
+    public void removeAccComment(Integer accCommentCode) {
         AccComment accComment = accCommentRepository.findById(accCommentCode).orElseThrow(IllegalArgumentException::new);
         accCommentRepository.delete(accComment);
     }

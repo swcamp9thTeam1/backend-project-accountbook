@@ -59,9 +59,10 @@ public class AccbookController {
     }
 
     /* 가계부 댓글 관련 메소드 */
-    @PostMapping("/comment/regist")
-    public ResponseEntity<?> registAccComment(@RequestBody AccCommentDTO newAccCommentDTO) {
-        AccComment savedAccComment = accCommentService.registAccbookComment(newAccCommentDTO);
+    @PostMapping("{accbookCode}/comment")
+    public ResponseEntity<?> registAccComment(@RequestBody AccCommentDTO newAccCommentDTO,
+                                              @PathVariable Integer accbookCode) {
+        AccComment savedAccComment = accCommentService.registAccbookComment(accbookCode, newAccCommentDTO);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("accComment", savedAccComment);
@@ -70,9 +71,11 @@ public class AccbookController {
 
     }
 
-    @PutMapping("/comment/{accCommentCode}")
-    public ResponseEntity<?> modifyAccComment(@RequestBody AccCommentDTO newAccCommentDTO, @PathVariable Integer accCommentCode) {
-        AccComment accComment = accCommentService.modifyAccComment(accCommentCode, newAccCommentDTO);
+    @PutMapping("{accbookCode}/comment/{accCommentCode}")
+    public ResponseEntity<?> modifyAccComment(@RequestBody AccCommentDTO newAccCommentDTO,
+                                              @PathVariable Integer accbookCode,
+                                              @PathVariable Integer accCommentCode) {
+        AccComment accComment = accCommentService.modifyAccComment(accbookCode, accCommentCode, newAccCommentDTO);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("accComment", accComment);
@@ -81,8 +84,9 @@ public class AccbookController {
                 .ok(new ResponseMessage(responseMap));
     }
 
-    @DeleteMapping("/comment/{accCommentCode}")
-    public ResponseEntity<?> removeAccComment(@PathVariable Integer accCommentCode) {
+    @DeleteMapping("{accbookCode}/comment/{accCommentCode}")
+    public ResponseEntity<?> removeAccComment(@PathVariable Integer accbookCode,
+                                              @PathVariable Integer accCommentCode) {
         accCommentService.removeAccComment(accCommentCode);
 
         return ResponseEntity
