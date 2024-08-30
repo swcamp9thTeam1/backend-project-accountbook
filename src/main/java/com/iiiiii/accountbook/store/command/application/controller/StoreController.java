@@ -1,6 +1,5 @@
 package com.iiiiii.accountbook.store.command.application.controller;
 
-import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.application.service.StoreService;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
 import lombok.extern.slf4j.Slf4j;
@@ -45,9 +44,9 @@ public class StoreController {
     }
 
     @PutMapping("/good/{storeCode}")
-    public ResponseEntity<?> modifyGoodStore(@PathVariable int storeCode,
-                                             @RequestBody RequestModifyGoodStoreVO requestModifyGoodStoreVO)
-            throws NotValidRequestException {
+    public ResponseEntity<?> modifyGoodStore(
+            @PathVariable int storeCode,
+            @RequestBody RequestModifyGoodStoreVO requestModifyGoodStoreVO) throws Exception {
 
         storeService.modifyGoodStore(storeCode, requestModifyGoodStoreVO);
 
@@ -58,7 +57,7 @@ public class StoreController {
     }
 
     @DeleteMapping("/{storeCode}")
-    public ResponseEntity<?> removeStore(@PathVariable int storeCode) throws NotValidRequestException {
+    public ResponseEntity<?> removeStore(@PathVariable int storeCode) throws Exception {
 
         storeService.removeStore(storeCode);
 

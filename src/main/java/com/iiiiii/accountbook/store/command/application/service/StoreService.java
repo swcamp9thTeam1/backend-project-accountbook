@@ -5,6 +5,7 @@ import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
+import com.iiiiii.accountbook.store.exception.NotFoundStoreException;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
@@ -140,19 +141,19 @@ public class StoreService {
 
     @Transactional
     public void modifyGoodStore(int storeCode, RequestModifyGoodStoreVO requestModifyGoodStoreVO)
-            throws NotValidRequestException {
+            throws Exception {
         Store foundStore = storeRepository.findById(storeCode)
-                .orElseThrow(() -> new NotValidRequestException("존재하지 않는 가게입니다."));
+                .orElseThrow(NotFoundStoreException::new);
 
         foundStore.setGoodMenuName(requestModifyGoodStoreVO.getGoodMenuName());
         foundStore.setGoodMenuPrice(requestModifyGoodStoreVO.getGoodMenuPrice());
     }
 
     @Transactional
-    public void removeStore(int storeCode) throws NotValidRequestException {
+    public void removeStore(int storeCode) throws Exception {
 
         if (!storeRepository.existsById(storeCode)) {
-            throw new NotValidRequestException("존재하지 않는 가게는 삭제할 수 없습니다.");
+            throw new NotFoundStoreException();
         }
 
         storeRepository.deleteById(storeCode);
