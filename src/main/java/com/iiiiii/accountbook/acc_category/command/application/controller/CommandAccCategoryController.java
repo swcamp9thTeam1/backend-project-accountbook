@@ -22,9 +22,6 @@ public class CommandAccCategoryController {
 
     @PostMapping("/regist")
     public ResponseEntity<?> registAccCategory(@RequestBody AccCategory newAccCategory) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json",
-                Charset.forName("UTF-8")));
 
         commandAccCategoryService.registAccCategory(newAccCategory);
 
@@ -35,9 +32,6 @@ public class CommandAccCategoryController {
 
     @PostMapping("/modify")
     public ResponseEntity<?> modifyAccCategory(@RequestBody AccCategory modifyAccCategory) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json",
-                Charset.forName("UTF-8")));
 
         commandAccCategoryService.modifyAccCategory(modifyAccCategory);
 
@@ -48,9 +42,6 @@ public class CommandAccCategoryController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAccCategory(@RequestBody AccCategory deleteAccCategory) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json",
-                Charset.forName("UTF-8")));
 
         commandAccCategoryService.deleteAccCategory(deleteAccCategory);
 

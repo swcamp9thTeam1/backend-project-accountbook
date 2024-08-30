@@ -14,7 +14,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional
 class RegularExpenseEntityServiceTests {
 
     @Autowired
@@ -23,7 +22,6 @@ class RegularExpenseEntityServiceTests {
     @DisplayName("고정 지출 목록 조회 확인 테스트")
     @Test
     public void testFindAllRegularExpenses() {
-        System.out.println("start!");
         List<RegularExpenseDTO> list = regularExpenseService.findAllRegularExpenses();
 
         assertTrue(!list.isEmpty());

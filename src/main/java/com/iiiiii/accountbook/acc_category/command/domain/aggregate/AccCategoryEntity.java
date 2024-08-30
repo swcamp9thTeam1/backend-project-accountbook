@@ -1,5 +1,7 @@
 package com.iiiiii.accountbook.acc_category.command.domain.aggregate;
 
+import com.iiiiii.accountbook.common.InOrOut;
+import com.iiiiii.accountbook.common.YesOrNo;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,13 +19,16 @@ public class AccCategoryEntity {
     private String name;
 
     @Column(name = "finance_type")
-    private char financeType;
+    @Enumerated(EnumType.STRING)
+    private InOrOut financeType;
 
     @Column(name = "visibility")
-    private char visibility;
+    @Enumerated(EnumType.STRING)
+    private YesOrNo visibility;
 
     @Column(name = "is_deleted")
-    private char isDeleted;
+    @Enumerated(EnumType.STRING)
+    private YesOrNo isDeleted;
 
     @Column(name = "member_code")
     private int memberCode;

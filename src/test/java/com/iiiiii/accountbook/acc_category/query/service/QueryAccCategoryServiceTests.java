@@ -1,6 +1,8 @@
 package com.iiiiii.accountbook.acc_category.query.service;
 
 import com.iiiiii.accountbook.acc_category.query.dto.QueryAccCategoryDTO;
+import com.iiiiii.accountbook.common.InOrOut;
+import com.iiiiii.accountbook.common.YesOrNo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -58,39 +60,27 @@ public class QueryAccCategoryServiceTests {
 
     @DisplayName("회원의 수입/지출 별 가계부 카테고리 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(chars = {'I', 'O'})
-    public void testFindAccCategoryByIO(char financeType) {
-        int memberCode = 1;
-        Map<String, Object> params = new HashMap<>();
-        params.put("financeType", financeType);
-        params.put("memberCode", memberCode);
-        List<QueryAccCategoryDTO> list = queryAccCategoryService.findAccCategoryByIO(params);
+    @ValueSource(ints = {1, 2})
+    public void testFindAccCategoryByIO(int memberCode) {
+        List<QueryAccCategoryDTO> list = queryAccCategoryService.findAccCategoryByIO(memberCode, InOrOut.O);
 
         Assertions.assertTrue(!list.isEmpty());
     }
 
     @DisplayName("회원의 삭제 여부 별 가계부 카테고리 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(chars = {'Y', 'N'})
-    public void testFindAccCategoryByIsDeleted(char isDeleted) {
-        int memberCode = 1;
-        Map<String, Object> params = new HashMap<>();
-        params.put("isDeleted", isDeleted);
-        params.put("memberCode", memberCode);
-        List<QueryAccCategoryDTO> list = queryAccCategoryService.findAccCategoryByIsDeleted(params);
+    @ValueSource(ints = {1, 2})
+    public void testFindAccCategoryByIsDeleted(int memberCode) {
+        List<QueryAccCategoryDTO> list = queryAccCategoryService.findAccCategoryByIsDeleted(memberCode, YesOrNo.N);
 
         Assertions.assertTrue(!list.isEmpty());
     }
 
     @DisplayName("회원의 공개 여부 별 가계부 카테고리 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(chars = {'Y', 'N'})
-    public void testFindAccCategoryByVisibility(char visibility) {
-        int memberCode = 1;
-        Map<String, Object> params = new HashMap<>();
-        params.put("visibility", visibility);
-        params.put("memberCode", memberCode);
-        List<QueryAccCategoryDTO> list = queryAccCategoryService.findAccCategoryByIsDeleted(params);
+    @ValueSource(ints = {1, 2})
+    public void testFindAccCategoryByVisibility(int memberCode) {
+        List<QueryAccCategoryDTO> list = queryAccCategoryService.findAccCategoryByIsDeleted(memberCode, YesOrNo.Y);
 
         Assertions.assertTrue(!list.isEmpty());
     }

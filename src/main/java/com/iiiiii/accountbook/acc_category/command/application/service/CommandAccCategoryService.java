@@ -26,9 +26,11 @@ public class CommandAccCategoryService {
         // newAccCategory.getMemberCode를 member 테이블의 회원코드와 비교해 회원 유무 판별
 
         // newAccCategory.getParentCode가 Null이 아닌경우 acc_category 테이블에 존재 여부 판별
-
-        AccCategoryEntity newAccCategoryEntity = modelMapper.map(newAccCategory, AccCategoryEntity.class);
-        commandAccCategoryRepository.save(newAccCategoryEntity);
+        if (newAccCategory.getParentCode() > 0 &
+                commandAccCategoryRepository.findById(newAccCategory.getParentCode()) != null) {
+            AccCategoryEntity newAccCategoryEntity = modelMapper.map(newAccCategory, AccCategoryEntity.class);
+            commandAccCategoryRepository.save(newAccCategoryEntity);
+        }
 
     }
 
