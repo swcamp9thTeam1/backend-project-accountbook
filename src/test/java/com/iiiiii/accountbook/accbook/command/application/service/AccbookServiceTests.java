@@ -99,4 +99,32 @@ class AccbookServiceTests {
         assertEquals(modifiedAccbook.getStoreCode(), modifyAccbookDTO.getStoreCode());
         assertEquals(modifiedAccbook.getAssetCode(), modifyAccbookDTO.getAssetCode());
     }
+
+    @DisplayName("가계부 삭제 테스트")
+    @ParameterizedTest
+    @MethodSource("provideAccbook")
+    void testRemoveAccbook(String createdAt, String title, Long amount, YesOrNo isRegular,
+                           Integer memberCode, Integer accCategoryCode, Integer storeCode, Integer assetCode) {
+
+        // given
+        Accbook initialAccbook = new Accbook();
+        initialAccbook.setCreatedAt(createdAt);
+        initialAccbook.setTitle(title);
+        initialAccbook.setAmount(amount);
+        initialAccbook.setIsRegular(isRegular);
+        initialAccbook.setMemberCode(memberCode);
+        initialAccbook.setAccCategoryCode(accCategoryCode);
+        initialAccbook.setStoreCode(storeCode);
+        initialAccbook.setAssetCode(assetCode);
+
+        accbookRepository.save(initialAccbook);
+
+        int removeAccbookCode = initialAccbook.getAccbookCode();
+
+        // when
+        accbookService.removeAccbook(removeAccbookCode);
+
+        // then
+        assertFalse(accbookRepository.findById(removeAccbookCode).isPresent());
+    }
 }
