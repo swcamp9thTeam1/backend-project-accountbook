@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Transactional
@@ -27,29 +28,84 @@ class AccCommentServiceTests {
 
     private static Stream<Arguments> provideAccComment() {
         return Stream.of(
-                Arguments.of( "2024-08-29", "Test Comment", 1, 1, 1),
-                Arguments.of( "2024-08-29", "Test Comment2", 1, 1, 2)
+                Arguments.of( 1, "2024-08-29", "좋아요!", 1, 1),
+                Arguments.of( 2, "2024-08-29", "좀더 절약해봐요..", 1, 2)
         );
     }
 
     @DisplayName("가계부 코멘트 작성 테스트")
     @ParameterizedTest
     @MethodSource("provideAccComment")
-    void testRegistAccbookComment(String createdAt, String detail,
-                                  Integer parentCode, Integer accbookCode, Integer memberCode) {
+    void testRegistAccbookComment(Integer accbookCode, String createdAt, String detail,
+                                  Integer parentCode, Integer memberCode) {
         // given
         AccCommentDTO newAccCommentDTO = new AccCommentDTO();
         newAccCommentDTO.setCreatedAt(createdAt);
         newAccCommentDTO.setDetail(detail);
         newAccCommentDTO.setParentCode(parentCode);
-        newAccCommentDTO.setAccbookCode(accbookCode);
         newAccCommentDTO.setMemberCode(memberCode);
 
         // when
-        AccComment actualAccComment = accCommentService.registAccbookComment(newAccCommentDTO);
+        AccComment actualAccComment = accCommentService.registAccbookComment(accbookCode, newAccCommentDTO);
 
         // then
         assertNotNull(actualAccComment);    // 코멘트가 생성되었는지 확인
         assertNotNull(accCommentRepository.findById(actualAccComment.getAccCommentCode())); // 코멘트가 DB에 저장되었는지 확인
+    }
+
+    @DisplayName("가계부 코멘트 수정 테스트")
+    @ParameterizedTest
+    @MethodSource("provideAccComment")
+    void testModifyAccComment(Integer accbookCode, String createdAt, String detail,
+                                  Integer parentCode, Integer memberCode) {
+        // given
+        AccComment initialAccComment = new AccComment();
+        initialAccComment.setAccbookCode(accbookCode);
+        initialAccComment.setCreatedAt(createdAt);
+        initialAccComment.setDetail("합리적인 소비에요!");
+        initialAccComment.setParentCode(parentCode);
+        initialAccComment.setMemberCode(memberCode);
+
+        accCommentRepository.save(initialAccComment);
+
+        AccCommentDTO modifyAccCommentDTO = new AccCommentDTO();
+        modifyAccCommentDTO.setCreatedAt(createdAt);
+        modifyAccCommentDTO.setDetail(detail);
+        modifyAccCommentDTO.setParentCode(parentCode);
+        modifyAccCommentDTO.setMemberCode(memberCode);
+
+        // when
+        AccComment modifiedAccComment = accCommentService.modifyAccComment(accbookCode, initialAccComment.getAccCommentCode(), modifyAccCommentDTO);
+
+        // then
+        assertEquals(modifiedAccComment.getCreatedAt(), modifyAccCommentDTO.getCreatedAt());
+        assertEquals(modifiedAccComment.getDetail(), modifyAccCommentDTO.getDetail());
+        assertEquals(modifiedAccComment.getParentCode(), modifyAccCommentDTO.getParentCode());
+        assertEquals(modifiedAccComment.getMemberCode(), modifyAccCommentDTO.getMemberCode());
+    }
+
+    @DisplayName("가계부 코멘트 삭제 테스트")
+    @ParameterizedTest
+    @MethodSource("provideAccComment")
+    void testRemoveAccComment(Integer accbookCode, String createdAt, String detail,
+                              Integer parentCode, Integer memberCode) {
+        // given
+        AccComment initialAccComment = new AccComment();
+        initialAccComment.setAccbookCode(accbookCode);
+        initialAccComment.setCreatedAt(createdAt);
+        initialAccComment.setDetail(detail);
+        initialAccComment.setParentCode(parentCode);
+        initialAccComment.setMemberCode(memberCode);
+
+        accCommentRepository.save(initialAccComment);
+
+        int removeAccCommentCode = initialAccComment.getAccCommentCode();
+        assertTrue(accCommentRepository.existsById(removeAccCommentCode)); // 테스트하려는 코멘트가 실제 DB에 저장되었는지 확인
+
+        // when
+        accCommentService.removeAccComment(removeAccCommentCode);
+
+        // then
+        assertFalse(accCommentRepository.findById(removeAccCommentCode).isPresent());
     }
 }
