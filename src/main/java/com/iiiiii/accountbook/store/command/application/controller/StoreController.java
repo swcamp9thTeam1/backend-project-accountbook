@@ -2,6 +2,7 @@ package com.iiiiii.accountbook.store.command.application.controller;
 
 import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.application.service.StoreService;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,19 @@ public class StoreController {
     public ResponseEntity<?> modifyGoodStoreToN(@PathVariable int storeCode) {
 
         storeService.modifyGoodStoreToN(storeCode);
+
+        return ResponseEntity
+                .noContent()
+                .header("Content-Location", "/stores/" + storeCode)
+                .build();
+    }
+
+    @PutMapping("/good/{storeCode}")
+    public ResponseEntity<?> modifyGoodStore(@PathVariable int storeCode,
+                                             @RequestBody RequestModifyGoodStoreVO requestModifyGoodStoreVO)
+            throws NotValidRequestException {
+
+        storeService.modifyGoodStore(storeCode, requestModifyGoodStoreVO);
 
         return ResponseEntity
                 .noContent()

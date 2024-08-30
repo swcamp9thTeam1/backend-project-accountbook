@@ -3,6 +3,7 @@ package com.iiiiii.accountbook.store.command.application.service;
 import com.iiiiii.accountbook.common.YesOrNo;
 import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -136,6 +136,16 @@ public class StoreService {
         foundStore.setIsGood(YesOrNo.N);
         foundStore.setGoodMenuName(null);
         foundStore.setGoodMenuPrice(null);
+    }
+
+    @Transactional
+    public void modifyGoodStore(int storeCode, RequestModifyGoodStoreVO requestModifyGoodStoreVO)
+            throws NotValidRequestException {
+        Store foundStore = storeRepository.findById(storeCode)
+                .orElseThrow(() -> new NotValidRequestException("존재하지 않는 가게입니다."));
+
+        foundStore.setGoodMenuName(requestModifyGoodStoreVO.getGoodMenuName());
+        foundStore.setGoodMenuPrice(requestModifyGoodStoreVO.getGoodMenuPrice());
     }
 
     @Transactional
