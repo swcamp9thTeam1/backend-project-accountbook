@@ -1,6 +1,8 @@
 package com.iiiiii.accountbook.acc_category.command.application.service;
 
 import com.iiiiii.accountbook.acc_category.command.domain.aggregate.AccCategory;
+import com.iiiiii.accountbook.common.InOrOut;
+import com.iiiiii.accountbook.common.YesOrNo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ public class CommandAccCategoryServiceTests {
     @Test
     public void testRegistAccCategory() {
 
-        AccCategory newAccCategory = new AccCategory("음료", 'I', 'Y', 'N', 3, 2);
+        AccCategory newAccCategory = new AccCategory("음료", InOrOut.I, YesOrNo.Y, YesOrNo.N, 3, 2);
 
         commandAccCategoryService.registAccCategory(newAccCategory);
 
@@ -26,7 +28,7 @@ public class CommandAccCategoryServiceTests {
     @Test
     public void testModifyAccCategory() {
 
-        AccCategory modifyAccCategory = new AccCategory(1,"커피", 'I', 'N', 'N', 2, 1);
+        AccCategory modifyAccCategory = new AccCategory(1,"커피", InOrOut.O, YesOrNo.N, YesOrNo.N, 2, 1);
 
         commandAccCategoryService.modifyAccCategory(modifyAccCategory);
     }
@@ -34,7 +36,7 @@ public class CommandAccCategoryServiceTests {
     @DisplayName("가계부 카테고리 삭제 확인 테스트")
     @Test
     public void testDeleteAccCategory() {
-        AccCategory deleteAccCategory = new AccCategory(1,"커피", 'I', 'N', 'N', 2, 1);
+        AccCategory deleteAccCategory = new AccCategory(1,"커피", InOrOut.O, YesOrNo.N, YesOrNo.N, 2, 1);
 
        commandAccCategoryService.deleteAccCategory(deleteAccCategory);
     }
