@@ -16,15 +16,19 @@ public class Store {
     private int storeCode;
 
     @Column(name = "name", nullable = false)
+    @Setter
     private String storeName;
 
     @Column(name = "address", nullable = false)
+    @Setter
     private String address;
 
     @Column(name = "latitude", nullable = false)
+    @Setter
     private String latitude;
 
     @Column(name = "longitude", nullable = false)
+    @Setter
     private String longitude;
 
     @Column(name = "is_good", nullable = false)

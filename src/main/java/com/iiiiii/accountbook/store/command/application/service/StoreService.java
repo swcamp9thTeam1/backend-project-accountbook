@@ -4,6 +4,7 @@ import com.iiiiii.accountbook.common.YesOrNo;
 import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyStoreVO;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
 import com.iiiiii.accountbook.store.exception.NotFoundStoreException;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
@@ -127,6 +128,16 @@ public class StoreService {
         }
 
         return newStores;
+    }
+
+    @Transactional
+    public void modifyStore(int storeCode, RequestModifyStoreVO requestBody) throws Exception {
+        Store foundStore = storeRepository.findById(storeCode).orElseThrow(NotFoundStoreException::new);
+
+        foundStore.setStoreName(requestBody.getName());
+        foundStore.setAddress(requestBody.getAddress());
+        foundStore.setLatitude(requestBody.getLatitude());
+        foundStore.setLongitude(requestBody.getLongitude());
     }
 
     @Transactional
