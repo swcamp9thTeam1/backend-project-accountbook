@@ -30,7 +30,7 @@ public class AccbookController {
     }
 
     /* 가계부 관련 메소드 */
-    @PostMapping("/regist")
+    @PostMapping("")
     public ResponseEntity<?> registAccbook(@RequestBody AccbookDTO newAccbook) {
         Accbook savedAccbook = accbookService.registAccbook(newAccbook);
 
@@ -39,7 +39,7 @@ public class AccbookController {
                 .build();
     }
 
-    @PutMapping("/modify/{accbookCode}")
+    @PutMapping("/{accbookCode}")
     public ResponseEntity<?> modifyAccbook(@RequestBody AccbookDTO modifyAccbook, @PathVariable Integer accbookCode) {
         Accbook accbook = accbookService.modifyAccbook(accbookCode, modifyAccbook);
 
@@ -50,7 +50,7 @@ public class AccbookController {
                 .ok(new ResponseMessage(responseMap));
     }
 
-    @DeleteMapping("/remove/{accbookCode}")
+    @DeleteMapping("/{accbookCode}")
     public ResponseEntity<?> removeAccbook(@PathVariable Integer accbookCode) {
         accbookService.removeAccbook(accbookCode);
 
