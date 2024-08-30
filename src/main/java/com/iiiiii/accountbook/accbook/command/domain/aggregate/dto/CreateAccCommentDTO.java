@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class AccCommentDTO {
+public class CreateAccCommentDTO {
     private String createdAt;
     private String detail;
     private Integer parentCode;

@@ -1,13 +1,13 @@
 package com.iiiiii.accountbook.accbook.command.application.controller;
 
 import com.iiiiii.accountbook.accbook.command.application.service.AccCommentService;
-import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccCommentDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.CreateAccCommentDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.UpdateAccCommentDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.AccComment;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accountbook.accbook.command.application.service.AccbookService;
 import com.iiiiii.accountbook.common.ResponseMessage;
-import com.iiiiii.accountbook.common.ResponseStatusText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +60,7 @@ public class AccbookController {
 
     /* 가계부 댓글 관련 메소드 */
     @PostMapping("{accbookCode}/comment")
-    public ResponseEntity<?> registAccComment(@RequestBody AccCommentDTO newAccCommentDTO,
+    public ResponseEntity<?> registAccComment(@RequestBody CreateAccCommentDTO newAccCommentDTO,
                                               @PathVariable Integer accbookCode) {
         AccComment savedAccComment = accCommentService.registAccbookComment(accbookCode, newAccCommentDTO);
 
@@ -72,10 +72,10 @@ public class AccbookController {
     }
 
     @PutMapping("{accbookCode}/comment/{accCommentCode}")
-    public ResponseEntity<?> modifyAccComment(@RequestBody AccCommentDTO newAccCommentDTO,
+    public ResponseEntity<?> modifyAccComment(@RequestBody UpdateAccCommentDTO updateAccCommentDTO,
                                               @PathVariable Integer accbookCode,
                                               @PathVariable Integer accCommentCode) {
-        AccComment accComment = accCommentService.modifyAccComment(accbookCode, accCommentCode, newAccCommentDTO);
+        AccComment accComment = accCommentService.modifyAccComment(accCommentCode, updateAccCommentDTO);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("accComment", accComment);
