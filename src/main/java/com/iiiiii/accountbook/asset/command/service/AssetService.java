@@ -23,6 +23,7 @@ public class AssetService {
         this.assetRepository = assetRepository;
     }
 
+    /* 자산 등록 트랜잭션 */
     @Transactional
     public void registAsset(AssetDTO newAsset) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);

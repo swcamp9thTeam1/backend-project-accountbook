@@ -17,7 +17,7 @@ public class Asset {
     @Id
     @Column(name = "code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int code;                                  // 자산코드(PK)
+    private Integer code;                               // 자산코드(PK)
 
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
