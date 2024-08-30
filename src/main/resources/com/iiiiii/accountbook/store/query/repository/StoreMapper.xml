@@ -58,9 +58,17 @@
         <if test="isManyReview != null">
           JOIN STORE_REVIEW B ON (A.CODE = B.STORE_CODE)
         </if>
-        <if test="isGood == true">
-            WHERE A.IS_GOOD = 'Y'
-        </if>
+        <where>
+            <if test="isGood == true">
+                A.IS_GOOD = 'Y'
+            </if>
+            <if test="latitude != null">
+                AND A.LATITUDE = #{ latitude }
+            </if>
+            <if test="longitude != null">
+                AND A.LONGITUDE = #{ longitude }
+            </if>
+        </where>
         <if test="isManyReview != null">
             GROUP BY A.CODE
             HAVING COUNT(A.CODE) >= 5
