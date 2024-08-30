@@ -29,6 +29,7 @@ public class AccbookController {
         this.accCommentService = accCommentService;
     }
 
+    /* 가계부 관련 메소드 */
     @PostMapping("/regist")
     public ResponseEntity<?> registAccbook(@RequestBody AccbookDTO newAccbook) {
         Accbook savedAccbook = accbookService.registAccbook(newAccbook);
@@ -57,6 +58,7 @@ public class AccbookController {
                 .noContent().build();
     }
 
+    /* 가계부 댓글 관련 메소드 */
     @PostMapping("/comment/regist")
     public ResponseEntity<?> registAccComment(@RequestBody AccCommentDTO newAccCommentDTO) {
         AccComment savedAccComment = accCommentService.registAccbookComment(newAccCommentDTO);
@@ -66,5 +68,17 @@ public class AccbookController {
         return ResponseEntity
                 .ok(new ResponseMessage(responseMap));
 
+    }
+
+
+    @PutMapping("/comment/{accCommentCode}")
+    public ResponseEntity<?> modifyAccComment(@RequestBody AccCommentDTO newAccCommentDTO, @PathVariable Integer accCommentCode) {
+        AccComment accComment = accCommentService.modifyAccComment(accCommentCode, newAccCommentDTO);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("accComment", accComment);
+
+        return ResponseEntity
+                .ok(new ResponseMessage(responseMap));
     }
 }
