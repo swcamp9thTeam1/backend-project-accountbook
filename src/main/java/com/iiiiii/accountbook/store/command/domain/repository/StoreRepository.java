@@ -4,4 +4,6 @@ import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StoreRepository extends JpaRepository<Store, Integer> {
+
+    long countByLatitudeAndLongitude(String latitude, String longitude);
 }
