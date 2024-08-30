@@ -3,7 +3,10 @@ package com.iiiiii.accountbook.store.command.application.service;
 import com.iiiiii.accountbook.common.YesOrNo;
 import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyStoreVO;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
+import com.iiiiii.accountbook.store.exception.NotFoundStoreException;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
@@ -14,7 +17,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,18 +47,15 @@ public class StoreService {
 
         List<StoreDTO> newStores = parsingStoreExcel(file, extension);
 
-        List<Store> storeEntities = newStores.stream().map(newStoreDTO -> {
-            Store store = new Store();
-            store.setStoreName(newStoreDTO.getStoreName());
-            store.setAddress(newStoreDTO.getAddress());
-            store.setLatitude(newStoreDTO.getLatitude());
-            store.setLongitude(newStoreDTO.getLongitude());
-            store.setIsGood(newStoreDTO.getIsGood());
-            store.setGoodMenuName(newStoreDTO.getGoodMenuName());
-            store.setGoodMenuPrice(newStoreDTO.getGoodMenuPrice());
-
-            return store;
-        }).collect(Collectors.toList());
+        List<Store> storeEntities = newStores.stream().map(newStoreDTO -> new Store(
+                newStoreDTO.getStoreName(),
+                newStoreDTO.getAddress(),
+                newStoreDTO.getLatitude(),
+                newStoreDTO.getLongitude(),
+                newStoreDTO.getIsGood(),
+                newStoreDTO.getGoodMenuName(),
+                newStoreDTO.getGoodMenuPrice()
+        )).collect(Collectors.toList());
 
         storeRepository.saveAll(storeEntities);
     }
@@ -132,6 +131,16 @@ public class StoreService {
     }
 
     @Transactional
+    public void modifyStore(int storeCode, RequestModifyStoreVO requestBody) throws Exception {
+        Store foundStore = storeRepository.findById(storeCode).orElseThrow(NotFoundStoreException::new);
+
+        foundStore.setStoreName(requestBody.getName());
+        foundStore.setAddress(requestBody.getAddress());
+        foundStore.setLatitude(requestBody.getLatitude());
+        foundStore.setLongitude(requestBody.getLongitude());
+    }
+
+    @Transactional
     public void modifyGoodStoreToN(int storeCode) {
 
         // 가게를 삭제하지 않고, 착한가격업소 정보만 비운다. (UPDATE)
@@ -142,10 +151,20 @@ public class StoreService {
     }
 
     @Transactional
-    public void removeStore(int storeCode) throws NotValidRequestException {
+    public void modifyGoodStore(int storeCode, RequestModifyGoodStoreVO requestModifyGoodStoreVO)
+            throws Exception {
+        Store foundStore = storeRepository.findById(storeCode)
+                .orElseThrow(NotFoundStoreException::new);
+
+        foundStore.setGoodMenuName(requestModifyGoodStoreVO.getGoodMenuName());
+        foundStore.setGoodMenuPrice(requestModifyGoodStoreVO.getGoodMenuPrice());
+    }
+
+    @Transactional
+    public void removeStore(int storeCode) throws Exception {
 
         if (!storeRepository.existsById(storeCode)) {
-            throw new NotValidRequestException("존재하지 않는 가게는 삭제할 수 없습니다.");
+            throw new NotFoundStoreException();
         }
 
         storeRepository.deleteById(storeCode);

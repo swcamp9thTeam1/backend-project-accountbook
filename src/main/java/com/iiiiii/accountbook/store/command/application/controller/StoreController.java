@@ -1,7 +1,8 @@
 package com.iiiiii.accountbook.store.command.application.controller;
 
-import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.application.service.StoreService;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyStoreVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,18 +33,44 @@ public class StoreController {
                 .build();
     }
 
-    @PutMapping("/good/{storeCode}")
+    @PutMapping("/{storeCode}")
+    public ResponseEntity<?> modifyStore(@PathVariable int storeCode, @RequestBody RequestModifyStoreVO requestBody)
+            throws Exception {
+
+        storeService.modifyStore(storeCode, requestBody);
+
+        return ResponseEntity
+                .noContent()
+                .header("Content-Location", "/stores/" + storeCode)
+                .build();
+    }
+
+    @PutMapping("/good/{storeCode}/change-n")
     public ResponseEntity<?> modifyGoodStoreToN(@PathVariable int storeCode) {
 
         storeService.modifyGoodStoreToN(storeCode);
 
         return ResponseEntity
                 .noContent()
+                .header("Content-Location", "/stores/" + storeCode)
+                .build();
+    }
+
+    @PutMapping("/good/{storeCode}")
+    public ResponseEntity<?> modifyGoodStore(
+            @PathVariable int storeCode,
+            @RequestBody RequestModifyGoodStoreVO requestModifyGoodStoreVO) throws Exception {
+
+        storeService.modifyGoodStore(storeCode, requestModifyGoodStoreVO);
+
+        return ResponseEntity
+                .noContent()
+                .header("Content-Location", "/stores/" + storeCode)
                 .build();
     }
 
     @DeleteMapping("/{storeCode}")
-    public ResponseEntity<?> removeStore(@PathVariable int storeCode) throws NotValidRequestException {
+    public ResponseEntity<?> removeStore(@PathVariable int storeCode) throws Exception {
 
         storeService.removeStore(storeCode);
 

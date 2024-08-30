@@ -2,6 +2,7 @@ package com.iiiiii.accountbook.config;
 
 import com.iiiiii.accountbook.common.ResponseError;
 import com.iiiiii.accountbook.exception.NotValidRequestException;
+import com.iiiiii.accountbook.store.exception.NotFoundStoreException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,10 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 public class GlobalExceptionHandler {
 
     // status code 400
-    @ExceptionHandler(NotValidRequestException.class)
+    @ExceptionHandler({
+            NotValidRequestException.class,
+            NotFoundStoreException.class
+    })
     public ResponseEntity<ResponseError> handleBadRequest(Exception e) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
