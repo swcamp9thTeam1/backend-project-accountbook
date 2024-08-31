@@ -1,4 +1,4 @@
-package com.iiiiii.accountbook.asset.command.dto;
+package com.iiiiii.accountbook.asset.command.domain.aggregate.dto;
 
 import com.iiiiii.accountbook.common.AssetCategory;
 import com.iiiiii.accountbook.common.YesOrNo;

@@ -1,4 +1,4 @@
-package com.iiiiii.accountbook.asset.command.aggregate.entity;
+package com.iiiiii.accountbook.asset.command.domain.aggregate.entity;
 
 import com.iiiiii.accountbook.common.AssetCategory;
 import com.iiiiii.accountbook.common.YesOrNo;
