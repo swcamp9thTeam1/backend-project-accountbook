@@ -4,9 +4,12 @@ import com.iiiiii.accountbook.asset.command.application.service.AssetService;
 import com.iiiiii.accountbook.asset.command.domain.aggregate.dto.AssetDTO;
 import com.iiiiii.accountbook.asset.command.domain.repository.AssetRepository;
 import com.iiiiii.accountbook.common.AssetCategory;
+import com.iiiiii.accountbook.common.YesOrNo;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class AssetServiceTests {
@@ -25,6 +28,19 @@ public class AssetServiceTests {
 
         assetService.registAsset(asset);
 
-        Assertions.assertNotNull(assetRepository);
+        assertNotNull(assetRepository);
+    }
+
+    @DisplayName("보유 중인 자산 수정 테스트")
+    @Test
+    public void modifyAsset() {
+
+        AssetDTO modifiedAsset = new AssetDTO(
+                10, AssetCategory.M, "용돈", 300000L, null, YesOrNo.N, 3);
+                // 자산명(name)과 현재잔액(balance) 수정
+
+        assetService.modifyAsset(10, modifiedAsset);
+
+        assertEquals("용돈", assetRepository.findById(10).get().getName());
     }
 }
