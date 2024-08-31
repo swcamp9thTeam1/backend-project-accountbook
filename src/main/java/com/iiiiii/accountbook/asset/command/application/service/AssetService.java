@@ -1,8 +1,8 @@
-package com.iiiiii.accountbook.asset.command.service;
+package com.iiiiii.accountbook.asset.command.application.service;
 
-import com.iiiiii.accountbook.asset.command.aggregate.entity.Asset;
-import com.iiiiii.accountbook.asset.command.dto.AssetDTO;
-import com.iiiiii.accountbook.asset.command.repository.AssetRepository;
+import com.iiiiii.accountbook.asset.command.domain.aggregate.entity.Asset;
+import com.iiiiii.accountbook.asset.command.domain.aggregate.dto.AssetDTO;
+import com.iiiiii.accountbook.asset.command.domain.repository.AssetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -26,7 +26,6 @@ public class AssetService {
     /* 자산 등록 트랜잭션 */
     @Transactional
     public void registAsset(AssetDTO newAsset) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         assetRepository.save(modelMapper.map(newAsset, Asset.class));
     }
 }

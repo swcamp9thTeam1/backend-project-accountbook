@@ -27,4 +27,18 @@
          WHERE A.MEMBER_CODE = #{memberCode}
     </select>
 
+    <select id="selectMyAssetsByCategory" resultMap="assetResultMap">
+        SELECT
+               A.CODE
+             , A.CATEGORY
+             , A.NAME
+             , A.BALANCE
+             , A.PAYMENT_DATE
+             , A.IS_DELETED
+             , A.MEMBER_CODE
+          FROM ASSET A
+         WHERE A.MEMBER_CODE = #{memberCode}
+           AND A.CATEGORY = #{category}
+    </select>
+
 </mapper>

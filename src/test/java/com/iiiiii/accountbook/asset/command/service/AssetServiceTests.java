@@ -1,7 +1,8 @@
 package com.iiiiii.accountbook.asset.command.service;
 
-import com.iiiiii.accountbook.asset.command.dto.AssetDTO;
-import com.iiiiii.accountbook.asset.command.repository.AssetRepository;
+import com.iiiiii.accountbook.asset.command.application.service.AssetService;
+import com.iiiiii.accountbook.asset.command.domain.aggregate.dto.AssetDTO;
+import com.iiiiii.accountbook.asset.command.domain.repository.AssetRepository;
 import com.iiiiii.accountbook.common.AssetCategory;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class AssetServiceTests {
     @Test
     public void registAsset() {
 
-        AssetDTO asset = new AssetDTO(AssetCategory.B, "우리은행", 100000L, 1);
+        AssetDTO asset = new AssetDTO(AssetCategory.B, "우리은행", 100000L, 3);
 
         assetService.registAsset(asset);
 
