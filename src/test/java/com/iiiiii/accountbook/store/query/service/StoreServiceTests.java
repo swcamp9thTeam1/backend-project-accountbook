@@ -1,6 +1,7 @@
 package com.iiiiii.accountbook.store.query.service;
 
 import com.iiiiii.accountbook.common.YesOrNo;
+import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
 import com.iiiiii.accountbook.store.common.StoreSearchCriteria;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Transactional
@@ -23,6 +25,9 @@ class StoreServiceTests {
 
     @Autowired
     private StoreService storeService;
+
+    @Autowired
+    private StoreRepository storeCommandRepository;
 
     @DisplayName("가게 조회 테스트")
     @Test
@@ -67,5 +72,22 @@ class StoreServiceTests {
                 // TODO:: stores 중 code 하나 골라서 가게 리뷰 실제로 5개 넘는지 체크해야 하나..
             }
         }
+    }
+
+    @DisplayName("위도,경도로 가게 검색")
+    @Test
+    public void testSearchStoreByLatLng() {
+
+        // given
+        String lat = "37.497436";
+        String lng = "126.927531";
+        StoreSearchCriteria criteria = new StoreSearchCriteria(lat, lng);
+
+        // when
+        List<StoreDTO> foundStores = storeService.searchStore(criteria);
+
+        // then
+        long count = storeCommandRepository.countByLatitudeAndLongitude(lat, lng);
+        assertEquals(foundStores.size(), count);
     }
 }

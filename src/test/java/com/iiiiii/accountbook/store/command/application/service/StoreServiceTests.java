@@ -1,5 +1,8 @@
 package com.iiiiii.accountbook.store.command.application.service;
 
+import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RegisterStoreVO;
+import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +30,7 @@ class StoreServiceTests {
     private StoreService storeService;
 
     @Autowired
-    private com.iiiiii.accountbook.store.query.service.StoreService queryStoreService;
+    private StoreRepository storeRepository;
 
     @DisplayName("착한가격업소 등록 테스트 (엑셀 파일 사용)")
     @Test
@@ -57,6 +61,29 @@ class StoreServiceTests {
         MockMultipartFile finalMockMultipartFile = mockMultipartFile;
         assertNotNull(finalMockMultipartFile);
         assertDoesNotThrow(() -> storeService.registerGoodStore(finalMockMultipartFile));
+    }
+
+    @DisplayName("일반가게 1개 등록 테스트")
+    @Test
+    public void testRegisterStore() {
+
+        // given
+        String storeName = "동화자앙";
+        String storeAddress = "서울 동작구 여의대방로24길 137";
+        String lat = "37.499300";
+        String lng = "126.927739";
+
+        // when
+        storeService.registerStore(new RegisterStoreVO(
+                storeName, storeAddress, lat, lng
+        ));
+
+        // then
+        List<Store> foundStores = storeRepository.findByLatitudeAndLongitude(lat, lng);
+        foundStores.forEach(store -> {
+            assertEquals(store.getStoreName(),storeName);
+        });
+
     }
 
     @DisplayName("착한가격업소였던 가게를 일반가게로 변경하는 테스트")

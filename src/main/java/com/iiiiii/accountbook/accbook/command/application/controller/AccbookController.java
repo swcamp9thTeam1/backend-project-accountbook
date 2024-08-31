@@ -29,7 +29,8 @@ public class AccbookController {
         this.accCommentService = accCommentService;
     }
 
-    @PostMapping("/regist")
+    /* 가계부 관련 메소드 */
+    @PostMapping("")
     public ResponseEntity<?> registAccbook(@RequestBody AccbookDTO newAccbook) {
         Accbook savedAccbook = accbookService.registAccbook(newAccbook);
 
@@ -38,7 +39,7 @@ public class AccbookController {
                 .build();
     }
 
-    @PutMapping("/modify/{accbookCode}")
+    @PutMapping("/{accbookCode}")
     public ResponseEntity<?> modifyAccbook(@RequestBody AccbookDTO modifyAccbook, @PathVariable Integer accbookCode) {
         Accbook accbook = accbookService.modifyAccbook(accbookCode, modifyAccbook);
 
@@ -49,7 +50,7 @@ public class AccbookController {
                 .ok(new ResponseMessage(responseMap));
     }
 
-    @DeleteMapping("/remove/{accbookCode}")
+    @DeleteMapping("/{accbookCode}")
     public ResponseEntity<?> removeAccbook(@PathVariable Integer accbookCode) {
         accbookService.removeAccbook(accbookCode);
 
@@ -57,14 +58,38 @@ public class AccbookController {
                 .noContent().build();
     }
 
-    @PostMapping("/comment/regist")
-    public ResponseEntity<?> registAccComment(@RequestBody AccCommentDTO newAccCommentDTO) {
-        AccComment savedAccComment = accCommentService.registAccbookComment(newAccCommentDTO);
+    /* 가계부 댓글 관련 메소드 */
+    @PostMapping("{accbookCode}/comment")
+    public ResponseEntity<?> registAccComment(@RequestBody AccCommentDTO newAccCommentDTO,
+                                              @PathVariable Integer accbookCode) {
+        AccComment savedAccComment = accCommentService.registAccbookComment(accbookCode, newAccCommentDTO);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("accComment", savedAccComment);
         return ResponseEntity
                 .ok(new ResponseMessage(responseMap));
 
+    }
+
+    @PutMapping("{accbookCode}/comment/{accCommentCode}")
+    public ResponseEntity<?> modifyAccComment(@RequestBody AccCommentDTO newAccCommentDTO,
+                                              @PathVariable Integer accbookCode,
+                                              @PathVariable Integer accCommentCode) {
+        AccComment accComment = accCommentService.modifyAccComment(accbookCode, accCommentCode, newAccCommentDTO);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("accComment", accComment);
+
+        return ResponseEntity
+                .ok(new ResponseMessage(responseMap));
+    }
+
+    @DeleteMapping("{accbookCode}/comment/{accCommentCode}")
+    public ResponseEntity<?> removeAccComment(@PathVariable Integer accbookCode,
+                                              @PathVariable Integer accCommentCode) {
+        accCommentService.removeAccComment(accCommentCode);
+
+        return ResponseEntity
+                .noContent().build();
     }
 }

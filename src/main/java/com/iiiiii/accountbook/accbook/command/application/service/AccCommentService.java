@@ -7,6 +7,7 @@ import com.iiiiii.accountbook.accbook.command.domain.repository.AccCommentReposi
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("AccCommentServiceCommand")
 @Slf4j
@@ -18,17 +19,39 @@ public class AccCommentService {
     public AccCommentService(AccCommentRepository accCommentRepository) {
         this.accCommentRepository = accCommentRepository;
     }
-    public AccComment registAccbookComment(AccCommentDTO newAccCommentDTO) {
+
+    @Transactional
+    public AccComment registAccbookComment(Integer accbookCode, AccCommentDTO newAccCommentDTO) {
 
         AccComment accComment = new AccComment();
 
+        accComment.setAccbookCode(accbookCode);
         accComment.setCreatedAt(newAccCommentDTO.getCreatedAt());
         accComment.setDetail(newAccCommentDTO.getDetail());
         accComment.setParentCode(newAccCommentDTO.getParentCode());
-        accComment.setAccbookCode(newAccCommentDTO.getAccbookCode());
         accComment.setMemberCode(newAccCommentDTO.getMemberCode());
 
         accCommentRepository.save(accComment);
         return accComment;
+    }
+
+    @Transactional
+    public AccComment modifyAccComment(Integer accbookCode, Integer accCommentCode, AccCommentDTO modifyAccComment) {
+
+        AccComment accComment = accCommentRepository.findById(accCommentCode).orElseThrow(IllegalArgumentException::new);
+
+        accComment.setAccbookCode(accbookCode);
+        accComment.setCreatedAt(modifyAccComment.getCreatedAt());
+        accComment.setDetail(modifyAccComment.getDetail());
+        accComment.setParentCode(modifyAccComment.getParentCode());
+        accComment.setMemberCode(modifyAccComment.getMemberCode());
+
+        return accComment;
+    }
+
+    @Transactional
+    public void removeAccComment(Integer accCommentCode) {
+        AccComment accComment = accCommentRepository.findById(accCommentCode).orElseThrow(IllegalArgumentException::new);
+        accCommentRepository.delete(accComment);
     }
 }
