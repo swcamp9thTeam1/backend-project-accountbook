@@ -2,10 +2,12 @@ package com.iiiiii.accountbook.asset.command.service;
 
 import com.iiiiii.accountbook.asset.command.application.service.AssetService;
 import com.iiiiii.accountbook.asset.command.domain.aggregate.dto.AssetDTO;
+import com.iiiiii.accountbook.asset.command.domain.aggregate.entity.Asset;
 import com.iiiiii.accountbook.asset.command.domain.repository.AssetRepository;
 import com.iiiiii.accountbook.common.AssetCategory;
 import com.iiiiii.accountbook.common.YesOrNo;
 import org.junit.jupiter.api.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -42,5 +44,13 @@ public class AssetServiceTests {
         assetService.modifyAsset(10, modifiedAsset);
 
         assertEquals("용돈", assetRepository.findById(10).get().getName());
+    }
+
+    @DisplayName("가계부 내역 등록 시 자산 잔액 변동 테스트")
+    @Test
+    public void updateAssetByAccbook() {
+
+        assertDoesNotThrow(() -> assetService.modifyAssetByOut(9, 5000000L));
+        assertDoesNotThrow(() -> assetService.modifyAssetByIn(9, 2000000L));
     }
 }

@@ -41,6 +41,7 @@ public class Asset {
 
     @PrePersist
     public void prePersist() {
-        this.isDeleted = this.isDeleted == null ? YesOrNo.N : this.isDeleted;
+        this.isDeleted = this.isDeleted == null ? YesOrNo.N : this.isDeleted;   // 삭제여부: default N
+        this.balance = this.balance == null ? 0L : this.balance;                // 현재잔액: default 0
     }
 }
