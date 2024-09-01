@@ -2,12 +2,12 @@ package com.iiiiii.accountbook.asset.command.service;
 
 import com.iiiiii.accountbook.asset.command.application.service.AssetService;
 import com.iiiiii.accountbook.asset.command.domain.aggregate.dto.AssetDTO;
-import com.iiiiii.accountbook.asset.command.domain.aggregate.entity.Asset;
 import com.iiiiii.accountbook.asset.command.domain.repository.AssetRepository;
 import com.iiiiii.accountbook.common.AssetCategory;
 import com.iiiiii.accountbook.common.YesOrNo;
 import org.junit.jupiter.api.*;
-import org.modelmapper.ModelMapper;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -52,5 +52,17 @@ public class AssetServiceTests {
 
         assertDoesNotThrow(() -> assetService.modifyAssetByOut(9, 5000000L));
         assertDoesNotThrow(() -> assetService.modifyAssetByIn(9, 2000000L));
+    }
+
+    @DisplayName("보유 중인 자산 삭제 시 자산의 삭제여부, 잔액, 결제일 변경 테스트")
+    @ParameterizedTest
+    @ValueSource(ints = 11)
+    public void modifyAssetToDelete(int assetCode) {
+
+        assetService.modifyAssetToDelete(assetCode);
+
+        assertEquals(YesOrNo.Y, assetRepository.findById(assetCode).get().getIsDeleted());
+        assertEquals(0L, assetRepository.findById(assetCode).get().getBalance());
+        assertNull(assetRepository.findById(assetCode).get().getPaymentDate());
     }
 }

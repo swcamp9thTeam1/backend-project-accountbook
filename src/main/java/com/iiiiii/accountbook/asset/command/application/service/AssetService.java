@@ -56,7 +56,7 @@ public class AssetService {
     public void modifyAssetByOut(Integer assetCode, Long amount) {
 
         Asset usedAsset = assetRepository.findById(assetCode)
-                    .orElseThrow(() -> new EntityNotFoundException("해당 코드의 자산은 존재하지 않습니다."));
+                .orElseThrow(() -> new EntityNotFoundException("해당 코드의 자산은 존재하지 않습니다."));
 
         if (usedAsset.getBalance() >= amount && usedAsset.getIsDeleted() == YesOrNo.N) {
             usedAsset.setBalance(usedAsset.getBalance() - amount);
@@ -75,7 +75,7 @@ public class AssetService {
     public void modifyAssetByIn(Integer assetCode, Long amount) {
 
         Asset increasedAsset = assetRepository.findById(assetCode)
-                    .orElseThrow(() -> new EntityNotFoundException("해당 코드의 자산은 존재하지 않습니다."));
+                .orElseThrow(() -> new EntityNotFoundException("해당 코드의 자산은 존재하지 않습니다."));
 
         if (increasedAsset.getIsDeleted() == YesOrNo.N) {
             increasedAsset.setBalance(increasedAsset.getBalance() + amount);
@@ -84,5 +84,23 @@ public class AssetService {
         }
 
         assetRepository.save(increasedAsset);
+    }
+
+    /* 자산 삭제 트랜잭션 */
+    // soft delete (삭제여부 -> Y, 잔액 -> 0, 결제일 -> null)
+    @Transactional
+    public void modifyAssetToDelete(Integer assetCode) {
+
+        Asset myAsset = assetRepository.findById(assetCode)
+                .orElseThrow(() -> new EntityNotFoundException("해당 코드의 자산은 존재하지 않습니다."));
+
+        if (myAsset.getIsDeleted() != YesOrNo.N)
+            throw new IllegalArgumentException("이미 삭제된 자산입니다.");
+
+        myAsset.setIsDeleted(YesOrNo.Y);
+        myAsset.setBalance(0L);
+        myAsset.setPaymentDate(null);
+
+        assetRepository.save(myAsset);
     }
 }

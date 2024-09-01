@@ -36,4 +36,12 @@ public class AssetController {
 
         return ResponseEntity.noContent().build();
     }
+
+    /* 자산 삭제(실제로는 삭제여부, 잔액, 결제일 변경) */
+    @PutMapping("/{code}/delete")
+    public ResponseEntity<?> modifyAssetToDelete(@PathVariable Integer code) {
+        assetService.modifyAssetToDelete(code);
+
+        return ResponseEntity.noContent().build();
+    }
 }
