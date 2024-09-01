@@ -21,15 +21,19 @@ public class AssetController {
         this.assetService = registAsset;
     }
 
-    @GetMapping("/regist")
-    public void registAsset() {
-    }
-
     /* 자산 등록 */
     @PostMapping("")
     public ResponseEntity<?> registAsset(@RequestBody AssetDTO newAsset) {
         assetService.registAsset(newAsset);
 
         return ResponseEntity.created(URI.create("/assets/" + newAsset.getCode())).build();
+    }
+
+    /* 자산 수정 */
+    @PutMapping("/{code}")
+    public ResponseEntity<?> modifyAsset(@RequestBody AssetDTO modifiedAsset, @PathVariable Integer code) {
+        assetService.modifyAsset(code, modifiedAsset);
+
+        return ResponseEntity.noContent().build();
     }
 }
