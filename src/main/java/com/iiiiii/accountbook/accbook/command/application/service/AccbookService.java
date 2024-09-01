@@ -3,20 +3,31 @@ package com.iiiiii.accountbook.accbook.command.application.service;;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccbookDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accountbook.accbook.command.domain.repository.AccbookRepository;
+import com.iiiiii.accountbook.common.YesOrNo;
+import com.iiiiii.accountbook.regular_expense.query.dto.RegularExpenseDTO;
+import com.iiiiii.accountbook.regular_expense.query.service.RegularExpenseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("AccbookServiceCommand")
 @Slf4j
 public class AccbookService {
 
     private final AccbookRepository accbookRepository;
+    private final RegularExpenseService regularExpenseServiceQuery;
 
     @Autowired
-    public AccbookService(AccbookRepository accbookRepository) {
+    public AccbookService(AccbookRepository accbookRepository,
+                          RegularExpenseService regularExpenseServiceQuery) {
         this.accbookRepository = accbookRepository;
+        this.regularExpenseServiceQuery = regularExpenseServiceQuery;
     }
 
     @Transactional
@@ -68,5 +79,43 @@ public class AccbookService {
     public void removeAccbook(Integer accbookCode) {
         Accbook accbook = accbookRepository.findById(accbookCode).orElseThrow(IllegalArgumentException::new);
         accbookRepository.delete(accbook);
+    }
+
+    /* 고정지출 자동 기입 메서드 */
+    @Transactional
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
+    public void registRegularExpense() {
+        log.info("모든 고정지출 리스트 찾기 시작");
+
+        // 고정지출 서비스로부터 모든 고정지출 리스트 조회
+        List<RegularExpenseDTO> allRegularExpenseDTO = regularExpenseServiceQuery.findAllRegularExpenses();
+        log.info("모든 고정지출 리스트", allRegularExpenseDTO);
+
+        // 오늘 날짜 저장
+        int todayDate = LocalDate.now().getDayOfMonth();
+
+        // 오늘 날짜에 해당하는 고정지출 필터링
+        List<RegularExpenseDTO> todayRegularExpenseDTO = allRegularExpenseDTO.stream()
+                .filter(expense -> expense.getExpenseDate() == todayDate).collect(Collectors.toList());
+
+        log.info("오늘 고정지출 리스트", todayRegularExpenseDTO);
+
+        // 필터링한 고정지출을 Accbook 엔티티로 변환
+        List<Accbook> accbookList = todayRegularExpenseDTO.stream()
+                .map(expense -> {
+                    Accbook accbook = new Accbook();
+                    accbook.setCreatedAt(LocalDate.now().toString());
+                    accbook.setTitle(expense.getName());
+                    accbook.setAmount((long) expense.getAmount()); // RegularExpenseDTO의 amount -> Long으로 수정 필요
+                    accbook.setIsRegular(YesOrNo.Y);
+                    accbook.setMemberCode(expense.getMemberCode());
+                    accbook.setAccCategoryCode(expense.getAccCategoryCode());
+                    accbook.setStoreCode(null);
+                    accbook.setAssetCode(expense.getAssetCode());
+                    return accbook;
+                }).collect(Collectors.toList());
+
+        // 가계부DB에 저장
+        accbookRepository.saveAll(accbookList);
     }
 }
