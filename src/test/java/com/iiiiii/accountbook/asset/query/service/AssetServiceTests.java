@@ -32,15 +32,15 @@ public class AssetServiceTests {
     @ParameterizedTest
     @ValueSource(ints = 2)
     public void findMyAllAssetsAndBalance(int memberCode) {
-        int totalBalance = assetService.calcTotalBalance(memberCode);
-        assertEquals(6000000, totalBalance);
+        Long totalBalance = assetService.calcTotalBalance(memberCode);
+        assertEquals(6000000L, totalBalance);
     }
 
     @DisplayName("한 회원의 카테고리별 자산과 잔액 합계 조회 테스트")
     @ParameterizedTest
     @MethodSource("provideMemberCodeAndCategory")
     public void findMyAssetsAndBalance(int memberCode, AssetCategory category) {
-        int totalBalance = assetService.calcTotalBalanceByCategory(memberCode, category);
-        assertEquals(25000000, totalBalance);
+        Long totalBalance = assetService.calcTotalBalanceByCategory(memberCode, category);
+        assertEquals(25000000L, totalBalance);
     }
 }
