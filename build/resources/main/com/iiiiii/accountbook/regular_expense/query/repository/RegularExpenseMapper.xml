@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.regular_expense.query.repository.RegularExpenseMapper">
+    <resultMap id="responseResultMap1" type="com.iiiiii.accountbook.regular_expense.query.dto.RegularExpenseDTO">
+        <id property="code" column="CODE"/>
+        <result property="expenseDate" column="EXPENSE_DATE"/>
+        <result property="name" column="NAME"/>
+        <result property="amount" column="AMOUNT"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="assetCode" column="ASSET_CODE"/>
+        <result property="accCategoryCode" column="ACC_CATEGORY_CODE"/>
+    </resultMap>
+
+    <resultMap id="responseResultMap2" type="com.iiiiii.accountbook.regular_expense.query.dto.ResponseRegularExpenseDTO">
+        <id property="code" column="CODE"/>
+        <result property="expenseDate" column="EXPENSE_DATE"/>
+        <result property="name" column="NAME"/>
+        <result property="amount" column="AMOUNT"/>
+        <result property="assetCode" column="ASSET_CODE"/>
+        <result property="accCategoryCode" column="ACC_CATEGORY_CODE"/>
+    </resultMap>
+
+    <select id="findAllRegularExpenses" resultMap="responseResultMap1">
+        SELECT
+               A.CODE
+             , A.EXPENSE_DATE
+             , A.NAME
+             , A.AMOUNT
+             , A.MEMBER_CODE
+             , A.ASSET_CODE
+             , A.ACC_CATEGORY_CODE
+          FROM REGULAR_EXPENSE A
+    </select>
+
+    <select id="findOneMemberRegularExpenses" resultMap="responseResultMap2" parameterType="_int">
+         SELECT
+                A.CODE
+              , A.EXPENSE_DATE
+              , A.NAME
+              , A.AMOUNT
+              , A.ASSET_CODE
+              , A.ACC_CATEGORY_CODE
+           FROM regular_expense A
+          WHERE A.MEMBER_CODE = #{memberCode}
+    </select>
+
+    <select id="findOneRegularExpense" resultMap="responseResultMap1" parameterType="_int">
+         SELECT
+                A.CODE
+              , A.EXPENSE_DATE
+              , A.NAME
+              , A.AMOUNT
+              , A.MEMBER_CODE
+              , A.ASSET_CODE
+              , A.ACC_CATEGORY_CODE
+           FROM regular_expense A
+          WHERE A.CODE = #{regularExpenseCode}
+    </select>
+</mapper>

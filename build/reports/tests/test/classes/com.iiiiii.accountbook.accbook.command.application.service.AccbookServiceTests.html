@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - AccbookServiceTests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>AccbookServiceTests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.iiiiii.accountbook.accbook.command.application.service.html">com.iiiiii.accountbook.accbook.command.application.service</a> &gt; AccbookServiceTests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">2</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">2</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.900s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Failed tests</a>
+</li>
+<li>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="testRegistAccbook(String, String, Long, YesOrNo, Integer, Integer, Integer, Integer)[1]"></a>
+<h3 class="failures">[1] createdAt=2024-08-29, title=쿠팡, amount=58000, isRegular=N, memberCode=1, accCategoryCode=1, storeCode=null, assetCode=1</h3>
+<span class="code">
+<pre>org.mybatis.spring.MyBatisSystemException
+	at app//org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:97)
+	at app//org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:439)
+	at app/jdk.proxy3/jdk.proxy3.$Proxy158.selectOne(Unknown Source)
+	at app//org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:160)
+	at app//org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
+	at app//org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at app//org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at app/jdk.proxy3/jdk.proxy3.$Proxy163.selectOneAccCategory(Unknown Source)
+	at app//com.iiiiii.accountbook.acc_category.query.service.QueryAccCategoryService.findOneAccCategory(QueryAccCategoryService.java:40)
+	at app//com.iiiiii.accountbook.accbook.command.application.service.AccbookService.registAccbook(AccbookService.java:77)
+	at java.base@17.0.3/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.3/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.3/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.3/java.lang.reflect.Method.invoke(Method.java:568)
+	at app//org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at app//org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at app//org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at app//org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at app//org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at app//org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at app//com.iiiiii.accountbook.accbook.command.application.service.AccbookService$$SpringCGLIB$$0.registAccbook(&lt;generated&gt;)
+	at app//com.iiiiii.accountbook.accbook.command.application.service.AccbookServiceTests.testRegistAccbook(AccbookServiceTests.java:53)
+	at java.base@17.0.3/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base@17.0.3/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base@17.0.3/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.3/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.apache.ibatis.executor.result.ResultMapException: Error attempting to get column 'NAME' from result set.  Cause: java.lang.IllegalArgumentException: No enum constant com.iiiiii.accountbook.common.InOrOut.식비
+	at app//org.apache.ibatis.type.BaseTypeHandler.getResult(BaseTypeHandler.java:88)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.applyColumnOrderBasedConstructorAutomapping(DefaultResultSetHandler.java:789)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.applyConstructorAutomapping(DefaultResultSetHandler.java:776)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.createByConstructorSignature(DefaultResultSetHandler.java:727)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.createResultObject(DefaultResultSetHandler.java:689)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.createResultObject(DefaultResultSetHandler.java:659)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.getRowValue(DefaultResultSetHandler.java:411)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.handleRowValuesForSimpleResultMap(DefaultResultSetHandler.java:366)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.handleRowValues(DefaultResultSetHandler.java:337)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.handleResultSet(DefaultResultSetHandler.java:310)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.handleResultSets(DefaultResultSetHandler.java:202)
+	at app//org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:66)
+	at app//org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:80)
+	at app//org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:65)
+	at app//org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:336)
+	at app//org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:158)
+	at app//org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:110)
+	at app//org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:90)
+	at app//org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at app//org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at app//org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at app//org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:75)
+	at java.base@17.0.3/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.3/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.3/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.3/java.lang.reflect.Method.invoke(Method.java:568)
+	at app//org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:425)
+	... 68 more
+Caused by: java.lang.IllegalArgumentException: No enum constant com.iiiiii.accountbook.common.InOrOut.식비
+	at java.base/java.lang.Enum.valueOf(Enum.java:273)
+	at org.apache.ibatis.type.EnumTypeHandler.getNullableResult(EnumTypeHandler.java:49)
+	at org.apache.ibatis.type.EnumTypeHandler.getNullableResult(EnumTypeHandler.java:26)
+	at org.apache.ibatis.type.BaseTypeHandler.getResult(BaseTypeHandler.java:86)
+	... 94 more
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="testRegistAccbook(String, String, Long, YesOrNo, Integer, Integer, Integer, Integer)[2]"></a>
+<h3 class="failures">[2] createdAt=2024-08-30, title=웨이브, amount=10000, isRegular=Y, memberCode=1, accCategoryCode=2, storeCode=null, assetCode=2</h3>
+<span class="code">
+<pre>org.mybatis.spring.MyBatisSystemException
+	at app//org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:97)
+	at app//org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:439)
+	at app/jdk.proxy3/jdk.proxy3.$Proxy158.selectOne(Unknown Source)
+	at app//org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:160)
+	at app//org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
+	at app//org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at app//org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at app/jdk.proxy3/jdk.proxy3.$Proxy163.selectOneAccCategory(Unknown Source)
+	at app//com.iiiiii.accountbook.acc_category.query.service.QueryAccCategoryService.findOneAccCategory(QueryAccCategoryService.java:40)
+	at app//com.iiiiii.accountbook.accbook.command.application.service.AccbookService.registAccbook(AccbookService.java:77)
+	at java.base@17.0.3/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.3/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.3/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.3/java.lang.reflect.Method.invoke(Method.java:568)
+	at app//org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at app//org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at app//org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at app//org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at app//org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at app//org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at app//org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at app//com.iiiiii.accountbook.accbook.command.application.service.AccbookService$$SpringCGLIB$$0.registAccbook(&lt;generated&gt;)
+	at app//com.iiiiii.accountbook.accbook.command.application.service.AccbookServiceTests.testRegistAccbook(AccbookServiceTests.java:53)
+	at java.base@17.0.3/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base@17.0.3/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base@17.0.3/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base@17.0.3/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base@17.0.3/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base@17.0.3/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base@17.0.3/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.3/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: org.apache.ibatis.executor.result.ResultMapException: Error attempting to get column 'NAME' from result set.  Cause: java.lang.IllegalArgumentException: No enum constant com.iiiiii.accountbook.common.InOrOut.교통비
+	at app//org.apache.ibatis.type.BaseTypeHandler.getResult(BaseTypeHandler.java:88)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.applyColumnOrderBasedConstructorAutomapping(DefaultResultSetHandler.java:789)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.applyConstructorAutomapping(DefaultResultSetHandler.java:776)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.createByConstructorSignature(DefaultResultSetHandler.java:727)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.createResultObject(DefaultResultSetHandler.java:689)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.createResultObject(DefaultResultSetHandler.java:659)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.getRowValue(DefaultResultSetHandler.java:411)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.handleRowValuesForSimpleResultMap(DefaultResultSetHandler.java:366)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.handleRowValues(DefaultResultSetHandler.java:337)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.handleResultSet(DefaultResultSetHandler.java:310)
+	at app//org.apache.ibatis.executor.resultset.DefaultResultSetHandler.handleResultSets(DefaultResultSetHandler.java:202)
+	at app//org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:66)
+	at app//org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:80)
+	at app//org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:65)
+	at app//org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:336)
+	at app//org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:158)
+	at app//org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:110)
+	at app//org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:90)
+	at app//org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at app//org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at app//org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at app//org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:75)
+	at java.base@17.0.3/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.3/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.3/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.3/java.lang.reflect.Method.invoke(Method.java:568)
+	at app//org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:425)
+	... 68 more
+Caused by: java.lang.IllegalArgumentException: No enum constant com.iiiiii.accountbook.common.InOrOut.교통비
+	at java.base/java.lang.Enum.valueOf(Enum.java:273)
+	at org.apache.ibatis.type.EnumTypeHandler.getNullableResult(EnumTypeHandler.java:49)
+	at org.apache.ibatis.type.EnumTypeHandler.getNullableResult(EnumTypeHandler.java:26)
+	at org.apache.ibatis.type.BaseTypeHandler.getResult(BaseTypeHandler.java:86)
+	... 94 more
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="failures">[1] createdAt=2024-08-29, title=쿠팡, amount=58000, isRegular=N, memberCode=1, accCategoryCode=1, storeCode=null, assetCode=1</td>
+<td class="failures">testRegistAccbook(String, String, Long, YesOrNo, Integer, Integer, Integer, Integer)[1]</td>
+<td class="failures">0.875s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="failures">[2] createdAt=2024-08-30, title=웨이브, amount=10000, isRegular=Y, memberCode=1, accCategoryCode=2, storeCode=null, assetCode=2</td>
+<td class="failures">testRegistAccbook(String, String, Long, YesOrNo, Integer, Integer, Integer, Integer)[2]</td>
+<td class="failures">0.025s</td>
+<td class="failures">failed</td>
+</tr>
+</table>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>18:14:12.905 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.iiiiii.accountbook.accbook.command.application.service.AccbookServiceTests]: AccbookServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:14:13.136 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.iiiiii.accountbook.BackendAccountbookApplication for test class com.iiiiii.accountbook.accbook.command.application.service.AccbookServiceTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.3)
+
+2024-09-02T18:14:14.984+09:00  WARN 13856 --- [iiiiii-accountbook] [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/DaMin/.gradle/caches/modules-2/files-2.1/org.json/json/20240303/ebb88e8fb5122b7506d5cf1d69f1ccdb790d22a/json-20240303.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/DaMin/.gradle/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+2024-09-02T18:14:15.009+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] c.i.a.a.c.a.service.AccbookServiceTests  : Starting AccbookServiceTests using Java 17.0.3 with PID 13856 (started by DaMin in C:\Users\DaMin\springStudy\backend-project-accountbook)
+2024-09-02T18:14:15.010+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] c.i.a.a.c.a.service.AccbookServiceTests  : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2024-09-02T18:14:16.551+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-02T18:14:16.907+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 340 ms. Found 9 JPA repository interfaces.
+2024-09-02T18:14:17.431+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] o.s.cloud.context.scope.GenericScope     : BeanFactory id=9fb2d833-4e90-39cd-8a96-2066319f3958
+2024-09-02T18:14:17.709+09:00  WARN 13856 --- [iiiiii-accountbook] [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-09-02T18:14:17.714+09:00  WARN 13856 --- [iiiiii-accountbook] [    Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-09-02T18:14:17.956+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-09-02T18:14:18.116+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.connection                          : 1. Connection opened
+2024-09-02T18:14:18.116+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.new Connection returned 
+2024-09-02T18:14:18.116+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getNetworkTimeout() returned 0
+2024-09-02T18:14:18.117+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.117+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.117+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.isValid(1) returned true
+2024-09-02T18:14:18.126+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getTransactionIsolation() returned 4
+2024-09-02T18:14:18.128+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@1c4057f9
+2024-09-02T18:14:18.131+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-09-02T18:14:18.141+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getMetaData() returned org.mariadb.jdbc.DatabaseMetaData@7717b4a0
+2024-09-02T18:14:18.149+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.clearWarnings() returned 
+2024-09-02T18:14:18.221+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-02T18:14:18.237+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 2. Connection opened
+2024-09-02T18:14:18.237+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 2. Connection.new Connection returned 
+2024-09-02T18:14:18.237+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 2. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.237+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 2. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.283+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 3. Connection opened
+2024-09-02T18:14:18.283+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 3. Connection.new Connection returned 
+2024-09-02T18:14:18.283+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 3. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.283+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 3. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.331+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 4. Connection opened
+2024-09-02T18:14:18.331+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 4. Connection.new Connection returned 
+2024-09-02T18:14:18.332+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 4. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.332+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 4. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.378+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 5. Connection opened
+2024-09-02T18:14:18.379+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 5. Connection.new Connection returned 
+2024-09-02T18:14:18.379+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 5. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.379+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 5. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.394+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-02T18:14:18.422+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 6. Connection opened
+2024-09-02T18:14:18.422+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 6. Connection.new Connection returned 
+2024-09-02T18:14:18.423+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 6. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.424+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 6. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.468+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 7. Connection opened
+2024-09-02T18:14:18.469+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 7. Connection.new Connection returned 
+2024-09-02T18:14:18.469+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 7. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.469+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 7. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.499+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-09-02T18:14:18.515+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 8. Connection opened
+2024-09-02T18:14:18.515+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 8. Connection.new Connection returned 
+2024-09-02T18:14:18.515+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 8. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.516+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 8. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.560+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 9. Connection opened
+2024-09-02T18:14:18.561+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 9. Connection.new Connection returned 
+2024-09-02T18:14:18.561+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 9. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.561+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 9. Connection.getAutoCommit() returned true
+2024-09-02T18:14:18.613+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.connection                          : 10. Connection opened
+2024-09-02T18:14:18.613+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 10. Connection.new Connection returned 
+2024-09-02T18:14:18.613+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 10. Connection.isReadOnly() returned false
+2024-09-02T18:14:18.614+09:00  INFO 13856 --- [iiiiii-accountbook] [onnection adder] jdbc.audit                               : 10. Connection.getAutoCommit() returned true
+2024-09-02T18:14:19.093+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-02T18:14:19.151+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.isValid(5) returned true
+2024-09-02T18:14:19.152+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getMetaData() returned org.mariadb.jdbc.DatabaseMetaData@38caad07
+2024-09-02T18:14:19.173+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Statement.new Statement returned 
+2024-09-02T18:14:19.173+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.createStatement() returned net.sf.log4jdbc.sql.jdbcapi.StatementSpy@c2f7c63
+2024-09-02T18:14:19.177+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.sqlonly                             : SELECT @@character_set_database, @@sql_mode
+
+2024-09-02T18:14:19.178+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.sqltiming                           : SELECT @@character_set_database, @@sql_mode
+ {executed in 0 msec}
+2024-09-02T18:14:19.186+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.new ResultSet returned 
+2024-09-02T18:14:19.186+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Statement.executeQuery(SELECT @@character_set_database, @@sql_mode) returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@5d94ac8a
+2024-09-02T18:14:19.193+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.next() returned true
+2024-09-02T18:14:19.194+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getString(1) returned utf8mb4
+2024-09-02T18:14:19.194+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getString(2) returned IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+2024-09-02T18:14:19.194+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Statement.close() returned 
+2024-09-02T18:14:19.211+09:00  WARN 13856 --- [iiiiii-accountbook] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-09-02T18:14:19.226+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getCatalog() returned accbookdb
+2024-09-02T18:14:19.229+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getSchema() returned null
+2024-09-02T18:14:19.230+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getSchema() returned null
+2024-09-02T18:14:19.238+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getMetaData() returned org.mariadb.jdbc.DatabaseMetaData@75f2ff80
+2024-09-02T18:14:19.240+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.createClob() returned 
+2024-09-02T18:14:19.240+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.createNClob() returned 
+2024-09-02T18:14:19.240+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.clearWarnings() returned 
+2024-09-02T18:14:21.262+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-02T18:14:21.268+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-02T18:14:22.864+09:00  WARN 13856 --- [iiiiii-accountbook] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-02T18:14:26.302+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2024-09-02T18:14:26.371+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] o.s.c.f.web.mvc.FunctionHandlerMapping   : FunctionCatalog: org.springframework.cloud.function.context.catalog.BeanFactoryAwareFunctionRegistry@7cb32ca5
+2024-09-02T18:14:26.514+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] c.i.a.a.c.a.service.AccbookServiceTests  : Started AccbookServiceTests in 13.074 seconds (process running for 15.613)
+2024-09-02T18:14:26.574+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.isValid(5) returned true
+2024-09-02T18:14:26.574+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getAutoCommit() returned true
+2024-09-02T18:14:26.575+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.setAutoCommit(false) returned 
+2024-09-02T18:14:27.345+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getAutoCommit() returned false
+2024-09-02T18:14:27.353+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.new PreparedStatement returned 
+2024-09-02T18:14:27.355+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.prepareStatement(SELECT
+               A.CODE
+             , A.NAME
+             , A.FINANCE_TYPE
+             , A.VISIBILITY
+             , A.IS_DELETED
+             , A.MEMBER_CODE
+             , A.PARENT_CODE
+          FROM ACC_CATEGORY A
+         WHERE A.CODE = ?) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@656bd8e
+2024-09-02T18:14:27.359+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.setInt(1, 1) returned 
+2024-09-02T18:14:27.359+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.sqlonly                             : SELECT
+               A.CODE
+             , A.NAME
+             , A.FINANCE_TYPE
+             , A.VISIBILITY
+             , A.IS_DELETED
+             , A.MEMBER_CODE
+             , A.PARENT_CODE
+          FROM ACC_CATEGORY A
+         WHERE A.CODE = 1
+
+2024-09-02T18:14:27.361+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.sqltiming                           : SELECT
+               A.CODE
+             , A.NAME
+             , A.FINANCE_TYPE
+             , A.VISIBILITY
+             , A.IS_DELETED
+             , A.MEMBER_CODE
+             , A.PARENT_CODE
+          FROM ACC_CATEGORY A
+         WHERE A.CODE = 1
+ {executed in 2 msec}
+2024-09-02T18:14:27.362+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.execute() returned true
+2024-09-02T18:14:27.362+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.new ResultSet returned 
+2024-09-02T18:14:27.363+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@62c41ad
+2024-09-02T18:14:27.364+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getMetaData() returned org.mariadb.jdbc.client.result.ResultSetMetaData@bfe49f9
+2024-09-02T18:14:27.370+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getType() returned 1003
+2024-09-02T18:14:27.370+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.isClosed() returned false
+2024-09-02T18:14:27.370+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.next() returned true
+2024-09-02T18:14:27.372+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getString(CODE) returned 1
+2024-09-02T18:14:27.373+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getString(NAME) returned 식비
+2024-09-02T18:14:27.379+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultsettable                      : 
+|-----|-----|-------------|-----------|-----------|------------|------------|
+|code |name |finance_type |visibility |is_deleted |member_code |parent_code |
+|-----|-----|-------------|-----------|-----------|------------|------------|
+|1    |식비   |[unread]     |[unread]   |[unread]   |[unread]    |[unread]    |
+|-----|-----|-------------|-----------|-----------|------------|------------|
+
+2024-09-02T18:14:27.379+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.close() returned void
+2024-09-02T18:14:27.379+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.close() returned 
+2024-09-02T18:14:27.400+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.rollback() returned 
+2024-09-02T18:14:27.401+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.setAutoCommit(true) returned 
+2024-09-02T18:14:27.404+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.clearWarnings() returned 
+2024-09-02T18:14:27.404+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.clearWarnings() returned 
+2024-09-02T18:14:27.431+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getAutoCommit() returned true
+2024-09-02T18:14:27.432+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.setAutoCommit(false) returned 
+2024-09-02T18:14:27.436+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.getAutoCommit() returned false
+2024-09-02T18:14:27.436+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.new PreparedStatement returned 
+2024-09-02T18:14:27.436+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.prepareStatement(SELECT
+               A.CODE
+             , A.NAME
+             , A.FINANCE_TYPE
+             , A.VISIBILITY
+             , A.IS_DELETED
+             , A.MEMBER_CODE
+             , A.PARENT_CODE
+          FROM ACC_CATEGORY A
+         WHERE A.CODE = ?) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@136dc728
+2024-09-02T18:14:27.436+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.setInt(1, 2) returned 
+2024-09-02T18:14:27.437+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.sqlonly                             : SELECT
+               A.CODE
+             , A.NAME
+             , A.FINANCE_TYPE
+             , A.VISIBILITY
+             , A.IS_DELETED
+             , A.MEMBER_CODE
+             , A.PARENT_CODE
+          FROM ACC_CATEGORY A
+         WHERE A.CODE = 2
+
+2024-09-02T18:14:27.438+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.sqltiming                           : SELECT
+               A.CODE
+             , A.NAME
+             , A.FINANCE_TYPE
+             , A.VISIBILITY
+             , A.IS_DELETED
+             , A.MEMBER_CODE
+             , A.PARENT_CODE
+          FROM ACC_CATEGORY A
+         WHERE A.CODE = 2
+ {executed in 1 msec}
+2024-09-02T18:14:27.438+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.execute() returned true
+2024-09-02T18:14:27.438+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.new ResultSet returned 
+2024-09-02T18:14:27.439+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@47bc4445
+2024-09-02T18:14:27.439+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getMetaData() returned org.mariadb.jdbc.client.result.ResultSetMetaData@687e9f0b
+2024-09-02T18:14:27.439+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getType() returned 1003
+2024-09-02T18:14:27.439+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.isClosed() returned false
+2024-09-02T18:14:27.439+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.next() returned true
+2024-09-02T18:14:27.439+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getString(CODE) returned 2
+2024-09-02T18:14:27.439+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.getString(NAME) returned 교통비
+2024-09-02T18:14:27.443+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultsettable                      : 
+|-----|-----|-------------|-----------|-----------|------------|------------|
+|code |name |finance_type |visibility |is_deleted |member_code |parent_code |
+|-----|-----|-------------|-----------|-----------|------------|------------|
+|2    |교통비  |[unread]     |[unread]   |[unread]   |[unread]    |[unread]    |
+|-----|-----|-------------|-----------|-----------|------------|------------|
+
+2024-09-02T18:14:27.443+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.resultset                           : 1. ResultSet.close() returned void
+2024-09-02T18:14:27.443+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. PreparedStatement.close() returned 
+2024-09-02T18:14:27.447+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.rollback() returned 
+2024-09-02T18:14:27.448+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.setAutoCommit(true) returned 
+2024-09-02T18:14:27.448+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.clearWarnings() returned 
+2024-09-02T18:14:27.449+09:00  INFO 13856 --- [iiiiii-accountbook] [    Test worker] jdbc.audit                               : 1. Connection.clearWarnings() returned 
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.8</a> at 2024. 9. 2. 오후 6:14:27</p>
+</div>
+</div>
+</body>
+</html>

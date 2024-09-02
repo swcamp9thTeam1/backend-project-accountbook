@@ -1,0 +1,175 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.accbook.query.repository.AccbookMapper">
+
+    <!-- result map-->
+    <resultMap id="accbookResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccbookDTO">
+        <id property="accbookCode" column="CODE" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="amount" column="AMOUNT" />
+        <result property="isRegular" column="IS_REGULAR" />
+        <result property="title" column="TITLE" />
+        <result property="memberCode" column="MEMBER_CODE" />
+        <result property="accCategoryCode" column="ACC_CATEGORY_CODE" />
+        <result property="storeCode" column="STORE_CODE" />
+        <result property="assetCode" column="ASSET_CODE" />
+    </resultMap>
+
+    <resultMap id="accbookTop3CategoryResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccbookTop3CategoryDTO">
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="monthYear" column="MONTH_YEAR"/>
+        <result property="categoryName" column="CATEGORY_NAME"/>
+        <result property="totalSpent" column="TOTAL_SPENT"/>
+        <result property="spendingRank" column="SPENDING_RANK"/>
+    </resultMap>
+
+    <resultMap id="accbookCategoryStatsResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccbookCategoryStatsDTO">
+        <result property="categoryName" column="CATEGORY_NAME"/>
+        <result property="financeType" column="FINANCE_TYPE"/>
+        <result property="totalSpent" column="TOTAL_SPENT"/>
+    </resultMap>
+
+    <resultMap id="accCommentResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccCommentDTO">
+        <result property="detail" column="DETAIL"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="commentCode" column="COMMENT_CODE"/>
+        <result property="parentCode" column="PARENT_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+    </resultMap>
+
+    <resultMap id="accbookDetailResultMap" type="com.iiiiii.accountbook.accbook.query.dto.AccbookDetailDTO">
+        <id property="accbookCode" column="CODE" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="amount" column="AMOUNT" />
+        <result property="isRegular" column="IS_REGULAR" />
+        <result property="title" column="TITLE" />
+        <result property="accCategoryName" column="ACC_CATEGORY_NAME" />
+        <result property="storeName" column="STORE_NAME" />
+        <result property="assetName" column="ASSET_NAME" />
+
+        <!-- AccCommentDTO 리스트 매핑 -->
+        <collection property="accCommentDTOList" ofType="com.iiiiii.accountbook.accbook.query.dto.AccCommentDTO"
+                    select="selectAccCommentBy" column="CODE"/>
+    </resultMap>
+
+    <!-- query -->
+    <select id="selectDailyAccbookBy" resultMap="accbookResultMap">
+        SELECT
+        A.CODE
+        , A.CREATED_AT
+        , A.AMOUNT
+        , A.IS_REGULAR
+        , A.TITLE
+        , A.MEMBER_CODE
+        , A.ACC_CATEGORY_CODE
+        , A.STORE_CODE
+        , A.ASSET_CODE
+        FROM ACCBOOK A
+        WHERE A.MEMBER_CODE = #{ memberCode }
+        AND DATE_FORMAT(A.created_at, '%Y-%m-%d') = #{ findDate };
+    </select>
+
+    <select id="selectWeeklyAccbookBy" resultMap="accbookResultMap">
+        SELECT
+          A.CODE
+        , A.CREATED_AT
+        , A.AMOUNT
+        , A.IS_REGULAR
+        , A.TITLE
+        , A.MEMBER_CODE
+        , A.ACC_CATEGORY_CODE
+        , A.STORE_CODE
+        , A.ASSET_CODE
+        FROM accbook A
+        WHERE A.member_code = #{ memberCode }
+        AND DATE_FORMAT(A.created_at, '%Y-%m') = #{ findDate }
+        AND WEEK(A.created_at, 1) - WEEK(DATE_SUB(A.created_at, INTERVAL DAYOFMONTH(A.created_at) - 1 DAY), 1) + 1 = #{ weekNo };
+    </select>
+
+    <select id="selectMonthlyAccbookBy" resultMap="accbookResultMap">
+        SELECT
+        A.CODE
+        , A.CREATED_AT
+        , A.AMOUNT
+        , A.IS_REGULAR
+        , A.TITLE
+        , A.MEMBER_CODE
+        , A.ACC_CATEGORY_CODE
+        , A.STORE_CODE
+        , A.ASSET_CODE
+        FROM ACCBOOK A
+        WHERE A.MEMBER_CODE = #{ memberCode }
+        AND DATE_FORMAT(A.created_at, '%Y-%m') = DATE_FORMAT(STR_TO_DATE(#{ findDate }, '%Y-%m-%d'), '%Y-%m');
+    </select>
+
+    <select id="selectMonthlyTop3Categories" resultMap="accbookTop3CategoryResultMap">
+        SELECT
+               A.member_code
+             , A.MONTH_YEAR
+             , A.CATEGORY_NAME
+             , A.total_spent
+             , A.spending_rank
+          FROM (
+                SELECT
+                       YEAR(B.created_at) AS year
+                     , MONTH(B.created_at) AS month
+                     , CONCAT(YEAR(B.created_at), '-', MONTH(B.created_at)) AS MONTH_YEAR
+                     , C.name AS CATEGORY_NAME
+                     , B.member_code
+                     , SUM(B.amount) AS total_spent
+                     , RANK() OVER (PARTITION BY YEAR(B.created_at), MONTH(B.created_at)
+                 ORDER BY SUM(B.amount) DESC) AS spending_rank
+                  FROM accbook B JOIN acc_category C ON B.acc_category_code = C.code
+                 WHERE B.member_code = #{ memberCode } and DATE_FORMAT(B.created_at, '%Y-%m') = #{ findDate }
+                 GROUP BY YEAR(B.created_at), MONTH(B.created_at), B.acc_category_code
+          ) AS A
+        WHERE A.spending_rank <![CDATA[<=]]> 3
+        ORDER BY A.year, A.month, A.spending_rank;
+    </select>
+
+    <select id="selectMonthlyCategoryStats" resultMap="accbookCategoryStatsResultMap">
+        SELECT
+               A.CATEGORY_NAME
+             , A.finance_type
+             , A.total_spent
+         FROM (
+                SELECT
+                       C.name AS CATEGORY_NAME
+                     , C.finance_type
+                     , SUM(B.amount) AS total_spent
+                 FROM accbook B JOIN acc_category C ON B.acc_category_code = C.code
+                WHERE B.member_code = #{ memberCode } and DATE_FORMAT(B.created_at, '%Y-%m') = #{ findDate }
+                GROUP BY YEAR(B.created_at), MONTH(B.created_at), B.acc_category_code
+         ) AS A
+        ORDER BY A.finance_type, A.total_spent DESC;
+    </select>
+
+    <select id="selectAccCommentBy" resultMap="accCommentResultMap">
+        SELECT
+               B.detail
+             , B.created_at
+             , B.code AS comment_code
+             , B.parent_code
+             , B.member_code
+         FROM accbook A, acc_comment B
+        WHERE A.code = B.accbook_code AND A.code = #{ accbookCode };
+    </select>
+
+    <select id="selectAccbookDetailBy" resultMap="accbookDetailResultMap">
+        SELECT
+               A.code
+             , A.created_at
+             , A.is_regular
+             , A.amount
+             , A.is_regular
+             , A.title
+             , B.name AS acc_category_name
+             , C.name AS store_name
+             , D.name AS asset_name
+          FROM accbook A LEFT JOIN acc_category B ON A.acc_category_code = B.code
+                         LEFT JOIN store C ON A.store_code = C.code
+                         LEFT JOIN asset D ON A.asset_code = D.code
+         WHERE A.code = #{ accbookCode };
+    </select>
+</mapper>
