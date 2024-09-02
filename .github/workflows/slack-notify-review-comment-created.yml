@@ -1,0 +1,22 @@
+name: Slack Notification
+
+on:
+  pull_request_review_comment:
+    types: [created, edited]
+
+jobs:
+  slack_notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Notify on PR approval
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "text": "리뷰 코멘트가 작성됨 by ${{ github.event.comment.user.login }}\n
+            ```${{ github.event.comment.body }}```\n
+            ${{ github.event.pull_request.html_url }}"
+          }' $SLACK_WEBHOOK
