@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: iiiiii-accountbook
+    name: iiiiii-main-service
 
   datasource:
 #    driver-class-name: org.mariadb.jdbc.Driver
