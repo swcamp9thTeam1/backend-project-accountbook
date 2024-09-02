@@ -1,46 +1,43 @@
 package com.iiiiii.accountbook.review.query.controller;
 
+
 import com.iiiiii.accountbook.review.query.service.StoreReviewService;
+import com.iiiiii.accountbook.review.query.dto.selectStoreReviewByMemberOrStoreCodeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/reviews")
 public class StoreReviewController {
 
-//    @Autowired
-//    private StoreReviewService storeReviewService;
-//
-//    // 리뷰 추가
-//    @PostMapping("/add")
-//    public String addReview(
-//            @RequestParam int memberCode,
-//            @RequestParam int storeCode,
-//            @RequestParam int visitors,
-//            @RequestParam long totalExpense,
-//            @RequestParam String oneLineReview) {
-//        try {
-//            storeReviewService.addReview( visitors, totalExpense, oneLineReview, memberCode, storeCode);
-//            return "리뷰가 성공적으로 추가되었습니다.";
-//        } catch (Exception e) {
-//            return "리뷰 추가 중 오류가 발생했습니다.";
-//        }
-//    }
-//
-//
-//    @GetMapping("/find")    // 특정 회원의 정보를 요청받아서 회원의 리뷰 조회 ?
-//    public String findOneMemberReview() {
-//        try {
-//            return "회원님의 리뷰가 조회되었습니다. ";
-//
-//        } catch (Exception e) {
-//            return "리뷰 조회 중 오류가 발생했습니다.";
-//        }
-//    }
-//
-//
-//
-////    @GetMapping("/modify")      // 특정 회원의 특정 리뷰 수정 ?
-////    public String modifyReview(
-////    )
+    private  final StoreReviewService storeReviewService;
+
+    @Autowired
+    public StoreReviewController(StoreReviewService storeReviewService) {
+        this.storeReviewService = storeReviewService;
+    }
+
+    @GetMapping("/member/{memberCode}")
+    List<selectStoreReviewByMemberOrStoreCodeDTO> getReviewsByMemberCode(@PathVariable int memberCode) {
+        return storeReviewService.findStoreReviewByMemberCode(memberCode);
+    }
+
+    @GetMapping("/store/{storeCode}")
+    public List<selectStoreReviewByMemberOrStoreCodeDTO> getReviewsByStoreCode(@PathVariable int storeCode) {
+        return storeReviewService.findStoreReviewByStoreCode(storeCode);
+    }
+
+     // 특정 예외를 처리하기 위한 ExceptionHandler
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        // 예외 발생 시 처리 로직
+        ResponseEntity<String> stringResponseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return stringResponseEntity;
+    }
+
+
 }
