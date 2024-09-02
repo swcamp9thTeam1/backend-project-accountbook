@@ -18,7 +18,7 @@ import java.util.Map;
 
 
 @RestController("StoreReviewControllerCommand")
-@RequestMapping("/storeReview")
+@RequestMapping("/reviews")
 public class StoreReviewController {
 
     private StoreReviewService storeReviewService;
@@ -66,7 +66,7 @@ public class StoreReviewController {
         storeReviewService.removeStoreReview(storeReviewCode);
         return ResponseEntity
                 .noContent().build();
-        
+
     }
 
 
