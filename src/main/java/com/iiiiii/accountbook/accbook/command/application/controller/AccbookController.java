@@ -3,6 +3,7 @@ package com.iiiiii.accountbook.accbook.command.application.controller;
 import com.iiiiii.accountbook.accbook.command.application.service.AccCommentService;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.CreateAccCommentDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.RequestRegistAccbookDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.UpdateAccCommentDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.AccComment;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
@@ -31,7 +32,7 @@ public class AccbookController {
 
     /* 가계부 관련 메소드 */
     @PostMapping("")
-    public ResponseEntity<?> registAccbook(@RequestBody AccbookDTO newAccbook) {
+    public ResponseEntity<?> registAccbook(@RequestBody RequestRegistAccbookDTO newAccbook) {
         Accbook savedAccbook = accbookService.registAccbook(newAccbook);
 
         return ResponseEntity
