@@ -1,6 +1,7 @@
 package com.iiiiii.accountbook.accbook.command.application.service;
 
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.RequestRegistAccbookDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accountbook.accbook.command.domain.repository.AccbookRepository;
 import com.iiiiii.accountbook.common.YesOrNo;
@@ -38,14 +39,14 @@ class AccbookServiceTests {
     void testRegistAccbook(String createdAt, String title, Long amount, YesOrNo isRegular,
                                   Integer memberCode, Integer accCategoryCode, Integer storeCode, Integer assetCode) {
         // given
-        AccbookDTO newAccbookDTO = new AccbookDTO();
+        RequestRegistAccbookDTO newAccbookDTO = new RequestRegistAccbookDTO();
         newAccbookDTO.setCreatedAt(createdAt);
         newAccbookDTO.setTitle(title);
         newAccbookDTO.setAmount(amount);
         newAccbookDTO.setIsRegular(isRegular);
         newAccbookDTO.setMemberCode(memberCode);
         newAccbookDTO.setAccCategoryCode(accCategoryCode);
-        newAccbookDTO.setStoreCode(storeCode);
+//        newAccbookDTO.setStoreCode(storeCode);
         newAccbookDTO.setAssetCode(assetCode);
 
         // when
