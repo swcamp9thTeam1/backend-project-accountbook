@@ -207,7 +207,7 @@ CREATE TABLE acc_comment (
 -- community_post(커뮤니티 게시글)
 CREATE TABLE community_post (
   code INT PRIMARY KEY AUTO_INCREMENT,
-  create_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL,
   title VARCHAR(255) NOT NULL,
   detail TEXT NOT NULL,
   member_code INT NOT NULL,
