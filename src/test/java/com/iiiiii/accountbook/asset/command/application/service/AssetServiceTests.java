@@ -1,4 +1,4 @@
-package com.iiiiii.accountbook.asset.command.service;
+package com.iiiiii.accountbook.asset.command.application.service;
 
 import com.iiiiii.accountbook.asset.command.application.service.AssetService;
 import com.iiiiii.accountbook.asset.command.domain.aggregate.dto.AssetDTO;
