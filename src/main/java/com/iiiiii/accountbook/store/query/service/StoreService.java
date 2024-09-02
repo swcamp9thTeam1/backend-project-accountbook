@@ -41,12 +41,14 @@ public class StoreService {
         return stores;
     }
 
-    public boolean isExistStoreByLatLng(String lat, String lng) {
+    public Integer isExistStoreByLatLng(String lat, String lng) {
         StoreSearchCriteria criteria = new StoreSearchCriteria();
         criteria.setLatitude(lat);
         criteria.setLongitude(lng);
 
         List<StoreDTO> foundStores = storeMapper.searchStore(criteria);
-        return !foundStores.isEmpty();
+        if (foundStores.isEmpty()) return null;
+
+        return foundStores.get(0).getStoreCode();
     }
 }
