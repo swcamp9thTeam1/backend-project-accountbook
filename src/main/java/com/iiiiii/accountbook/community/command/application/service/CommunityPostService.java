@@ -1,6 +1,8 @@
 package com.iiiiii.accountbook.community.command.application.service;
 
+import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommnunityFileDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostDTO;
+import com.iiiiii.accountbook.community.command.domain.aggregate.entity.CommunityFile;
 import com.iiiiii.accountbook.community.command.domain.aggregate.entity.CommunityPost;
 import com.iiiiii.accountbook.community.command.domain.repository.CommunityPostRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("CommunityServiceCommand")
-public class CommunityService {
+@Service("CommunityPostServiceCommand")
+public class CommunityPostService {
 
     private final ModelMapper modelMapper;
     private final CommunityPostRepository communityPostRepository;
 
     @Autowired
-    public CommunityService(ModelMapper modelMapper, CommunityPostRepository communityPostRepository) {
+    public CommunityPostService(ModelMapper modelMapper, CommunityPostRepository communityPostRepository) {
         this.modelMapper = modelMapper;
         this.modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());   // null인 부분은 매핑 제외
         this.communityPostRepository = communityPostRepository;
@@ -37,7 +39,7 @@ public class CommunityService {
         CommunityPost myPost = communityPostRepository.findById(postCode)
                 .orElseThrow(() -> new EntityNotFoundException("해당 코드의 게시글은 존재하지 않습니다."));
 
-        if (myPost.getCode() != modifiedPost.getCode()) {
+        if (myPost.getPostCode() != modifiedPost.getPostCode()) {
             throw new IllegalArgumentException("게시글 코드가 일치하지 않습니다.");
         } else if (myPost.getMemberCode() != modifiedPost.getMemberCode()) {
             throw new IllegalArgumentException("작성자 본인이 아니라면 수정이 불가합니다.");
@@ -51,5 +53,4 @@ public class CommunityService {
     public void removePost(Integer postCode) {
         communityPostRepository.deleteById(postCode);
     }
-
 }

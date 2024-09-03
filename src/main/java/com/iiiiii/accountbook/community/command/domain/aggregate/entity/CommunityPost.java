@@ -15,7 +15,7 @@ public class CommunityPost {
     @Id
     @Column(name = "code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer code;           // 게시글 코드
+    private Integer postCode;       // 게시글 코드
 
     @Column(name = "created_at")
     private String createdAt;       // 작성일시
