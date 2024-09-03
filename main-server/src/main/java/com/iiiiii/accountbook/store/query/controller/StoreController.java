@@ -60,13 +60,13 @@ public class StoreController {
     @GetMapping("/code")
     public ResponseEntity<ResponseMessage> getStoreCodeByLntLng(
             @RequestParam(name = "latitude") String lat,
-            @RequestParam(name = "longitude") String lng) throws Exception {
+            @RequestParam(name = "longitude") String lng) {
 
         StoreSearchCriteria criteria = new StoreSearchCriteria();
         criteria.setLatitude(lat);
         criteria.setLongitude(lng);
 
-        int storeCode = storeService.getStoreCodeByLatLng(criteria);
+        Integer storeCode = storeService.getStoreCodeByLatLng(criteria);
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("storeCode", storeCode);
 

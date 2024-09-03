@@ -1,6 +1,7 @@
 package com.iiiiii.accountbook.store.query.service;
 
 import com.iiiiii.accountbook.common.YesOrNo;
+import com.iiiiii.accountbook.exception.EmptyResultSearchStoreException;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
 import com.iiiiii.accountbook.store.common.StoreSearchCriteria;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
@@ -76,7 +77,7 @@ class StoreServiceTests {
 
     @DisplayName("위도,경도로 가게 검색")
     @Test
-    public void testSearchStoreByLatLng() {
+    public void testSearchStoreByLatLng() throws Exception {
 
         // given
         String lat = "37.497436";
@@ -84,10 +85,14 @@ class StoreServiceTests {
         StoreSearchCriteria criteria = new StoreSearchCriteria(lat, lng);
 
         // when
-        List<StoreDTO> foundStores = storeService.searchStore(criteria);
+        Integer foundStoreCode = storeService.getStoreCodeByLatLng(criteria);
 
         // then
         long count = storeCommandRepository.countByLatitudeAndLongitude(lat, lng);
-        assertEquals(foundStores.size(), count);
+        if (foundStoreCode == null) {
+            assertEquals(0, count);
+        } else {
+            assertEquals(1, count);
+        }
     }
 }

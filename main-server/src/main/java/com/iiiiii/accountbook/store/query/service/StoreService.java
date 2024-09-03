@@ -43,10 +43,10 @@ public class StoreService {
         return stores;
     }
 
-    public int getStoreCodeByLatLng(StoreSearchCriteria criteria) throws EmptyResultSearchStoreException {
+    public Integer getStoreCodeByLatLng(StoreSearchCriteria criteria) {
         List<StoreDTO> foundStores = storeMapper.searchStore(criteria);
         if (foundStores.isEmpty()) {
-            throw new EmptyResultSearchStoreException();
+            return null;
         }
 
         return foundStores.get(0).getStoreCode();
