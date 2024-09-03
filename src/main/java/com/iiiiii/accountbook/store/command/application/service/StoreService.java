@@ -3,6 +3,7 @@ package com.iiiiii.accountbook.store.command.application.service;
 import com.iiiiii.accountbook.common.YesOrNo;
 import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RegisterStoreVO;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyStoreVO;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
@@ -128,6 +129,20 @@ public class StoreService {
         }
 
         return newStores;
+    }
+
+    @Transactional
+    public void registerStore(RegisterStoreVO registerStoreVO) {
+
+        // VO -> Entity (DTO는 VO와 모양새가 똑같을 것 같아서 VO 그대로 사용)
+        Store newStore = new Store();
+        newStore.setStoreName(registerStoreVO.getStoreName());
+        newStore.setAddress(registerStoreVO.getStoreAddress());
+        newStore.setLatitude(registerStoreVO.getLatitude());
+        newStore.setLongitude(registerStoreVO.getLongitude());
+        newStore.setIsGood(YesOrNo.N);
+
+        storeRepository.save(newStore);
     }
 
     @Transactional

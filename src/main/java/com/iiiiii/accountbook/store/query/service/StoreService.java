@@ -22,22 +22,33 @@ public class StoreService {
 
     public List<StoreDTO> findAllStores() {
         List<StoreDTO> stores = storeMapper.selectAllStores();
-        log.info("stores: {}", stores);
+//        log.info("stores: {}", stores);
 
         return stores;
     }
 
     public StoreDTO findStoreById(int storeCode) {
         StoreDTO store = storeMapper.selectStoreById(storeCode);
-        log.info("store: {}", store);
+//        log.info("store: {}", store);
 
         return store;
     }
 
     public List<StoreDTO> searchStore(StoreSearchCriteria criteria) {
         List<StoreDTO> stores = storeMapper.searchStore(criteria);
-        log.info("stores: {}", stores);
+//        log.info("stores: {}", stores);
 
         return stores;
+    }
+
+    public Integer isExistStoreByLatLng(String lat, String lng) {
+        StoreSearchCriteria criteria = new StoreSearchCriteria();
+        criteria.setLatitude(lat);
+        criteria.setLongitude(lng);
+
+        List<StoreDTO> foundStores = storeMapper.searchStore(criteria);
+        if (foundStores.isEmpty()) return null;
+
+        return foundStores.get(0).getStoreCode();
     }
 }

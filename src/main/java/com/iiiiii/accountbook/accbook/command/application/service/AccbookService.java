@@ -1,44 +1,106 @@
 package com.iiiiii.accountbook.accbook.command.application.service;;
 
+import com.iiiiii.accountbook.acc_category.query.service.QueryAccCategoryService;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.AccbookDTO;
+import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.RequestRegistAccbookDTO;
 import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accountbook.accbook.command.domain.repository.AccbookRepository;
+import com.iiiiii.accountbook.asset.command.application.service.AssetService;
+import com.iiiiii.accountbook.common.InOrOut;
+import com.iiiiii.accountbook.common.YesOrNo;
+import com.iiiiii.accountbook.regular_expense.query.dto.RegularExpenseDTO;
+import com.iiiiii.accountbook.regular_expense.query.service.RegularExpenseService;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RegisterStoreVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("AccbookServiceCommand")
 @Slf4j
 public class AccbookService {
 
     private final AccbookRepository accbookRepository;
+    private final RegularExpenseService regularExpenseServiceQuery;
+    private final com.iiiiii.accountbook.store.query.service.StoreService storeServiceQuery;
+    private final com.iiiiii.accountbook.store.command.application.service.StoreService storeServiceCommand;
+    private final QueryAccCategoryService accCategoryServiceQuery;
+    private final AssetService assetServiceCommand;
 
     @Autowired
-    public AccbookService(AccbookRepository accbookRepository) {
+    public AccbookService(AccbookRepository accbookRepository,
+                          RegularExpenseService regularExpenseServiceQuery,
+                          com.iiiiii.accountbook.store.query.service.StoreService storeServiceQuery,
+                          com.iiiiii.accountbook.store.command.application.service.StoreService storeServiceCommand,
+                          QueryAccCategoryService accCategoryServiceQuery,
+                          AssetService assetServiceCommand) {
         this.accbookRepository = accbookRepository;
+        this.regularExpenseServiceQuery = regularExpenseServiceQuery;
+        this.storeServiceQuery = storeServiceQuery;
+        this.storeServiceCommand = storeServiceCommand;
+        this.accCategoryServiceQuery = accCategoryServiceQuery;
+        this.assetServiceCommand = assetServiceCommand;
     }
 
     @Transactional
-    public Accbook registAccbook(AccbookDTO newAccbook) {
+    public Accbook registAccbook(RequestRegistAccbookDTO newAccbook) {
 
-        // 1. 새로 등록한 가계부 추출 (DTO에서)
+        Integer storeCode;
         Accbook accbook = new Accbook();
+
+        // 1.'방문한 가게' 정보가 입력된 경우
+        if (newAccbook.getStoreName() != null) {
+            storeCode = storeServiceQuery.isExistStoreByLatLng(newAccbook.getLatitude(), newAccbook.getLongitude());
+
+            log.info("***** AccbookService - storeCode: {}", storeCode);
+
+            // '방문한 가게'가 가게DB에 존재하지 않는 경우 -> Store DB에 등록 후 storeCode 저장
+            if (storeCode == null) {
+
+                // RegisterStoreVO 생성 및 정보 저장
+                RegisterStoreVO registerStoreVO = new RegisterStoreVO(
+                        newAccbook.getStoreName(),
+                        newAccbook.getStoreAddress(),
+                        newAccbook.getLatitude(),
+                        newAccbook.getLongitude()
+                );
+
+                log.info("***** AccbookService - newAccbook: {}", newAccbook);
+
+                storeServiceCommand.registerStore(registerStoreVO); // 가게DB 등록 메서드 호출
+                log.info("***** AccbookService - 가게 등록 registerStoreVO: {}", registerStoreVO);
+
+                storeCode = storeServiceQuery.isExistStoreByLatLng(newAccbook.getLatitude(), newAccbook.getLongitude()); // 등록 후 storeCode 다시 저장
+                accbook.setStoreCode(storeCode);
+            }
+        }
+
+
+        // 2. 자산 변경
+//        if (accCategoryServiceQuery.findOneAccCategory(newAccbook.getAccCategoryCode()).getFinanceType() == InOrOut.I) {           // 수입인 경우
+//            assetServiceCommand.modifyAssetByIn(newAccbook.getAssetCode(), newAccbook.getAmount());
+//        } else if (accCategoryServiceQuery.findOneAccCategory(newAccbook.getAccCategoryCode()).getFinanceType() == InOrOut.O) {    // 지출인 경우
+//            assetServiceCommand.modifyAssetByOut(newAccbook.getAssetCode(), newAccbook.getAmount());
+//        }
+
+        // 3. 가계부 DB에 저장
+        log.info("***** AccbookService - db 전 : accbook: {}", accbook);
+
         accbook.setCreatedAt(newAccbook.getCreatedAt());
         accbook.setTitle(newAccbook.getTitle());
         accbook.setAmount(newAccbook.getAmount());
         accbook.setIsRegular(newAccbook.getIsRegular());
         accbook.setMemberCode(newAccbook.getMemberCode());
         accbook.setAccCategoryCode(newAccbook.getAccCategoryCode());
-        accbook.setStoreCode(newAccbook.getStoreCode());
         accbook.setAssetCode(newAccbook.getAssetCode());
 
-        // TODO. 2. 자산 변경
-        // assetCode, amount를 이용해서 해당 자산의 잔액을 갱신해야 함
+        log.info("***** AccbookService - db 후 : accbook: {}", accbook);
 
-        // TODO. 3. store DB에 방문한 가게등록 (store DB에 저장되어있지 않은 경우)
-        // storeCode로 store DB를 조회 -> 가게가 존재하는 경우 -> 확인 끝
-        //                              가게가 존재하지 않는 경우 -> store DB에 등록
 
         accbookRepository.save(accbook);
         return accbook;
@@ -68,5 +130,43 @@ public class AccbookService {
     public void removeAccbook(Integer accbookCode) {
         Accbook accbook = accbookRepository.findById(accbookCode).orElseThrow(IllegalArgumentException::new);
         accbookRepository.delete(accbook);
+    }
+
+    /* 고정지출 자동 기입 메서드 */
+    @Transactional
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
+    public void registRegularExpense() {
+        log.info("모든 고정지출 리스트 찾기 시작");
+
+        // 고정지출 서비스로부터 모든 고정지출 리스트 조회
+        List<RegularExpenseDTO> allRegularExpenseDTO = regularExpenseServiceQuery.findAllRegularExpenses();
+        log.info("모든 고정지출 리스트", allRegularExpenseDTO);
+
+        // 오늘 날짜 저장
+        int todayDate = LocalDate.now().getDayOfMonth();
+
+        // 오늘 날짜에 해당하는 고정지출 필터링
+        List<RegularExpenseDTO> todayRegularExpenseDTO = allRegularExpenseDTO.stream()
+                .filter(expense -> expense.getExpenseDate() == todayDate).collect(Collectors.toList());
+
+        log.info("오늘 고정지출 리스트", todayRegularExpenseDTO);
+
+        // 필터링한 고정지출을 Accbook 엔티티로 변환
+        List<Accbook> accbookList = todayRegularExpenseDTO.stream()
+                .map(expense -> {
+                    Accbook accbook = new Accbook();
+                    accbook.setCreatedAt(LocalDate.now().toString());
+                    accbook.setTitle(expense.getName());
+                    accbook.setAmount((long) expense.getAmount()); // RegularExpenseDTO의 amount -> Long으로 수정 필요
+                    accbook.setIsRegular(YesOrNo.Y);
+                    accbook.setMemberCode(expense.getMemberCode());
+                    accbook.setAccCategoryCode(expense.getAccCategoryCode());
+                    accbook.setStoreCode(null);
+                    accbook.setAssetCode(expense.getAssetCode());
+                    return accbook;
+                }).collect(Collectors.toList());
+
+        // 가계부DB에 저장
+        accbookRepository.saveAll(accbookList);
     }
 }

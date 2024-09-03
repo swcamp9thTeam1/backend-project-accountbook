@@ -63,13 +63,12 @@ CREATE TABLE acc_group_member (
 -- acc_group_post(그룹 게시글)
 CREATE TABLE acc_group_post (
   code INT PRIMARY KEY AUTO_INCREMENT,
-  create_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL,
   title VARCHAR(255) NOT NULL,
   detail TEXT NOT NULL,
   member_code INT NOT NULL,
   acc_group_code INT NOT NULL,
-  FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (acc_group_code) REFERENCES acc_group(code)
+  FOREIGN KEY (member_code, acc_group_code) REFERENCES acc_group_member(member_code, acc_group_code)
 ) ENGINE = INNODB;
 
 -- acc_group_post_file(그룹 게시글 첨부파일)
@@ -89,9 +88,10 @@ CREATE TABLE acc_group_post_comment (
   parent_code INT,
   acc_group_post_code INT NOT NULL,
   member_code INT NOT NULL,
+  acc_group_code INT NOT NULL,
   FOREIGN KEY (parent_code) REFERENCES acc_group_post_comment(code),
   FOREIGN KEY (acc_group_post_code) REFERENCES acc_group_post(code),
-  FOREIGN KEY (member_code) REFERENCES member(code)
+  FOREIGN KEY (member_code, acc_group_code) REFERENCES acc_group_member(member_code, acc_group_code)
 ) ENGINE = INNODB;
 
 -- store(가게)
@@ -117,7 +117,7 @@ CREATE TABLE store_review (
   member_code INT NOT NULL,
   store_code INT NOT NULL,
   FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (store_code) REFERENCES store(code) ON DELETE SET NULL
+  FOREIGN KEY (store_code) REFERENCES store(code)
 )ENGINE=INNODB;
 
 -- store_review_file(가게 리뷰 첨부파일)
@@ -207,7 +207,7 @@ CREATE TABLE acc_comment (
 -- community_post(커뮤니티 게시글)
 CREATE TABLE community_post (
   code INT PRIMARY KEY AUTO_INCREMENT,
-  create_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL,
   title VARCHAR(255) NOT NULL,
   detail TEXT NOT NULL,
   member_code INT NOT NULL,
