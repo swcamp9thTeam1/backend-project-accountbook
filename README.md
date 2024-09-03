@@ -89,8 +89,7 @@ CREATE TABLE acc_group_post_comment (
   acc_group_post_code INT NOT NULL,
   member_code INT NOT NULL,
   acc_group_code INT NOT NULL,
-  FOREIGN KEY (member_code) REFERENCES acc_group_member(member_code) ON DELETE CASCADE,
-  FOREIGN KEY (acc_group_code) REFERENCES acc_group_member(acc_group_code) ON DELETE CASCADE
+  FOREIGN KEY (member_code, acc_group_code) REFERENCES acc_group_member(member_code, acc_group_code) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- store(가게)
