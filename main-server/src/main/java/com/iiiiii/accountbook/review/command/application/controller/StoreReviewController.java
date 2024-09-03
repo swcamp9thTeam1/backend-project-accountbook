@@ -1,17 +1,14 @@
 package com.iiiiii.accountbook.review.command.application.controller;
 
-import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accountbook.common.ResponseMessage;
 import com.iiiiii.accountbook.common.ResponseStatusText;
 import com.iiiiii.accountbook.review.command.application.service.StoreReviewService;
-import com.iiiiii.accountbook.review.command.domain.aggregate.entity.StoreReview;
 import com.iiiiii.accountbook.review.command.domain.aggregate.dto.StoreReviewDTO;
-import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
+import com.iiiiii.accountbook.review.command.domain.aggregate.entity.StoreReview;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
