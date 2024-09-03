@@ -1,0 +1,57 @@
+server:
+  port: 8112
+
+spring:
+  application:
+    name: security-user-service
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/accbookdb
+    username: iiiiii
+    password: iiiiii
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        '[format_sql]': true
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+hello:
+  message: Welcome to 9th SW-Camp
+
+
+# token config 설정
+token:
+
+  # 만료시간 설정(ms 단위)(현재 12시간)
+  expiration_time: 43200000
+
+  # secret 키 생성
+  secret: UjBvrc1cxUv5GUeAA1UhA3dTs6iRd47m9BOGGmjJSQ91E5m3yLQ6460RwXaQStJYbFDVzlLszgOOxGCU0NgK8g==
+
+logging:
+  level:
+    root: INFO
+    com.iiiiii.accbooksecurity: DEBUG
+  console:
+    enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
