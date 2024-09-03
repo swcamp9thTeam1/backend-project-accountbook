@@ -1,0 +1,12 @@
+### Send POST request with json body
+POST http://localhost:8112/members
+Content-Type: application/json
+
+{
+  "memberId": "user01",
+  "memberNickname": "넥네임01",
+  "memberEmail": "user01@gmail.com",
+  "password": "password01",
+  "memberIsAdmin": "N",
+  "memberMonthlyBudget": 30000
+}
