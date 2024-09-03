@@ -58,7 +58,7 @@ public class StoreController {
 
     // latitude, longitude로 가게 code 조회
     @GetMapping("/code")
-    public ResponseEntity<ResponseMessage> getStoreCodeByLntLng(
+    public ResponseEntity<ResponseMessage> getStoreCodeByLatLng(
             @RequestParam(name = "latitude") String lat,
             @RequestParam(name = "longitude") String lng) {
 
