@@ -7,7 +7,7 @@ import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RegisterStoreVO;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyStoreVO;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
-import com.iiiiii.accountbook.store.exception.NotFoundStoreException;
+import com.iiiiii.accountbook.exception.NotFoundStoreException;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;

@@ -1,10 +1,7 @@
 package com.iiiiii.accountbook.config;
 
 import com.iiiiii.accountbook.common.ResponseError;
-import com.iiiiii.accountbook.exception.NotAllowedGroupRoleException;
-import com.iiiiii.accountbook.exception.NotGroupMemberException;
-import com.iiiiii.accountbook.exception.NotValidRequestException;
-import com.iiiiii.accountbook.store.exception.NotFoundStoreException;
+import com.iiiiii.accountbook.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +28,10 @@ public class GlobalExceptionHandler {
     }
 
     // status code 404
-    @ExceptionHandler(NoResourceFoundException.class)
+    @ExceptionHandler({
+            NoResourceFoundException.class,
+            EmptyResultSearchStoreException.class
+    })
     public ResponseEntity<ResponseError> handleNotFound(Exception e) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
