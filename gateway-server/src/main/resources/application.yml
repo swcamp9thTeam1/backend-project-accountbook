@@ -21,19 +21,19 @@ spring:
           predicates:
             - Path=/member-service/**
           filters:
-            - RewritePath=/member-service/(?<segment>.*), /${segment}
-  #          - AuthorizationHeaderFilter
+            - RewritePath=/member-service/(?<segment>.*), /$\{segment}
+        #          - AuthorizationHeaderFilter
         - id: accbook-service
           uri: lb://IIIIII-ACCBOOK-SERVICE
           predicates:
             - Path=/accbook-service/**
           filters:
-            - RewritePath=/accbook-service/(?<segment>.*), /${segment}
-  #          - AuthorizationHeaderFilter
+            - RewritePath=/accbook-service/(?<segment>.*), /$\{segment}
+        #          - AuthorizationHeaderFilter
         - id: main-service
           uri: lb://IIIIII-MAIN-SERVICE
           predicates:
             - Path=/main-service/**
           filters:
-            - RewritePath=/main-service/(?<segment>.*), /${segment}
+            - RewritePath=/main-service/(?<segment>.*), /$\{segment}
   #          - AuthorizationHeaderFilter
