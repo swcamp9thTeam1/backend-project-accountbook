@@ -1,6 +1,7 @@
 package com.iiiiii.accountbook.store.command.application.controller;
 
 import com.iiiiii.accountbook.store.command.application.service.StoreService;
+import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RegisterStoreVO;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyStoreVO;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,16 @@ public class StoreController {
 
         return ResponseEntity
                 .created(URI.create("/stores/search?is-good=true"))
+                .build();
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> registerStore(@RequestBody RegisterStoreVO registerStoreVO) {
+
+        int newStoreCode = storeService.registerStore(registerStoreVO);
+
+        return ResponseEntity
+                .created(URI.create("/stores/" + newStoreCode))
                 .build();
     }
 

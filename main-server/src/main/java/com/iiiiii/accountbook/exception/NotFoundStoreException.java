@@ -1,4 +1,4 @@
-package com.iiiiii.accountbook.store.exception;
+package com.iiiiii.accountbook.exception;
 
 public class NotFoundStoreException extends Exception {
 

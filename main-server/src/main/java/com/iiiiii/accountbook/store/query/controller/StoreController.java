@@ -55,4 +55,21 @@ public class StoreController {
 
         return ResponseEntity.ok(new ResponseMessageGeneric<>(stores));
     }
+
+    // latitude, longitude로 가게 code 조회
+    @GetMapping("/code")
+    public ResponseEntity<ResponseMessage> getStoreCodeByLatLng(
+            @RequestParam(name = "latitude") String lat,
+            @RequestParam(name = "longitude") String lng) {
+
+        StoreSearchCriteria criteria = new StoreSearchCriteria();
+        criteria.setLatitude(lat);
+        criteria.setLongitude(lng);
+
+        Integer storeCode = storeService.getStoreCodeByLatLng(criteria);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("storeCode", storeCode);
+
+        return ResponseEntity.ok(new ResponseMessage(resultMap));
+    }
 }

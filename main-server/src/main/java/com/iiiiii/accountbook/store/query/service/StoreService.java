@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.store.query.service;
 
+import com.iiiiii.accountbook.exception.EmptyResultSearchStoreException;
 import com.iiiiii.accountbook.store.common.StoreSearchCriteria;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import com.iiiiii.accountbook.store.query.repository.StoreMapper;
@@ -36,18 +37,17 @@ public class StoreService {
 
     public List<StoreDTO> searchStore(StoreSearchCriteria criteria) {
         List<StoreDTO> stores = storeMapper.searchStore(criteria);
+
 //        log.info("stores: {}", stores);
 
         return stores;
     }
 
-    public Integer isExistStoreByLatLng(String lat, String lng) {
-        StoreSearchCriteria criteria = new StoreSearchCriteria();
-        criteria.setLatitude(lat);
-        criteria.setLongitude(lng);
-
+    public Integer getStoreCodeByLatLng(StoreSearchCriteria criteria) {
         List<StoreDTO> foundStores = storeMapper.searchStore(criteria);
-        if (foundStores.isEmpty()) return null;
+        if (foundStores.isEmpty()) {
+            return null;
+        }
 
         return foundStores.get(0).getStoreCode();
     }
