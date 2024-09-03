@@ -30,21 +30,21 @@ public class AccbookController {
     }
 
     /* 가계부 관련 메소드 */
-    @PostMapping("")
-    public ResponseEntity<?> registAccbook(@RequestBody AccbookDTO newAccbook) {
-        Accbook savedAccbook = accbookService.registAccbook(newAccbook);
-
-        return ResponseEntity
-                .created(URI.create("/com/iiiiii/accbookserver/accbook/search/detail?accbookCode=" + savedAccbook.getAccbookCode()))
-                .build();
-    }
+//    @PostMapping("")
+//    public ResponseEntity<?> registAccbook(@RequestBody AccbookDTO newAccbook) {
+//        Accbook savedAccbook = accbookService.registAccbook(newAccbook);
+//
+//        return ResponseEntity
+//                .created(URI.create("/com/iiiiii/accbookserver/accbook/search/detail?accbookCode=" + savedAccbook.getAccbookCode()))
+//                .build();
+//    }
 
     @PutMapping("/{accbookCode}")
     public ResponseEntity<?> modifyAccbook(@RequestBody AccbookDTO modifyAccbook, @PathVariable Integer accbookCode) {
         Accbook accbook = accbookService.modifyAccbook(accbookCode, modifyAccbook);
 
         Map<String, Object> responseMap = new HashMap<>();
-        responseMap.put("com/iiiiii/accbookserver/accbook", accbook);
+        responseMap.put("accbook", accbook);
 
         return ResponseEntity
                 .ok(new ResponseMessage(responseMap));

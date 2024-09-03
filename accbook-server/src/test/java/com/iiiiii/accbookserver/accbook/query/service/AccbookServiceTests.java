@@ -1,9 +1,6 @@
 package com.iiiiii.accbookserver.accbook.query.service;
 
-import com.iiiiii.accountbook.accbook.query.dto.AccbookDTO;
-import com.iiiiii.accountbook.accbook.query.dto.AccbookTop3CategoryDTO;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
