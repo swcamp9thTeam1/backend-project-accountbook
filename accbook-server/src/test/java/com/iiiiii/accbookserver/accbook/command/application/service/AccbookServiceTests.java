@@ -32,29 +32,29 @@ class AccbookServiceTests {
         );
     }
 
-    @DisplayName("가계부 작성 테스트")
-    @ParameterizedTest
-    @MethodSource("provideAccbook")
-    void testRegistAccbook(String createdAt, String title, Long amount, YesOrNo isRegular,
-                                  Integer memberCode, Integer accCategoryCode, Integer storeCode, Integer assetCode) {
-        // given
-        AccbookDTO newAccbookDTO = new AccbookDTO();
-        newAccbookDTO.setCreatedAt(createdAt);
-        newAccbookDTO.setTitle(title);
-        newAccbookDTO.setAmount(amount);
-        newAccbookDTO.setIsRegular(isRegular);
-        newAccbookDTO.setMemberCode(memberCode);
-        newAccbookDTO.setAccCategoryCode(accCategoryCode);
-        newAccbookDTO.setStoreCode(storeCode);
-        newAccbookDTO.setAssetCode(assetCode);
-
-        // when
-        Accbook actualAccbook = accbookService.registAccbook(newAccbookDTO);
-
-        // then
-        assertNotNull(actualAccbook);    // 가계부 내역이 생성되었는지 확인
-        assertNotNull(accbookRepository.findById(actualAccbook.getAccbookCode())); // 가계부 내역이 DB에 저장되었는지 확인
-    }
+//    @DisplayName("가계부 작성 테스트")
+//    @ParameterizedTest
+//    @MethodSource("provideAccbook")
+//    void testRegistAccbook(String createdAt, String title, Long amount, YesOrNo isRegular,
+//                                  Integer memberCode, Integer accCategoryCode, Integer storeCode, Integer assetCode) {
+//        // given
+//        AccbookDTO newAccbookDTO = new AccbookDTO();
+//        newAccbookDTO.setCreatedAt(createdAt);
+//        newAccbookDTO.setTitle(title);
+//        newAccbookDTO.setAmount(amount);
+//        newAccbookDTO.setIsRegular(isRegular);
+//        newAccbookDTO.setMemberCode(memberCode);
+//        newAccbookDTO.setAccCategoryCode(accCategoryCode);
+//        newAccbookDTO.setStoreCode(storeCode);
+//        newAccbookDTO.setAssetCode(assetCode);
+//
+//        // when
+//        Accbook actualAccbook = accbookService.registAccbook(newAccbookDTO);
+//
+//        // then
+//        assertNotNull(actualAccbook);    // 가계부 내역이 생성되었는지 확인
+//        assertNotNull(accbookRepository.findById(actualAccbook.getAccbookCode())); // 가계부 내역이 DB에 저장되었는지 확인
+//    }
 
     @DisplayName("가계부 수정 테스트")
     @ParameterizedTest

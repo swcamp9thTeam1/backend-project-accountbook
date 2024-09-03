@@ -1,9 +1,9 @@
 package com.iiiiii.accbookserver.accbook.command.application.service;
 
-import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.CreateAccCommentDTO;
-import com.iiiiii.accountbook.accbook.command.domain.aggregate.dto.UpdateAccCommentDTO;
-import com.iiiiii.accountbook.accbook.command.domain.aggregate.entity.AccComment;
-import com.iiiiii.accountbook.accbook.command.domain.repository.AccCommentRepository;
+import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.CreateAccCommentDTO;
+import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.UpdateAccCommentDTO;
+import com.iiiiii.accbookserver.accbook.command.domain.aggregate.entity.AccComment;
+import com.iiiiii.accbookserver.accbook.command.domain.repository.AccCommentRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
