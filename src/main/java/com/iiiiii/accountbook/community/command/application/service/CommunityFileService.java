@@ -57,4 +57,13 @@ public class CommunityFileService {
         communityFileRepository.save(modelMapper.map(modifiedFile, CommunityFile.class));
     }
 
+    /* 게시글 첨부파일 삭제 트랜잭션 */
+    @Transactional
+    public void removeFile(Integer postCode, Integer fileCode) {
+
+        if (!communityPostRepository.existsById(postCode))
+            throw new EntityNotFoundException("존재하지 않는 게시글입니다.");
+
+        communityFileRepository.deleteById(fileCode);
+    }
 }

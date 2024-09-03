@@ -4,6 +4,8 @@ import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPo
 import com.iiiiii.accountbook.community.command.domain.repository.CommunityPostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -46,4 +48,10 @@ public class CommunityServiceTests {
 
         assertDoesNotThrow(() -> communityPostService.removePost(6));
     }
+
+//    @DisplayName("게시글 첨부파일 등록 테스트")
+//    @Test
+//    public void registCommunityFile() {
+//
+//    }
 }
