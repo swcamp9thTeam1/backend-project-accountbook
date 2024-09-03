@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController("AccbookControllerCommand")
-@RequestMapping("/com/iiiiii/accbookserver/accbook")
+@RequestMapping("accbook")
 public class AccbookController {
 
     private AccbookService accbookService;
