@@ -5,13 +5,17 @@ import com.iiiiii.accbookserver.accbook.query.dto.AccbookDTO;
 import com.iiiiii.accbookserver.accbook.query.dto.AccbookDetailDTO;
 import com.iiiiii.accbookserver.accbook.query.dto.AccbookTop3CategoryDTO;
 import com.iiiiii.accbookserver.accbook.query.service.AccbookService;
+import com.iiiiii.accbookserver.common.ResponseMessageGeneric;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/com/iiiiii/accbookserver/accbook")
@@ -25,44 +29,54 @@ public class AccbookController {
     }
 
     @GetMapping("daily")
-    List<AccbookDTO> findDailyAccbookBy(
+    ResponseEntity<ResponseMessageGeneric<List<AccbookDTO>>> findDailyAccbookBy(
             @RequestParam("memberCode") Integer memberCode,
             @RequestParam("findDate") String findDate) {
-        return accbookService.findDailyAccbookBy(memberCode, findDate);
+        List<AccbookDTO> accbooks = accbookService.findDailyAccbookBy(memberCode, findDate);
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(accbooks));
+
     }
 
     @GetMapping("weekly")
-    List<AccbookDTO> findWeeklyAccbookBy(
+    ResponseEntity<ResponseMessageGeneric<List<AccbookDTO>>> findWeeklyAccbookBy(
             @RequestParam("memberCode") Integer memberCode,
             @RequestParam("findDate") String findDate,
             @RequestParam("weekNo") Integer weekNo) {
-        return accbookService.findWeeklyAccbookBy(memberCode, findDate, weekNo);
+        List<AccbookDTO> accbooks = accbookService.findWeeklyAccbookBy(memberCode, findDate, weekNo);
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(accbooks));
     }
 
     @GetMapping("monthly")
-    List<AccbookDTO> findMonthlyAccbookBy(
+    ResponseEntity<ResponseMessageGeneric<List<AccbookDTO>>> findMonthlyAccbookBy(
             @RequestParam("memberCode") Integer memberCode,
             @RequestParam("findDate") String findDate) {
-        return accbookService.findMonthlyAccbookBy(memberCode, findDate);
+        List<AccbookDTO> accbooks = accbookService.findMonthlyAccbookBy(memberCode, findDate);
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(accbooks));
     }
 
-    @GetMapping("search/monthly-top3-categories")
-    List<AccbookTop3CategoryDTO> findMonthlyTop3CategoriesBy(
+    @GetMapping("monthly-top3-categories")
+    ResponseEntity<ResponseMessageGeneric<List<AccbookTop3CategoryDTO>>> findMonthlyTop3CategoriesBy(
             @RequestParam("memberCode") Integer memberCode,
             @RequestParam("findDate") String findDate) {
-        return accbookService.findMonthlyTop3CategoriesBy(memberCode, findDate);
+        List<AccbookTop3CategoryDTO> accbooks = accbookService.findMonthlyTop3CategoriesBy(memberCode, findDate);
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(accbooks));
+
     }
 
-    @GetMapping("search/monthly-category-stat")
-    List<AccbookCategoryStatsDTO> findMonthlyCategoryStatBy(
+    @GetMapping("monthly-category-stat")
+    ResponseEntity<ResponseMessageGeneric<List<AccbookCategoryStatsDTO>>> findMonthlyCategoryStatBy(
             @RequestParam("memberCode") Integer memberCode,
             @RequestParam("findDate") String findDate) {
-        return accbookService.findMonthlyCategoryStatBy(memberCode, findDate);
+        List<AccbookCategoryStatsDTO> accbooks = accbookService.findMonthlyCategoryStatBy(memberCode, findDate);
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(accbooks));
     }
 
-    @GetMapping("search/detail")
-    AccbookDetailDTO findAccbookDetailBy(
+    @GetMapping("detail")
+    ResponseEntity<ResponseMessageGeneric<AccbookDetailDTO>> findAccbookDetailBy(
             @RequestParam("accbookCode") Integer accbookCode) {
-        return accbookService.findAccbookDetailBy(accbookCode);
+
+        AccbookDetailDTO foundAccbook = accbookService.findAccbookDetailBy(accbookCode);
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(foundAccbook));
+
     }
 }

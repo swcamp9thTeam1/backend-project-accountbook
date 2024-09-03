@@ -44,7 +44,7 @@ public class AccbookController {
         Accbook accbook = accbookService.modifyAccbook(accbookCode, modifyAccbook);
 
         Map<String, Object> responseMap = new HashMap<>();
-        responseMap.put("com/iiiiii/accbookserver/accbook", accbook);
+        responseMap.put("accbook", accbook);
 
         return ResponseEntity
                 .ok(new ResponseMessage(responseMap));
