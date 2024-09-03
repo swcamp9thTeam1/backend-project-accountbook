@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.acc_group_post_file.query.repository.AccGroupPostFileMapper">
+    <resultMap id="ResultMap" type="com.iiiiii.accountbook.acc_group_post_file.query.dto.AccGroupPostFileDTO">
+        <id property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+        <result property="accGroupPostCode" column="acc_group_post_code"/>
+    </resultMap>
+
+    <select id="selectAllGroupPostFile" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.PATH
+             , A.ACC_GROUP_POST_CODE
+          FROM ACC_GROUP_POST_FILE A
+    </select>
+
+    <select id="selectGroupPostFileByFileCode" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.PATH
+             , A.ACC_GROUP_POST_CODE
+          FROM ACC_GROUP_POST_FILE A
+         WHERE A.CODE = #{fileCode}
+    </select>
+
+    <select id="selectGroupPostFileByPostCode" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.PATH
+             , A.ACC_GROUP_POST_CODE
+          FROM ACC_GROUP_POST_FILE A
+         WHERE A.ACC_GROUP_POST_CODE = #{postCode}
+    </select>
+
+</mapper>

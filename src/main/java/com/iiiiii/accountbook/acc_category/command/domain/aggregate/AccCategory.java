@@ -12,9 +12,9 @@ public class AccCategory {
     private YesOrNo visibility;
     private YesOrNo isDeleted;
     private int memberCode;
-    private int parentCode;
+    private Integer parentCode;
 
-    public AccCategory(String name, InOrOut financeType, YesOrNo visibility, YesOrNo isDeleted, int memberCode, int parentCode) {
+    public AccCategory(String name, InOrOut financeType, YesOrNo visibility, YesOrNo isDeleted, int memberCode, Integer parentCode) {
         this.name = name;
         this.financeType = financeType;
         this.visibility = visibility;
@@ -23,7 +23,15 @@ public class AccCategory {
         this.parentCode = parentCode;
     }
 
-    public AccCategory(int code, String name, InOrOut financeType, YesOrNo visibility, YesOrNo isDeleted, int memberCode, int parentCode) {
+    public AccCategory(String name, InOrOut financeType, YesOrNo visibility, YesOrNo isDeleted, int memberCode) {
+        this.name = name;
+        this.financeType = financeType;
+        this.visibility = visibility;
+        this.isDeleted = isDeleted;
+        this.memberCode = memberCode;
+    }
+
+    public AccCategory(int code, String name, InOrOut financeType, YesOrNo visibility, YesOrNo isDeleted, int memberCode, Integer parentCode) {
         this.code = code;
         this.name = name;
         this.financeType = financeType;
@@ -31,5 +39,13 @@ public class AccCategory {
         this.isDeleted = isDeleted;
         this.memberCode = memberCode;
         this.parentCode = parentCode;
+    }
+    public AccCategory(int code, String name, InOrOut financeType, YesOrNo visibility, YesOrNo isDeleted, Integer memberCode) {
+        this.code = code;
+        this.name = name;
+        this.financeType = financeType;
+        this.visibility = visibility;
+        this.isDeleted = isDeleted;
+        this.memberCode = memberCode;
     }
 }
