@@ -4,6 +4,7 @@ import com.iiiiii.accountbook.acc_category.command.domain.aggregate.AccCategory;
 import com.iiiiii.accountbook.acc_category.command.domain.aggregate.AccCategoryEntity;
 import com.iiiiii.accountbook.acc_category.command.domain.repository.AccCategoryRepository;
 import com.iiiiii.accountbook.acc_category.query.dto.AccCategoryDTO;
+import com.iiiiii.accountbook.common.YesOrNo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class AccCategoryService {
 
     public void deleteAccCategory(AccCategory deleteAccCategory) {
         AccCategoryEntity deleteAccCategoryEntity = modelMapper.map(deleteAccCategory, AccCategoryEntity.class);
-        accCategoryRepository.delete(deleteAccCategoryEntity);
+        deleteAccCategoryEntity.setIsDeleted(YesOrNo.Y);
+        accCategoryRepository.saveAndFlush(deleteAccCategoryEntity);
     }
 }
