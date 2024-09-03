@@ -75,13 +75,20 @@ class StoreServiceTests {
         }
     }
 
+    private static Stream<Arguments> providerStoreLatLng() {
+        return Stream.of(
+                Arguments.of("37.497436", "126.927531"),
+                Arguments.of("37.496", "126.9531"),
+                Arguments.of("37.4979", "127.0276")
+        );
+    }
+
     @DisplayName("위도,경도로 가게 검색")
-    @Test
-    public void testSearchStoreByLatLng() throws Exception {
+    @ParameterizedTest
+    @MethodSource("providerStoreLatLng")
+    public void testSearchStoreByLatLng(String lat, String lng) throws Exception {
 
         // given
-        String lat = "37.497436";
-        String lng = "126.927531";
         StoreSearchCriteria criteria = new StoreSearchCriteria(lat, lng);
 
         // when
