@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("queryService")
+@Service("queryRegularExpenseService")
 public class RegularExpenseService {
     private RegularExpenseMapper reMapper;
 

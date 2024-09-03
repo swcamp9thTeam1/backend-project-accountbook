@@ -20,7 +20,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurity {
 
-
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberService memberService;
     private final Environment env;
@@ -31,6 +30,7 @@ public class WebSecurity {
                           MemberService memberService,
                           Environment env,
                           JwtUtil jwtUtil) {
+
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.memberService = memberService;
         this.env = env;
@@ -61,9 +61,11 @@ public class WebSecurity {
 
         http.authorizeHttpRequests((authz) ->
                         authz.requestMatchers(new AntPathRequestMatcher("/members/**", "POST")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/members/**", "GET")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/members/**", "GET")).hasRole("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/members/**", "PUT")).hasRole("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/members/**", "DELETE")).hasRole("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "GET").permitAll()
-
                                 .anyRequest().authenticated()
                 )
 

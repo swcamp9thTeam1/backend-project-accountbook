@@ -25,5 +25,4 @@ public class GroupMemberEntity {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private GroupRole role;
-
 }

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/com/iiiiii/accbookserver/accbook")
+@RequestMapping("/accbook")
 public class AccbookController {
 
     private final AccbookService accbookService;
@@ -77,6 +77,10 @@ public class AccbookController {
 
         AccbookDetailDTO foundAccbook = accbookService.findAccbookDetailBy(accbookCode);
         return ResponseEntity.ok(new ResponseMessageGeneric<>(foundAccbook));
+    }
 
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "Accbook health test";
     }
 }

@@ -1,6 +1,5 @@
 package com.iiiiii.accbooksecurity.member.command.application.controller;
 
-import com.iiiiii.accbooksecurity.member.Hello;
 import com.iiiiii.accbooksecurity.member.command.application.service.MemberService;
 import com.iiiiii.accbooksecurity.member.command.domain.aggregate.dto.MemberDTO;
 
@@ -18,7 +17,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -30,7 +28,6 @@ public class MemberController {
     private ModelMapper modelMapper;
     private MemberService memberService;
     private Environment env;
-    private Hello hello;
     private AuthenticationManager authenticationManager;
     private JwtUtil jwtUtil;
 
@@ -38,7 +35,6 @@ public class MemberController {
     public MemberController(ModelMapper modelMapper,
                             MemberService memberService,
                             Environment env,
-                            Hello hello,
                             AuthenticationManager authenticationManager,
                             JwtUtil jwtUtil
     ) {
@@ -46,7 +42,6 @@ public class MemberController {
         this.modelMapper = modelMapper;
         this.memberService = memberService;
         this.env = env;
-        this.hello = hello;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
@@ -106,7 +101,8 @@ public class MemberController {
     @PutMapping("/members/{memNo}/nickname")
     public ResponseEntity<?> updateNickname(
             @PathVariable("memNo") String memNo,
-            @RequestBody Map<String, String> request) {
+            @RequestBody Map<String, String> request,
+            @RequestHeader("Authorization") String token) {
 
         String newNickname = request.get("nickname");
 

@@ -42,6 +42,7 @@ public class StoreReviewService {
     // 주석. 2. 리뷰 서비스 ( Q. 두 가지 다 구현하냐?? ) -> 한번에 다 작성함
     @Transactional
     // 주석. 리뷰 수정 : 리뷰 코드 입력 -> 수정하도록 코드 작성
+    // 주석. 리뷰 코드를 기준으로, DTO 수정 요청을 보낸다.
     public StoreReview modifyStoreReview(Integer reviewCode, StoreReviewDTO modifyStoreReview){
 
         StoreReview storeReview = storeReviewRepository.findById(reviewCode)
