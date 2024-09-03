@@ -2,7 +2,6 @@ package com.iiiiii.accountbook.community.command.application.service;
 
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostDTO;
 import com.iiiiii.accountbook.community.command.domain.repository.CommunityPostRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CommunityServiceTests {
 
     @Autowired
-    private CommunityService communityService;
+    private CommunityPostService communityPostService;
 
     @Autowired
     private CommunityPostRepository communityPostRepository;
@@ -27,7 +26,7 @@ public class CommunityServiceTests {
                 new CommunityPostDTO(
                         "2024-02-01 10:10:00", "꿀템 발견!", "이거 보이면 꼭 사세요", 3);
 
-        assertDoesNotThrow(() -> communityService.registPost(communityPost));
+        assertDoesNotThrow(() -> communityPostService.registPost(communityPost));
     }
 
     @DisplayName("게시글 수정 테스트")
@@ -38,13 +37,13 @@ public class CommunityServiceTests {
                 new CommunityPostDTO(
                         6, "2024-02-05 11:00:00", "꿀템 발견!", "단종 됐나봐요..", 3);
 
-        assertDoesNotThrow(() -> communityService.modifyPost(6, modifiedPost));
+        assertDoesNotThrow(() -> communityPostService.modifyPost(6, modifiedPost));
     }
 
     @DisplayName("게시글 삭제 테스트")
     @Test
     public void removeCommunityPost() {
 
-        assertDoesNotThrow(() -> communityService.removePost(6));
+        assertDoesNotThrow(() -> communityPostService.removePost(6));
     }
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class CommunityPostDTO {
 
-    private int code;               // 게시글 코드
+    private int postCode;           // 게시글 코드
     private String createdAt;       // 작성일시
     private String title;           // 제목
     private String detail;          // 내용
