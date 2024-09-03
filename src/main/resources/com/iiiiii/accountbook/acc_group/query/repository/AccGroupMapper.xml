@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.acc_group.query.repository.AccGroupMapper">
+    <resultMap id="ResultMap" type="com.iiiiii.accountbook.acc_group.query.dto.AccGroupDTO">
+        <id property="code" column="CODE"/>
+        <result property="name" column="NAME"/>
+        <result property="intro" column="INTRO"/>
+    </resultMap>
+
+    <select id="selectAllAccGroups" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.INTRO
+          FROM ACC_GROUP A
+    </select>
+
+    <select id="selectOneAccGroup" resultMap="ResultMap" parameterType="_int">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.INTRO
+          FROM ACC_GROUP A
+         WHERE A.CODE = #{code}
+    </select>
+
+    <select id="selectAllAccGroupCodes" resultType="_int">
+        SELECT
+               A.CODE
+          FROM ACC_GROUP A
+    </select>
+
+    <select id="selectAllAccGroupNames" resultType="string">
+        SELECT
+               A.NAME
+          FROM ACC_GROUP A
+    </select>
+</mapper>

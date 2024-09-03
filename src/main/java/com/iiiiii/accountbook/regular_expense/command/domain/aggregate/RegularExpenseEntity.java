@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.regular_expense.command.domain.aggregate;
 
+import com.iiiiii.accountbook.acc_category.command.domain.aggregate.AccCategoryEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 

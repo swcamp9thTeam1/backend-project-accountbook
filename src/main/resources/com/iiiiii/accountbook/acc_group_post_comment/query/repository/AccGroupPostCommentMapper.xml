@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.acc_group_post_comment.query.repository.AccGroupPostCommentMapper">
+    <resultMap id="ResultMap" type="com.iiiiii.accountbook.acc_group_post_comment.query.dto.AccGroupPostCommentDTO">
+        <id property="code" column="code"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="detail" column="detail"/>
+        <result property="parentCode" column="parent_code"/>
+        <result property="accGroupPostCode" column="acc_group_post_code"/>
+        <result property="memberCode" column="member_code"/>
+    </resultMap>
+
+    <select id="selectAllGroupPostComment" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.DETAIL
+             , A.PARENT_CODE
+             , A.ACC_GROUP_POST_CODE
+             , A.MEMBER_CODE
+          FROM ACC_GROUP_POST_COMMENT A
+    </select>
+
+    <select id="selectGroupPostCommentByCommentCode" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.DETAIL
+             , A.PARENT_CODE
+             , A.ACC_GROUP_POST_CODE
+             , A.MEMBER_CODE
+          FROM ACC_GROUP_POST_COMMENT A
+         WHERE A.CODE = #{accGroupPostCommentCode}
+    </select>
+
+    <select id="selectGroupPostCommentRecomment" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.DETAIL
+             , A.PARENT_CODE
+             , A.ACC_GROUP_POST_CODE
+             , A.MEMBER_CODE
+          FROM ACC_GROUP_POST_COMMENT A
+         WHERE A.PARENT_CODE = #{accGroupPostCommentCode}
+    </select>
+
+    <select id="selectGroupPostCommentByPostCode" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.DETAIL
+             , A.PARENT_CODE
+             , A.ACC_GROUP_POST_CODE
+             , A.MEMBER_CODE
+          FROM ACC_GROUP_POST_COMMENT A
+         WHERE A.ACC_GROUP_POST_CODE = #{postCode}
+    </select>
+
+    <select id="selectGroupPostCommentByMemberCode" resultMap="ResultMap">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.DETAIL
+             , A.PARENT_CODE
+             , A.ACC_GROUP_POST_CODE
+             , A.MEMBER_CODE
+          FROM ACC_GROUP_POST_COMMENT A
+         WHERE A.MEMBER_CODE = #{memberCode}
+    </select>
+
+</mapper>

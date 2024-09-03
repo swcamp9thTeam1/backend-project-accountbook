@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.acc_group_member.query.repository.GroupMemberMapper">
+    <resultMap id="ResultMap" type="com.iiiiii.accountbook.acc_group_member.query.dto.GroupMemberDTO">
+        <id property="memberCode" column="member_code"/>
+        <id property="accGroupCode" column="acc_group_code"/>
+        <result property="role" column="role"/>
+    </resultMap>
+
+    <select id="selectAllGroupMember" resultMap="ResultMap">
+        SELECT
+               A.MEMBER_CODE
+             , A.ACC_GROUP_CODE
+             , A.ROLE
+          FROM ACC_GROUP_MEMBER A
+    </select>
+
+    <select id="selectGroupByMemberCode" resultMap="ResultMap" parameterType="_int">
+        SELECT
+               A.MEMBER_CODE
+             , A.ACC_GROUP_CODE
+             , A.ROLE
+          FROM ACC_GROUP_MEMBER A
+         WHERE A.MEMBER_CODE = #{memberCode}
+    </select>
+
+    <select id="selectGroupMemberByGroupCode" resultMap="ResultMap" parameterType="_int">
+        SELECT
+               A.MEMBER_CODE
+             , A.ACC_GROUP_CODE
+             , A.ROLE
+          FROM ACC_GROUP_MEMBER A
+         WHERE A.ACC_GROUP_CODE = #{groupCode}
+    </select>
+
+    <select id="selectGroupMemberByRole" resultMap="ResultMap" parameterType="hashmap">
+        SELECT
+               A.MEMBER_CODE
+             , A.ACC_GROUP_CODE
+             , A.ROLE
+          FROM ACC_GROUP_MEMBER A
+         WHERE A.ACC_GROUP_CODE = #{groupCode, jdbcType=INTEGER}
+           AND A.ROLE = #{role, jdbcType=CHAR}
+    </select>
+</mapper>

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController("QueryRegularExpenseController")
 @RequestMapping("/regular-expense")
 public class RegularExpenseController {
     private RegularExpenseService regularExpenseService;
@@ -30,20 +30,20 @@ public class RegularExpenseController {
                 .body(regularExpenses);
     }
 
-    @GetMapping("/{memberCode}")
-    public ResponseEntity<List<ResponseRegularExpenseDTO>> findOneMemberRegularExpenses(@PathVariable("memberCode") int memberCode) {
+    @GetMapping("/{regularExpenseCode}")
+    public ResponseEntity<RegularExpenseDTO> findOneRegularExpenses(@PathVariable("regularExpenseCode") int regularExpenseCode) {
 
-        List<ResponseRegularExpenseDTO> regularExpenses = regularExpenseService.findOneMemberRegularExpenses(memberCode);
+        RegularExpenseDTO regularExpenses = regularExpenseService.findOneRegularExpenses(regularExpenseCode);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(regularExpenses);
     }
 
-    @GetMapping("/search/{regularExpenseCode}")
-    public ResponseEntity<RegularExpenseDTO> findOneRegularExpenses(@PathVariable("regularExpenseCode") int regularExpenseCode) {
+    @GetMapping("/members/{memberCode}")
+    public ResponseEntity<List<ResponseRegularExpenseDTO>> findOneMemberRegularExpenses(@PathVariable("memberCode") int memberCode) {
 
-        RegularExpenseDTO regularExpenses = regularExpenseService.findOneRegularExpenses(regularExpenseCode);
+        List<ResponseRegularExpenseDTO> regularExpenses = regularExpenseService.findOneMemberRegularExpenses(memberCode);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
