@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -23,14 +24,17 @@ public class WebSecurity {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private MemberService memberService;
     private Environment env;
+    private JwtUtil jwtUtil;
 
     @Autowired
     public WebSecurity(BCryptPasswordEncoder bCryptPasswordEncoder,
                        MemberService memberService,
-                       Environment env) {
+                       Environment env,
+                       JwtUtil jwtUtil) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.memberService = memberService;
         this.env = env;
+        this.jwtUtil = jwtUtil;
     }
 
     @Bean
@@ -57,9 +61,11 @@ public class WebSecurity {
 
         http.authorizeHttpRequests((authz) ->
                         authz.requestMatchers(new AntPathRequestMatcher("/members/**", "POST")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/members/**", "GET")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/members/**", "GET")).hasRole("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/members/**", "PUT")).hasRole("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/members/**", "DELETE")).hasRole("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "GET").permitAll()
-
                                 .anyRequest().authenticated()
                 )
 
@@ -70,6 +76,8 @@ public class WebSecurity {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
                 http.addFilter(getAuthenticationFilter(authenticationManager));
+                http.addFilterBefore(new JwtFilter(memberService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
+
 
 
         return http.build();

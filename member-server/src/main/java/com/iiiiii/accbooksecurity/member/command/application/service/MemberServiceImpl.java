@@ -72,10 +72,9 @@ public class MemberServiceImpl implements MemberService {
 
 
         // memberIsAdmin 필드를 확인하여 권한 설정
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         if ("Y".equals(loginUser.getMemberIsAdmin())) {
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        } else {
-            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         return new User(loginUser.getMemberId(), loginUser.getEncryptedPwd(),
                 true, true, true, true,
