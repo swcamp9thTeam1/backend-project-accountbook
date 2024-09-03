@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d90eea64-e2ef-4664-a32b-957e8bc77fc1" name="Changes" comment="FIX: Accbook 서버 설정 완료">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/application/controller/AccbookController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/application/service/AccCommentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/application/service/AccbookService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/domain/aggregate/dto/AccbookDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/domain/aggregate/dto/CreateAccCommentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/domain/aggregate/dto/UpdateAccCommentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/domain/aggregate/entity/AccComment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/domain/aggregate/entity/Accbook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/domain/repository/AccCommentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/command/domain/repository/AccbookRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/query/controller/AccbookController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/query/dto/AccCommentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/query/dto/AccbookCategoryStatsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/query/dto/AccbookDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/query/dto/AccbookDetailDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/query/dto/AccbookTop3CategoryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/query/repository/AccbookMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/accbook/query/service/AccbookService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/AssetCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/GroupRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/InOrOut.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/ResponseCommon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/ResponseError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/ResponseMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/ResponseMessageGeneric.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/ResponseStatusText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/common/YesOrNo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/config/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/config/ModelMapperConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/config/MybatisConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/config/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/java/com/iiiiii/accbookserver/exception/NotValidRequestException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/resources/com/iiiiii/accbookserver/accbook/query/repository/AccbookMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/main/resources/log4j2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/test/java/com/iiiiii/accbookserver/accbook/command/application/service/AccCommentServiceTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/test/java/com/iiiiii/accbookserver/accbook/command/application/service/AccbookServiceTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accbook-server/src/test/java/com/iiiiii/accbookserver/accbook/query/service/AccbookServiceTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="accountbook" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="accountbook" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2l5yVyE947Ke7Mh3HBD5Fxi3iiq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.AccCommentServiceTests.testModifyAccComment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccCommentServiceTests.testRegistAccbookComment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccCommentServiceTests.testRemoveAccComment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccCommentServiceTests.testmodifyAccComment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccbookServiceTests.testFindDailyAccbookBy.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccbookServiceTests.testFindMonthlyAccbookBy.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccbookServiceTests.testFindMonthlyTop3CategoriesBy.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccbookServiceTests.testFindWeeklyAccbookBy.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccbookServiceTests.testModifyAccbook.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccbookServiceTests.testRegistAccbook.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccbookServiceTests.testRemoveAccbook.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccbookServiceTests.testfindAccbookDetailBy.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build backend-project-accountbook.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.StoreServiceTests.testFindStoreById.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendAccountbookApplication.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/msa/accbook-server&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/DaMin/springStudy/backend-project-accountbook/main-server&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reactor&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
+    ]
+  }
+}</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.iiiiii.accountbook.accbook.command.domain.aggregate.dto" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\DaMin\springStudy\backend-project-accountbook\main-server\src\main\java\com\iiiiii\accountbook\acc-group-post" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.iiiiii.accountbook.accbook.command.application.service" />
+      <recent name="com.iiiiii.accountbook.accbook.query.service" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.iiiiii.accountbook.accbook.command.domain.aggregate.dto" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.BackendAccountbookApplication">
+    <configuration name="AccbookServiceTests.testRegistAccbook" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="env">
+          <map>
+            <entry key="DB_PORT" value="3307" />
+          </map>
+        </option>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.iiiiii.accountbook.accbook.command.application.service.AccbookServiceTests.testRegistAccbook&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="backend-project-accountbook" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="backend-project-accountbook" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BackendAccountbookApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="DB_PORT" value="3307" />
+      </envs>
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="accountbook.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.iiiiii.accountbook.BackendAccountbookApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.iiiiii.accountbook.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.AccbookServiceTests.testRegistAccbook" />
+      <item itemvalue="Spring Boot.BackendAccountbookApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.BackendAccountbookApplication" />
+        <item itemvalue="Gradle.AccbookServiceTests.testRegistAccbook" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d90eea64-e2ef-4664-a32b-957e8bc77fc1" name="Changes" comment="" />
+      <created>1724484260465</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1724484260465</updated>
+      <workItem from="1724484262517" duration="21000" />
+      <workItem from="1724484368722" duration="5722000" />
+      <workItem from="1724505345006" duration="1960000" />
+      <workItem from="1724630108637" duration="6508000" />
+      <workItem from="1724674548390" duration="3733000" />
+      <workItem from="1724678556864" duration="1927000" />
+      <workItem from="1724680824991" duration="85000" />
+      <workItem from="1724680958855" duration="422000" />
+      <workItem from="1724716521628" duration="24663000" />
+      <workItem from="1724757645337" duration="4637000" />
+      <workItem from="1724762600739" duration="3353000" />
+      <workItem from="1724801990885" duration="9018000" />
+      <workItem from="1724828893299" duration="3615000" />
+      <workItem from="1724841742836" duration="7453000" />
+      <workItem from="1724849231281" duration="6002000" />
+      <workItem from="1724892855961" duration="16771000" />
+      <workItem from="1724975546311" duration="14526000" />
+      <workItem from="1725011663162" duration="45000" />
+      <workItem from="1725017966484" duration="6348000" />
+      <workItem from="1725024348889" duration="359000" />
+      <workItem from="1725025607560" duration="4360000" />
+      <workItem from="1725031842120" duration="2729000" />
+      <workItem from="1725034603104" duration="1520000" />
+      <workItem from="1725036159469" duration="471000" />
+      <workItem from="1725107086607" duration="5706000" />
+      <workItem from="1725162875900" duration="2254000" />
+      <workItem from="1725165345183" duration="748000" />
+      <workItem from="1725166148915" duration="794000" />
+      <workItem from="1725182894312" duration="3662000" />
+      <workItem from="1725235253762" duration="21955000" />
+      <workItem from="1725277217241" duration="797000" />
+      <workItem from="1725279508131" duration="14000" />
+      <workItem from="1725287383932" duration="331000" />
+      <workItem from="1725321068335" duration="1467000" />
+      <workItem from="1725322564656" duration="98000" />
+      <workItem from="1725322669780" duration="1275000" />
+      <workItem from="1725323973276" duration="164000" />
+    </task>
+    <task id="LOCAL-00001" summary="FEATURE: 일자별 가계부 목록 조회 완료">
+      <option name="closed" value="true" />
+      <created>1724677992522</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1724677992523</updated>
+    </task>
+    <task id="LOCAL-00002" summary="CHORE: mariadb 포트 번호 수정&#10;&#10;- 포트 번호 3306으로 설정">
+      <option name="closed" value="true" />
+      <created>1724679405684</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1724679405684</updated>
+    </task>
+    <task id="LOCAL-00003" summary="FEATURE: 월별 가계부 목록 조회 완료">
+      <option name="closed" value="true" />
+      <created>1724722493571</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724722493571</updated>
+    </task>
+    <task id="LOCAL-00004" summary="TEST: 월별 가계부 목록 조회 테스트">
+      <option name="closed" value="true" />
+      <created>1724724372313</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724724372313</updated>
+    </task>
+    <task id="LOCAL-00005" summary="TEST: 월별 가계부 목록 조회 테스트">
+      <option name="closed" value="true" />
+      <created>1724724423379</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1724724423379</updated>
+    </task>
+    <task id="LOCAL-00006" summary="CONFIG: Swagger 설정 완료">
+      <option name="closed" value="true" />
+      <created>1724727558001</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1724727558001</updated>
+    </task>
+    <task id="LOCAL-00007" summary="FEATURE: 월별 Top3 지출 카테고리 조회 완료">
+      <option name="closed" value="true" />
+      <created>1724740412103</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1724740412103</updated>
+    </task>
+    <task id="LOCAL-00008" summary="TEST: 월별 Top3 지출 카테고리 조회 테스트">
+      <option name="closed" value="true" />
+      <created>1724742731604</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1724742731604</updated>
+    </task>
+    <task id="LOCAL-00009" summary="FEATURE: 주별 가계부 목록 조회 완료">
+      <option name="closed" value="true" />
+      <created>1724763485372</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1724763485372</updated>
+    </task>
+    <task id="LOCAL-00010" summary="TEST: 주별 가계부 목록 조회 테스트">
+      <option name="closed" value="true" />
+      <created>1724763989260</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1724763989260</updated>
+    </task>
+    <task id="LOCAL-00011" summary="FIX: 일자별 가계부 목록 조회에서 Date를 String으로 전달하도록 수정">
+      <option name="closed" value="true" />
+      <created>1724764408406</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1724764408406</updated>
+    </task>
+    <task id="LOCAL-00012" summary="TEST: 일자별 가계부 목록 조회 테스트">
+      <option name="closed" value="true" />
+      <created>1724764898731</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1724764898731</updated>
+    </task>
+    <task id="LOCAL-00013" summary="FEATURE: 월별 가계부 목록 조회에서 날짜 형식 처리 수정&#10;&#10;- YYYY-mm 입력과 YYYY-mm-DD 입력이 모두 가능하도록 SELECT 쿼리를 수정했습니다">
+      <option name="closed" value="true" />
+      <created>1724765651276</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1724765651276</updated>
+    </task>
+    <task id="LOCAL-00014" summary="FEATURE: 가계부 코멘트 조회 완료">
+      <option name="closed" value="true" />
+      <created>1724830019275</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1724830019275</updated>
+    </task>
+    <task id="LOCAL-00015" summary="TEST: 가계부 코멘트 조회 테스트">
+      <option name="closed" value="true" />
+      <created>1724830178083</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1724830178083</updated>
+    </task>
+    <task id="LOCAL-00016" summary="FIX: 가계부 코멘트 DTO에 코멘트 코드 추가">
+      <option name="closed" value="true" />
+      <created>1724831228675</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1724831228675</updated>
+    </task>
+    <task id="LOCAL-00017" summary="FEATURE: 가계부 내역 기본 작성 완료">
+      <option name="closed" value="true" />
+      <created>1724849805535</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1724849805535</updated>
+    </task>
+    <task id="LOCAL-00018" summary="FIX: 가계부 내역 수정 기능 변경&#10;&#10;- 가계부를 수정할 때 기존값에 수정된 값이 덮어쓰기된 형태로 가져온다고 가정했습니다.&#10;- 가져온 가계부DTO에서 null인 필드를 체크하는 코드를 제거했습니다.">
+      <option name="closed" value="true" />
+      <created>1724907356432</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1724907356432</updated>
+    </task>
+    <task id="LOCAL-00019" summary="FEATURE: 가계부 내역 삭제 기능 완료">
+      <option name="closed" value="true" />
+      <created>1724914883860</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1724914883860</updated>
+    </task>
+    <task id="LOCAL-00020" summary="FIX: Accbook 서비스에 의존성 주입 어노테이션 명시">
+      <option name="closed" value="true" />
+      <created>1724915662029</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1724915662029</updated>
+    </task>
+    <task id="LOCAL-00021" summary="FEATURE: 가계부 코멘트 작성 완료">
+      <option name="closed" value="true" />
+      <created>1724918315789</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1724918315790</updated>
+    </task>
+    <task id="LOCAL-00022" summary="TEST: 가계부 작성 테스트">
+      <option name="closed" value="true" />
+      <created>1725004518899</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1725004518899</updated>
+    </task>
+    <task id="LOCAL-00023" summary="TEST: 가계부 수정 테스트">
+      <option name="closed" value="true" />
+      <created>1725007571221</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1725007571221</updated>
+    </task>
+    <task id="LOCAL-00024" summary="TEST: 가계부 삭제 테스트">
+      <option name="closed" value="true" />
+      <created>1725008238000</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1725008238000</updated>
+    </task>
+    <task id="LOCAL-00025" summary="FEATURE: 가계부 댓글 수정 기능 완료">
+      <option name="closed" value="true" />
+      <created>1725019816217</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1725019816218</updated>
+    </task>
+    <task id="LOCAL-00026" summary="FEATURE: 가계부 댓글 삭제 기능 완료">
+      <option name="closed" value="true" />
+      <created>1725019912977</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1725019912977</updated>
+    </task>
+    <task id="LOCAL-00027" summary="FIX: 가계부 관련 URL 수정">
+      <option name="closed" value="true" />
+      <created>1725020340655</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1725020340655</updated>
+    </task>
+    <task id="LOCAL-00028" summary="FIX: 가계부 댓글 URL에 가계부번호 추가 및 DTO 수정&#10;&#10;- URL 디렉터리 구조를 명확하게 드러내기 위해 가계부 댓글 URL에 해당 댓글이 달린 가계부번호를 표시&#10;- 가계부 댓글을 수정할 때, 가계부에 달린 댓글을 수정할 수는 있지만 다른 가계부로 댓글을 옮길 수는 없다고 생각해 가계부번호를 바꿀 수 없도록 수정">
+      <option name="closed" value="true" />
+      <created>1725021719770</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1725021719770</updated>
+    </task>
+    <task id="LOCAL-00029" summary="TEST: 가계부 댓글 수정, 삭제 테스트 작성">
+      <option name="closed" value="true" />
+      <created>1725024422672</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1725024422672</updated>
+    </task>
+    <task id="LOCAL-00030" summary="TEST: 가계부 댓글 작성 및 수정 DTO 분리&#10;&#10;- 가계부 코멘트 작성에 필요한 정보와 수정에 필요한 정보를 구분하기 위해 작성DTO와 수정DTO를 분리&#10;- 생성 DTO는 댓글 작성에 필요한 생성일자/내용/상위댓글코드/멤버코드를 포함&#10;- 수정 DTO는 수정한 코멘트 내용만 포함">
+      <option name="closed" value="true" />
+      <created>1725033871369</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1725033871370</updated>
+    </task>
+    <task id="LOCAL-00031" summary="FIX: 가계부 댓글 작성/수정 DTO 분리&#10;&#10;- 가계부 코멘트 작성에 필요한 정보와 수정에 필요한 정보를 구분하기 위해 작성DTO와 수정DTO를 분리&#10;- 작성 DTO는 댓글 작성에 필요한 생성일자/내용/상위댓글코드/멤버코드를 포함&#10;- 수정 DTO는 수정한 코멘트 내용만 포함">
+      <option name="closed" value="true" />
+      <created>1725036387744</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1725036387744</updated>
+    </task>
+    <task id="LOCAL-00032" summary="FEATURE: 고정지출 내역 기입&#10;&#10;- 스프링 스케줄러를 이용해 매일 자정에 해당하는 날짜의 고정지출이 가계부에 자동으로 기입되도록 작성했습니다.&#10;- BackendAccountbookApplication에 @EnableScheduling 어노테이션을 추가했습니다.&#10;- RegularExpenseDTO에 code가 빠져 있어서 추가했습니다.">
+      <option name="closed" value="true" />
+      <created>1725183550724</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1725183550725</updated>
+    </task>
+    <task id="LOCAL-00033" summary="FEATURE: 고정지출 내역 기입&#10;&#10;- 스프링 스케줄러를 이용해 매일 자정에 고정지출이 가계부에 자동으로 기입되도록 작성했습니다.&#10;- BackendAccountbookApplication에 @EnableScheduling 어노테이션을 추가했습니다.&#10;- RegularExpenseDTO에 code가 빠져 있어서 추가했습니다(존재X 시 에러 발생).">
+      <option name="closed" value="true" />
+      <created>1725183937094</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1725183937094</updated>
+    </task>
+    <task id="LOCAL-00034" summary="FEATURE: 고정지출 내역 기입&#10;&#10;- 스프링 스케줄러를 이용해 매일 자정에 고정지출이 가계부에 자동으로 기입되도록 작성했습니다.&#10;- BackendAccountbookApplication에 @EnableScheduling 어노테이션을 추가했습니다.&#10;- RegularExpenseDTO에 code가 빠져 있어서 추가했습니다(존재X 시 에러 발생).">
+      <option name="closed" value="true" />
+      <created>1725183962194</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1725183962194</updated>
+    </task>
+    <task id="LOCAL-00035" summary="FIX: Accbook 서버 설정 완료">
+      <option name="closed" value="true" />
+      <created>1725287635381</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1725287635381</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <MESSAGE value="FIX: 일자별 가계부 목록 조회에서 Date를 String으로 전달하도록 수정" />
+    <MESSAGE value="TEST: 일자별 가계부 목록 조회 테스트" />
+    <MESSAGE value="FEATURE: 월별 가계부 목록 조회에서 날짜 형식 처리 수정&#10;&#10;- YYYY-mm 입력과 YYYY-mm-DD 입력이 모두 가능하도록 SELECT 쿼리를 수정했습니다" />
+    <MESSAGE value="FEATURE: 가계부 코멘트 조회 완료" />
+    <MESSAGE value="TEST: 가계부 코멘트 조회 테스트" />
+    <MESSAGE value="FIX: 가계부 코멘트 DTO에 코멘트 코드 추가" />
+    <MESSAGE value="FEATURE: 가계부 내역 기본 작성 완료" />
+    <MESSAGE value="FIX: 가계부 내역 수정 기능 변경&#10;&#10;- 가계부를 수정할 때 기존값에 수정된 값이 덮어쓰기된 형태로 가져온다고 가정했습니다.&#10;- 가져온 가계부DTO에서 null인 필드를 체크하는 코드를 제거했습니다." />
+    <MESSAGE value="FEATURE: 가계부 내역 삭제 기능 완료" />
+    <MESSAGE value="FIX: Accbook 서비스에 의존성 주입 어노테이션 명시" />
+    <MESSAGE value="FEATURE: 가계부 코멘트 작성 완료" />
+    <MESSAGE value="TEST: 가계부 작성 테스트" />
+    <MESSAGE value="TEST: 가계부 수정 테스트" />
+    <MESSAGE value="TEST: 가계부 삭제 테스트" />
+    <MESSAGE value="FEATURE: 가계부 댓글 수정 기능 완료" />
+    <MESSAGE value="FEATURE: 가계부 댓글 삭제 기능 완료" />
+    <MESSAGE value="FIX: 가계부 관련 URL 수정" />
+    <MESSAGE value="FIX: 가계부 댓글 URL에 가계부번호 추가 및 DTO 수정&#10;&#10;- URL 디렉터리 구조를 명확하게 드러내기 위해 가계부 댓글 URL에 해당 댓글이 달린 가계부번호를 표시&#10;- 가계부 댓글을 수정할 때, 가계부에 달린 댓글을 수정할 수는 있지만 다른 가계부로 댓글을 옮길 수는 없다고 생각해 가계부번호를 바꿀 수 없도록 수정" />
+    <MESSAGE value="TEST: 가계부 댓글 수정, 삭제 테스트 작성" />
+    <MESSAGE value="TEST: 가계부 댓글 작성 및 수정 DTO 분리&#10;&#10;- 가계부 코멘트 작성에 필요한 정보와 수정에 필요한 정보를 구분하기 위해 작성DTO와 수정DTO를 분리&#10;- 생성 DTO는 댓글 작성에 필요한 생성일자/내용/상위댓글코드/멤버코드를 포함&#10;- 수정 DTO는 수정한 코멘트 내용만 포함" />
+    <MESSAGE value="FIX: 가계부 댓글 작성 및 수정 DTO 분리&#10;&#10;- 가계부 코멘트 작성에 필요한 정보와 수정에 필요한 정보를 구분하기 위해 작성DTO와 수정DTO를 분리&#10;- 생성 DTO는 댓글 작성에 필요한 생성일자/내용/상위댓글코드/멤버코드를 포함&#10;- 수정 DTO는 수정한 코멘트 내용만 포함" />
+    <MESSAGE value="FIX: 가계부 댓글 작성/수정 DTO 분리&#10;&#10;- 가계부 코멘트 작성에 필요한 정보와 수정에 필요한 정보를 구분하기 위해 작성DTO와 수정DTO를 분리&#10;- 작성 DTO는 댓글 작성에 필요한 생성일자/내용/상위댓글코드/멤버코드를 포함&#10;- 수정 DTO는 수정한 코멘트 내용만 포함" />
+    <MESSAGE value="FEATURE: 고정지출 내역 기입&#10;&#10;- 스프링 스케줄러를 이용해 매일 자정에 해당하는 날짜의 고정지출이 가계부에 자동으로 기입되도록 작성했습니다.&#10;- BackendAccountbookApplication에 @EnableScheduling 어노테이션을 추가했습니다.&#10;- RegularExpenseDTO에 code가 빠져 있어서 추가했습니다." />
+    <MESSAGE value="FEATURE: 고정지출 내역 기입&#10;&#10;- 스프링 스케줄러를 이용해 매일 자정에 고정지출이 가계부에 자동으로 기입되도록 작성했습니다.&#10;- BackendAccountbookApplication에 @EnableScheduling 어노테이션을 추가했습니다.&#10;- RegularExpenseDTO에 code가 빠져 있어서 추가했습니다(존재X 시 에러 발생)." />
+    <MESSAGE value="FIX: Accbook 서버 설정 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="FIX: Accbook 서버 설정 완료" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/com/iiiiii/accountbook/accbook/query/service/AccbookServiceTests.java</url>
+          <line>88</line>
+          <properties class="com.iiiiii.accountbook.accbook.query.service.AccbookServiceTests">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/com/iiiiii/accountbook/accbook/query/service/AccbookServiceTests.java</url>
+          <line>63</line>
+          <properties class="com.iiiiii.accountbook.accbook.query.service.AccbookServiceTests">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
