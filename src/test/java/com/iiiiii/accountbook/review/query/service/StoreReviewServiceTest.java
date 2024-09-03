@@ -43,7 +43,7 @@ class StoreReviewServiceTest {
         assertDoesNotThrow(() -> storeReviewService.findStoreReviewByMemberCode(memberCode));
     }
 
-    
+
     @DisplayName("가게 코드로 가게 리뷰 조회 테스트")
     @ParameterizedTest
     @MethodSource("provideStoreCode")
