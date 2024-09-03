@@ -74,7 +74,12 @@ public class CommunityController {
 
     /* 첨부파일 삭제 */
     // 게시글에서 이어져야 함
+    @DeleteMapping("/post/{postCode}/{fileCode}")
+    public ResponseEntity<?> removeFile(@PathVariable Integer postCode, @PathVariable Integer fileCode) {
+        communityFileService.removeFile(postCode, fileCode);
 
+        return ResponseEntity.noContent().build();
+    }
 
     /* 댓글 등록 */
 
