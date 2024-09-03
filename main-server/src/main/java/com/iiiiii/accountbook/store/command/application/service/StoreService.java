@@ -132,7 +132,7 @@ public class StoreService {
     }
 
     @Transactional
-    public void registerStore(RegisterStoreVO registerStoreVO) {
+    public int registerStore(RegisterStoreVO registerStoreVO) {
 
         // VO -> Entity (DTO는 VO와 모양새가 똑같을 것 같아서 VO 그대로 사용)
         Store newStore = new Store();
@@ -142,7 +142,8 @@ public class StoreService {
         newStore.setLongitude(registerStoreVO.getLongitude());
         newStore.setIsGood(YesOrNo.N);
 
-        storeRepository.save(newStore);
+        Store resultStore = storeRepository.save(newStore);
+        return resultStore.getStoreCode();
     }
 
     @Transactional
