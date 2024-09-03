@@ -22,14 +22,14 @@ spring:
             - Path=/member-service/**
           filters:
             - RewritePath=/member-service/(?<segment>.*), /$\{segment}
-  #          - AuthorizationHeaderFilter
+        #          - AuthorizationHeaderFilter
         - id: accbook-service
           uri: lb://IIIIII-ACCBOOK-SERVICE
           predicates:
             - Path=/accbook-service/**
           filters:
             - RewritePath=/accbook-service/(?<segment>.*), /$\{segment}
-  #          - AuthorizationHeaderFilter
+        #          - AuthorizationHeaderFilter
         - id: main-service
           uri: lb://IIIIII-MAIN-SERVICE
           predicates:
