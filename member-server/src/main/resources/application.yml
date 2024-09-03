@@ -12,13 +12,13 @@ spring:
     password: iiiiii
 
   jpa:
-    hibernate:
-      ddl-auto: create
+    generate-ddl: false
     show-sql: true
     database: mysql
     properties:
       hibernate:
-        '[format_sql]': true
+        '[format_sql]': true  # change to pretty SQL text
+
 
 eureka:
   instance:
@@ -28,10 +28,6 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-
-hello:
-  message: Welcome to 9th SW-Camp
-
 
 # token config 설정
 token:
