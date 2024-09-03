@@ -1,9 +1,9 @@
 server:
-  port: 8112
+  port: 0
 
 spring:
   application:
-    name: security-user-service
+    name: iiiiii-member-service
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
