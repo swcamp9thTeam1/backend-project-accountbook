@@ -5,6 +5,7 @@ import com.iiiiii.accountbook.common.YesOrNo;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Data
 @Entity(name = "AccCategoryEntity")
 @Table(name = "acc_category")
@@ -33,7 +34,6 @@ public class AccCategoryEntity {
     @Column(name = "member_code")
     private int memberCode;
 
-    @Column(name = "parent_code", nullable = true)
+   @Column(name = "parent_code", nullable = true)
     private int parentCode;
-
 }

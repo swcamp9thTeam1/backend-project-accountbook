@@ -34,16 +34,16 @@ DROP TABLE IF EXISTS member;
 
 -- member(회원)
 CREATE TABLE member (
-    code INT PRIMARY KEY AUTO_INCREMENT,
-    id VARCHAR(255) NOT NULL,
-    nickname VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    is_admin CHAR(1) NOT NULL DEFAULT 'N',
-    monthly_budget BIGINT NOT NULL DEFAULT 0,
-    jwt_token VARCHAR(1024),
-    refresh_token VARCHAR(1024),
-    CHECK (is_admin IN ('Y', 'N'))
+  code INT PRIMARY KEY AUTO_INCREMENT,
+  id VARCHAR(255) NOT NULL,
+  nickname VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  is_admin CHAR(1) NOT NULL DEFAULT 'N',
+  monthly_budget BIGINT NOT NULL DEFAULT 0,
+  jwt_token VARCHAR(1024),
+  refresh_token VARCHAR(1024),
+  CHECK (is_admin IN ('Y', 'N'))
 ) ENGINE = INNODB;
 
 -- acc_group(그룹)
@@ -59,8 +59,8 @@ CREATE TABLE acc_group_member (
   acc_group_code INT,
   role VARCHAR(255) NOT NULL,
   PRIMARY KEY (member_code, acc_group_code),
-  FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (acc_group_code) REFERENCES acc_group(code),
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (acc_group_code) REFERENCES acc_group(CODE) ON DELETE CASCADE,
   CHECK (role IN ('ROLE_LEADER', 'ROLE_FOLLOWER', 'ROLE_UNALLOWED'))
 ) ENGINE = INNODB;
 
@@ -72,8 +72,7 @@ CREATE TABLE acc_group_post (
   detail TEXT NOT NULL,
   member_code INT NOT NULL,
   acc_group_code INT NOT NULL,
-  FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (acc_group_code) REFERENCES acc_group(code)
+  FOREIGN KEY (member_code, acc_group_code) REFERENCES acc_group_member(member_code, acc_group_code) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- acc_group_post_file(그룹 게시글 첨부파일)
@@ -82,7 +81,7 @@ CREATE TABLE acc_group_post_file (
   name VARCHAR(255) NOT NULL,
   path VARCHAR(255) NOT NULL,
   acc_group_post_code INT NOT NULL,
-  FOREIGN KEY (acc_group_post_code) REFERENCES acc_group_post(code)
+  FOREIGN KEY (acc_group_post_code) REFERENCES acc_group_post(CODE) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- acc_group_post_comment(그룹 게시글 댓글)
@@ -93,9 +92,9 @@ CREATE TABLE acc_group_post_comment (
   parent_code INT,
   acc_group_post_code INT NOT NULL,
   member_code INT NOT NULL,
-  FOREIGN KEY (parent_code) REFERENCES acc_group_post_comment(code),
-  FOREIGN KEY (acc_group_post_code) REFERENCES acc_group_post(code),
-  FOREIGN KEY (member_code) REFERENCES member(code)
+  acc_group_code INT NOT NULL,
+  FOREIGN KEY (acc_group_post_code) REFERENCES acc_group_post(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (member_code, acc_group_code) REFERENCES acc_group_member(member_code, acc_group_code) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- store(가게)
@@ -120,8 +119,8 @@ CREATE TABLE store_review (
   one_line_review VARCHAR(255) NOT NULL,
   member_code INT NOT NULL,
   store_code INT NOT NULL,
-  FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (store_code) REFERENCES store(code) ON DELETE SET NULL
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (store_code) REFERENCES store(CODE) ON DELETE CASCADE
 )ENGINE=INNODB;
 
 -- store_review_file(가게 리뷰 첨부파일)
@@ -130,7 +129,7 @@ CREATE TABLE store_review_file (
   name VARCHAR(255) NOT NULL,
   path VARCHAR(255) NOT NULL,
   store_review_code INT NOT NULL,
-  FOREIGN KEY (store_review_code) REFERENCES store_review(code)
+  FOREIGN KEY (store_review_code) REFERENCES store_review(CODE) ON DELETE CASCADE
 )ENGINE=INNODB;
 
 -- acc_category(가계부 카테고리)
@@ -142,8 +141,8 @@ CREATE TABLE acc_category (
   is_deleted CHAR(1) NOT NULL DEFAULT 'N',
   member_code INT NOT NULL,
   parent_code INT,
-  FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (parent_code) REFERENCES acc_category(code),
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (parent_code) REFERENCES acc_category(CODE),
   CHECK (finance_type IN ('I', 'O')),
   CHECK (visibility IN ('Y', 'N')),
   CHECK (is_deleted IN ('Y', 'N'))
@@ -158,7 +157,7 @@ CREATE TABLE asset (
   payment_date INT,
   is_deleted CHAR(1) NOT NULL DEFAULT 'N',
   member_code INT NOT NULL,
-  FOREIGN KEY (member_code) REFERENCES member(code),
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE,
   CHECK (category IN ('M', 'B', 'C', 'CC', 'S', 'L')),
   CHECK (is_deleted IN ('Y', 'N'))
 )ENGINE = INNODB;
@@ -172,7 +171,7 @@ CREATE TABLE regular_expense (
   member_code INT NOT NULL,
   asset_code INT NOT NULL,
   acc_category_code INT NOT NULL,
-  FOREIGN KEY (member_code) REFERENCES member(code),
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE,
   FOREIGN KEY (asset_code) REFERENCES asset(code),
   FOREIGN KEY (acc_category_code) REFERENCES acc_category(code)
 )ENGINE = INNODB;
@@ -188,7 +187,7 @@ CREATE TABLE accbook (
   acc_category_code INT NOT NULL,
   store_code INT,
   asset_code INT NOT NULL,
-  FOREIGN KEY (member_code) REFERENCES member(code),
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE,
   FOREIGN KEY (acc_category_code) REFERENCES acc_category(code),
   FOREIGN KEY (store_code) REFERENCES store(code) ON DELETE SET NULL,
   FOREIGN KEY (asset_code) REFERENCES asset(code),
@@ -203,19 +202,19 @@ CREATE TABLE acc_comment (
   parent_code INT,
   accbook_code INT NOT NULL,
   member_code INT NOT NULL,
-  FOREIGN KEY (parent_code) REFERENCES acc_comment(code),
-  FOREIGN KEY (accbook_code) REFERENCES accbook(code),
-  FOREIGN KEY (member_code) REFERENCES member(code)
+  FOREIGN KEY (parent_code) REFERENCES acc_comment(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (accbook_code) REFERENCES accbook(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- community_post(커뮤니티 게시글)
 CREATE TABLE community_post (
   code INT PRIMARY KEY AUTO_INCREMENT,
-  create_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL,
   title VARCHAR(255) NOT NULL,
   detail TEXT NOT NULL,
   member_code INT NOT NULL,
-  FOREIGN KEY (member_code) REFERENCES member(code)
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- community_post_file(커뮤니티 첨부파일)
@@ -224,7 +223,7 @@ CREATE TABLE community_post_file (
   name VARCHAR(255) NOT NULL,
   path VARCHAR(255) NOT NULL,
   community_post_code INT NOT NULL,
-  FOREIGN KEY (community_post_code) REFERENCES community_post(code)
+  FOREIGN KEY (community_post_code) REFERENCES community_post(CODE) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- community_post_comment(커뮤니티 게시글 댓글)
@@ -235,9 +234,9 @@ CREATE TABLE community_post_comment (
   community_post_code INT NOT NULL,
   member_code INT NOT NULL,
   parent_code INT,
-  FOREIGN KEY (community_post_code) REFERENCES community_post(code),
-  FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (parent_code) REFERENCES community_post_comment(code)
+  FOREIGN KEY (community_post_code) REFERENCES community_post(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (parent_code) REFERENCES community_post_comment(CODE) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 -- community_post_scrap(커뮤니티 게시글 스크랩)
@@ -245,7 +244,7 @@ CREATE TABLE community_post_scrap (
   member_code INT,
   community_post_code INT,
   PRIMARY KEY (member_code, community_post_code),
-  FOREIGN KEY (member_code) REFERENCES member(code),
-  FOREIGN KEY (community_post_code) REFERENCES community_post(code)
+  FOREIGN KEY (member_code) REFERENCES member(CODE) ON DELETE CASCADE,
+  FOREIGN KEY (community_post_code) REFERENCES community_post(CODE) ON DELETE CASCADE
 ) ENGINE = INNODB;
 ```

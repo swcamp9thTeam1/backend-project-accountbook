@@ -1,6 +1,8 @@
 package com.iiiiii.accountbook.config;
 
 import com.iiiiii.accountbook.common.ResponseError;
+import com.iiiiii.accountbook.exception.NotAllowedGroupRoleException;
+import com.iiiiii.accountbook.exception.NotGroupMemberException;
 import com.iiiiii.accountbook.exception.NotValidRequestException;
 import com.iiiiii.accountbook.store.exception.NotFoundStoreException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +20,9 @@ public class GlobalExceptionHandler {
     // status code 400
     @ExceptionHandler({
             NotValidRequestException.class,
-            NotFoundStoreException.class
+            NotFoundStoreException.class,
+            NotAllowedGroupRoleException.class,
+            NotGroupMemberException.class
     })
     public ResponseEntity<ResponseError> handleBadRequest(Exception e) {
         return ResponseEntity

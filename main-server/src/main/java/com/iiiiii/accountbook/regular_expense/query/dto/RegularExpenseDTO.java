@@ -7,7 +7,7 @@ public class RegularExpenseDTO {
     private int code;
     private int expenseDate;
     private String name;
-    private int amount;
+    private long amount;
     private int memberCode;
     private int assetCode;
     private int accCategoryCode;
