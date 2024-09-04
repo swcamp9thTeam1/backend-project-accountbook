@@ -29,8 +29,10 @@ public class AssetService {
 
     /* 자산 등록 트랜잭션 */
     @Transactional
-    public void registAsset(AssetDTO newAsset) {
-        assetRepository.save(modelMapper.map(newAsset, Asset.class));
+    public int registAsset(AssetDTO newAsset) {
+        Asset asset = assetRepository.save(modelMapper.map(newAsset, Asset.class));
+
+        return asset.getCode();
     }
 
     /* 자산 수정 트랜잭션 */

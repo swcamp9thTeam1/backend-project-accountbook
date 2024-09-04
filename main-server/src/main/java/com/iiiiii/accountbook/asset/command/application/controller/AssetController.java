@@ -24,9 +24,9 @@ public class AssetController {
     /* 자산 등록 */
     @PostMapping("")
     public ResponseEntity<?> registAsset(@RequestBody AssetDTO newAsset) {
-        assetService.registAsset(newAsset);
+        int registedCode = assetService.registAsset(newAsset);
 
-        return ResponseEntity.created(URI.create("/assets/" + newAsset.getCode())).build();
+        return ResponseEntity.created(URI.create("/assets/" + registedCode)).build();
     }
 
     /* 자산 수정 */
