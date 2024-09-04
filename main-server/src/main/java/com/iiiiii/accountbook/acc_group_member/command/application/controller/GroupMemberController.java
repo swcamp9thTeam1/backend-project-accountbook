@@ -2,6 +2,7 @@ package com.iiiiii.accountbook.acc_group_member.command.application.controller;
 
 import com.iiiiii.accountbook.acc_group_member.command.application.service.GroupMemberService;
 import com.iiiiii.accountbook.acc_group_member.command.domain.aggregate.GroupMember;
+import com.iiiiii.accountbook.exception.NotAllowedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,6 @@ public class GroupMemberController {
 
     @PostMapping("/regist")
     public ResponseEntity<?> registGroupMember(@RequestBody GroupMember newGroupMember) {
-
         groupMemberService.registGroupMember(newGroupMember);
 
         return ResponseEntity
@@ -37,7 +37,7 @@ public class GroupMemberController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteGroupMember(@RequestBody GroupMember deleteGroupMember) {
+    public ResponseEntity<?> deleteGroupMember(@RequestBody GroupMember deleteGroupMember) throws NotAllowedException {
 
         groupMemberService.deleteGroupMember(deleteGroupMember);
 

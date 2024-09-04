@@ -28,5 +28,8 @@ public class AccGroupPostCommentEntity {
     private int memberCode;
 
     @Column(name = "parent_code", nullable = true)
-    private int parentCode;
+    private Integer parentCode;
+
+    @Column(name = "acc_group_code")
+    private int accGroupCode;
 }

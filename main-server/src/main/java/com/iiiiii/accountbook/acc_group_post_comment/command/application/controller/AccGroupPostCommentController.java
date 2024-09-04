@@ -17,7 +17,7 @@ public class AccGroupPostCommentController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> registAccGroupPostComment(@RequestBody AccGroupPostComment newAccGroupPostComment) {
+    public ResponseEntity<?> registAccGroupPostComment(@RequestBody AccGroupPostComment newAccGroupPostComment) throws Exception {
         accGroupPostCommentService.registAccGroupPostComment(newAccGroupPostComment);
 
         return ResponseEntity
