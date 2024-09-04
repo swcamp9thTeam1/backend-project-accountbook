@@ -1,7 +1,6 @@
 package com.iiiiii.accountbook.regular_expense.query.controller;
 
 import com.iiiiii.accountbook.regular_expense.query.dto.RegularExpenseDTO;
-import com.iiiiii.accountbook.regular_expense.query.dto.ResponseRegularExpenseDTO;
 import com.iiiiii.accountbook.regular_expense.query.service.RegularExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,9 +40,9 @@ public class RegularExpenseController {
     }
 
     @GetMapping("/members/{memberCode}")
-    public ResponseEntity<List<ResponseRegularExpenseDTO>> findOneMemberRegularExpenses(@PathVariable("memberCode") int memberCode) {
+    public ResponseEntity<List<RegularExpenseDTO>> findOneMemberRegularExpenses(@PathVariable("memberCode") int memberCode) {
 
-        List<ResponseRegularExpenseDTO> regularExpenses = regularExpenseService.findOneMemberRegularExpenses(memberCode);
+        List<RegularExpenseDTO> regularExpenses = regularExpenseService.findOneMemberRegularExpenses(memberCode);
 
         return ResponseEntity
                 .status(HttpStatus.OK)

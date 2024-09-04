@@ -36,7 +36,7 @@ public class AccCategoryServiceTests {
     @DisplayName("가계부 카테고리 삭제 확인 테스트")
     @Test
     public void testDeleteAccCategory() {
-        AccCategory deleteAccCategory = new AccCategory(2,"카테고리2", InOrOut.O, YesOrNo.Y, YesOrNo.N, 2);
+        AccCategory deleteAccCategory = new AccCategory(2,"카테고리2", InOrOut.O, YesOrNo.Y, YesOrNo.N, 1, 2);
 
        accCategoryService.deleteAccCategory(deleteAccCategory);
     }

@@ -3,6 +3,7 @@ package com.iiiiii.accountbook.regular_expense.command.domain.aggregate;
 import lombok.*;
 
 @Data
+@NoArgsConstructor
 public class RegularExpense {
     private int code;
     private int expenseDate;
@@ -11,6 +12,14 @@ public class RegularExpense {
     private int memberCode;
     private int assetCode;
     private int accCategoryCode;
+
+    public RegularExpense(String name, int amount, int memberCode, int assetCode, int accCategoryCode) {
+        this.name = name;
+        this.amount = amount;
+        this.memberCode = memberCode;
+        this.assetCode = assetCode;
+        this.accCategoryCode = accCategoryCode;
+    }
 
     public RegularExpense(int expenseDate, String name, int amount, int memberCode, int assetCode, int accCategoryCode) {
         this.expenseDate = expenseDate;

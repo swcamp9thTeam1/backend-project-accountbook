@@ -1,8 +1,10 @@
 package com.iiiiii.accountbook.acc_group.command.domain.aggregate;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class AccGroup {
     private int code;
     private String name;

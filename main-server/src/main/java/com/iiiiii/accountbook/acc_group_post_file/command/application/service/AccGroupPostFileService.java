@@ -3,7 +3,6 @@ package com.iiiiii.accountbook.acc_group_post_file.command.application.service;
 import com.iiiiii.accountbook.acc_group_post.query.service.AccGroupPostService;
 import com.iiiiii.accountbook.acc_group_post_file.command.domain.aggregate.AccGroupPostFile;
 import com.iiiiii.accountbook.acc_group_post_file.command.domain.aggregate.AccGroupPostFileEntity;
-import com.iiiiii.accountbook.acc_group_post_file.command.domain.aggregate.AccGroupPostFileVO;
 import com.iiiiii.accountbook.acc_group_post_file.command.domain.repository.AccGroupPostFileRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class AccGroupPostFileService {
     }
 
 
-    public void registAccGroupPostFile(AccGroupPostFileVO newAccGroupPostFile) {
+    public void registAccGroupPostFile(AccGroupPostFile newAccGroupPostFile) {
         AccGroupPostFileEntity postFile = modelMapper.map(newAccGroupPostFile, AccGroupPostFileEntity.class);
         accGroupPostFileRepository.save(postFile);
     }

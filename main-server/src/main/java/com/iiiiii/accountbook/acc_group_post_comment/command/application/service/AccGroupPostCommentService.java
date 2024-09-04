@@ -2,7 +2,6 @@ package com.iiiiii.accountbook.acc_group_post_comment.command.application.servic
 
 import com.iiiiii.accountbook.acc_group_post_comment.command.domain.aggregate.AccGroupPostComment;
 import com.iiiiii.accountbook.acc_group_post_comment.command.domain.aggregate.AccGroupPostCommentEntity;
-import com.iiiiii.accountbook.acc_group_post_comment.command.domain.aggregate.AccGroupPostCommentVO;
 import com.iiiiii.accountbook.acc_group_post_comment.command.domain.repository.AccGroupPostCommentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +29,14 @@ public class AccGroupPostCommentService {
     }
 
 
-    public void modifyAccGroupPostComment(AccGroupPostCommentVO modifyAccGroupPostComment) {
+    public void modifyAccGroupPostComment(AccGroupPostComment modifyAccGroupPostComment) {
         AccGroupPostCommentEntity comment = modelMapper.map(modifyAccGroupPostComment, AccGroupPostCommentEntity.class);
-        comment.setCreatedAt(LocalDateTime.parse(modifyAccGroupPostComment.getCreatedAt()));
+        comment.setCreatedAt(LocalDateTime.now());
         accGroupPostCommentRepository.saveAndFlush(comment);
     }
 
 
-    public void deleteAccGroupPostComment(AccGroupPostCommentVO deleteAccGroupPostComment) {
+    public void deleteAccGroupPostComment(AccGroupPostComment deleteAccGroupPostComment) {
         AccGroupPostCommentEntity comment = modelMapper.map(deleteAccGroupPostComment, AccGroupPostCommentEntity.class);
         accGroupPostCommentRepository.delete(comment);
     }
