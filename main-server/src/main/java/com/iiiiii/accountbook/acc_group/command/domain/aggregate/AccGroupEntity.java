@@ -11,7 +11,6 @@ public class AccGroupEntity {
 
     @Id
     @Column(name = "CODE")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int code;
 

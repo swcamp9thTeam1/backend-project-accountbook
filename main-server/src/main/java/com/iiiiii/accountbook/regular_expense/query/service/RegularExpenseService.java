@@ -1,7 +1,6 @@
 package com.iiiiii.accountbook.regular_expense.query.service;
 
 import com.iiiiii.accountbook.regular_expense.query.dto.RegularExpenseDTO;
-import com.iiiiii.accountbook.regular_expense.query.dto.ResponseRegularExpenseDTO;
 import com.iiiiii.accountbook.regular_expense.query.repository.RegularExpenseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +24,8 @@ public class RegularExpenseService {
     }
 
     // 회원별 고정 지출 목록 조회
-    public List<ResponseRegularExpenseDTO> findOneMemberRegularExpenses(int memberCode) {
-        List<ResponseRegularExpenseDTO> regularExpenses = reMapper.findOneMemberRegularExpenses(memberCode);
+    public List<RegularExpenseDTO> findOneMemberRegularExpenses(int memberCode) {
+        List<RegularExpenseDTO> regularExpenses = reMapper.findOneMemberRegularExpenses(memberCode);
 
         return regularExpenses;
 

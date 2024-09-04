@@ -2,7 +2,6 @@ package com.iiiiii.accountbook.acc_group_post_comment.command.application.contro
 
 import com.iiiiii.accountbook.acc_group_post_comment.command.application.service.AccGroupPostCommentService;
 import com.iiiiii.accountbook.acc_group_post_comment.command.domain.aggregate.AccGroupPostComment;
-import com.iiiiii.accountbook.acc_group_post_comment.command.domain.aggregate.AccGroupPostCommentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,7 @@ public class AccGroupPostCommentController {
     }
 
     @PostMapping("/modify")
-    public ResponseEntity<?> modifyAccGroupPostComment(@RequestBody AccGroupPostCommentVO modifyAccGroupPostComment) {
+    public ResponseEntity<?> modifyAccGroupPostComment(@RequestBody AccGroupPostComment modifyAccGroupPostComment) {
         accGroupPostCommentService.modifyAccGroupPostComment(modifyAccGroupPostComment);
 
         return ResponseEntity
@@ -39,7 +38,7 @@ public class AccGroupPostCommentController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<?> deleteAccGroupPostComment(@RequestBody AccGroupPostCommentVO deleteAccGroupPostComment) {
+    public ResponseEntity<?> deleteAccGroupPostComment(@RequestBody AccGroupPostComment deleteAccGroupPostComment) {
         accGroupPostCommentService.deleteAccGroupPostComment(deleteAccGroupPostComment);
 
         return ResponseEntity

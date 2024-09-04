@@ -1,7 +1,6 @@
 package com.iiiiii.accountbook.regular_expense.query.service;
 
 import com.iiiiii.accountbook.regular_expense.query.dto.RegularExpenseDTO;
-import com.iiiiii.accountbook.regular_expense.query.dto.ResponseRegularExpenseDTO;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -30,7 +29,7 @@ class RegularExpenseServiceTests {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3})
     public void testFindOneMemberRegularExpenses(int memberCode) {
-        List<ResponseRegularExpenseDTO> list = regularExpenseService.findOneMemberRegularExpenses(memberCode);
+        List<RegularExpenseDTO> list = regularExpenseService.findOneMemberRegularExpenses(memberCode);
 
         assertTrue(!list.isEmpty());
     }

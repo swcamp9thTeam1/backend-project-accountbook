@@ -1,8 +1,10 @@
 package com.iiiiii.accountbook.acc_group.query.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class AccGroupDTO {
     private int code;
     private String name;

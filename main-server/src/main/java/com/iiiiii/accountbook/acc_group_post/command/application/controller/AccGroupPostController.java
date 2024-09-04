@@ -3,8 +3,6 @@ package com.iiiiii.accountbook.acc_group_post.command.application.controller;
 import com.iiiiii.accountbook.acc_group_post.command.application.service.AccGroupPostService;
 
 import com.iiiiii.accountbook.acc_group_post.command.domain.aggregate.AccGroupPost;
-import com.iiiiii.accountbook.acc_group_post.command.domain.aggregate.AccGroupPostEntity;
-import com.iiiiii.accountbook.acc_group_post.command.domain.aggregate.AccGroupPostVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +30,7 @@ public class AccGroupPostController {
     }
 
     @PostMapping("/modify")
-    public ResponseEntity<?> modifyAccGroupPost(@RequestBody AccGroupPostVO modifyAccGroupPost) {
+    public ResponseEntity<?> modifyAccGroupPost(@RequestBody AccGroupPost modifyAccGroupPost) {
         accGroupPostService.modifyAccGroupPost(modifyAccGroupPost);
 
         return ResponseEntity
@@ -41,7 +39,7 @@ public class AccGroupPostController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<?> deleteAccGroupPost(@RequestBody AccGroupPostVO deleteAccGroupPost) {
+    public ResponseEntity<?> deleteAccGroupPost(@RequestBody AccGroupPost deleteAccGroupPost) {
         accGroupPostService.deleteAccGroupPost(deleteAccGroupPost);
 
         return ResponseEntity
