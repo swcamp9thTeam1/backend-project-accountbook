@@ -3,6 +3,8 @@ package com.iiiiii.accountbook.community.command.domain.aggregate.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "community_post")
 @NoArgsConstructor
@@ -15,17 +17,17 @@ public class CommunityPost {
     @Id
     @Column(name = "code")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer postCode;       // 게시글 코드
+    private Integer postCode;           // 게시글 코드
 
     @Column(name = "created_at")
-    private String createdAt;       // 작성일시
+    private LocalDateTime createdAt;    // 작성일시
 
     @Column(name = "title")
-    private String title;           // 제목
+    private String title;               // 제목
 
     @Column(name = "detail")
-    private String detail;          // 내용
+    private String detail;              // 내용
 
     @Column(name = "member_code")
-    private int memberCode;         // 작성자(회원 코드)
+    private int memberCode;             // 작성자(회원 코드)
 }
