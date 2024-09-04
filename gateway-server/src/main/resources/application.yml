@@ -20,20 +20,36 @@ spring:
           uri: lb://IIIIII-MEMBER-SERVICE
           predicates:
             - Path=/member-service/**
+            - Method=POST
           filters:
             - RewritePath=/member-service/(?<segment>.*), /$\{segment}
-        #          - AuthorizationHeaderFilter
+
+        - id: member-service
+          uri: lb://IIIIII-MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/**
+            - Method=GET,PUT,DELETE
+          filters:
+            - RewritePath=/member-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+
         - id: accbook-service
           uri: lb://IIIIII-ACCBOOK-SERVICE
           predicates:
             - Path=/accbook-service/**
           filters:
             - RewritePath=/accbook-service/(?<segment>.*), /$\{segment}
-        #          - AuthorizationHeaderFilter
+            - AuthorizationHeaderFilter
+
         - id: main-service
           uri: lb://IIIIII-MAIN-SERVICE
           predicates:
             - Path=/main-service/**
           filters:
             - RewritePath=/main-service/(?<segment>.*), /$\{segment}
-  #          - AuthorizationHeaderFilter
+            - AuthorizationHeaderFilter
+
+# token config 설정
+token:
+  # secret 키 생성
+  secret: UjBvrc1cxUv5GUeAA1UhA3dTs6iRd47m9BOGGmjJSQ91E5m3yLQ6460RwXaQStJYbFDVzlLszgOOxGCU0NgK8g==
