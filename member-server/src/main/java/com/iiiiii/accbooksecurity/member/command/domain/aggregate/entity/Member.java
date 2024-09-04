@@ -13,8 +13,9 @@ import lombok.*;
 public class Member {
 
     @Id
+    @Column(name="code", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int code;
+    private int memberCode;
 
     @Column(name="id", nullable = false)
     private String memberId;
