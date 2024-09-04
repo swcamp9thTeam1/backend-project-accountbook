@@ -44,8 +44,8 @@ public class CommunityCommentService {
             }
         }
 
-        CommunityComment registedComment = modelMapper.map(newComment, CommunityComment.class);
-        communityCommentRepository.save(registedComment);
+        CommunityComment registedComment = communityCommentRepository.save(
+                                            modelMapper.map(newComment, CommunityComment.class));
 
         return registedComment.getCommentCode();
     }
