@@ -42,30 +42,30 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     public void registMember(MemberDTO memberDTO) {
 
-        /* 설명. 경우에 따라 ModelMapper는 자의적인 판단으로 필드끼리 매핑하는 경우가 있어 정확히 일치되게 매칭할려면 추가할 속성 */
+        if (memberRepository.findByMemberId(memberDTO.getMemberId()) != null) {
+            throw new IllegalStateException("이미 존재하는 회원 아이디입니다.");
+        }
+
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
         Member member = modelMapper.map(memberDTO, Member.class);
         log.info("Service 계층에서 DTO -> Entity: {}", member);
 
-        /* 설명. BCryptPasswordEncoder 주입 후 암호화(평문 -> 다이제스트) */
         member.setEncryptedPwd(bCryptPasswordEncoder.encode(memberDTO.getPassword()));
 
         memberRepository.save(member);
+
     }
 
-    /* 설명. 로그인 시 security가 자동으로 호출하는 메소드 */
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 
-        /* 설명. 넘어온 email이 사용자가 입력한 id로써 email로 회원을 조회하는 쿼리 메소드 작성 */
         Member loginUser = memberRepository.findByMemberId(id);
 
         if (loginUser == null) {
             throw new UsernameNotFoundException(id + " 이메일 아이디의 유저는 존재하지 않습니다.");
         }
 
-        /* 설명. 사용자의 권한들을 가져왔다는 가정 */
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 //        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 //        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ENTERPRISE"));
@@ -117,21 +117,17 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findById(Integer.parseInt(memNo))
                 .orElseThrow(() -> new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다."));
 
-        // 닉네임 업데이트
         member.setMemberNickname(newNickname);
-
-        // 변경 사항 저장
         memberRepository.save(member);
         log.info("사용자 {}의 닉네임이 {}(으)로 변경되었습니다.", memNo, newNickname);
     }
 
-    // JWT 토큰을 무효화하는 메서드
     @Transactional
     public void invalidateJwtToken(String token) {
         Optional<Member> memberOpt = memberRepository.findByJwtToken(token);
         if (memberOpt.isPresent()) {
             Member member = memberOpt.get();
-            member.setJwtToken(null);  // 토큰을 무효화 처리
+            member.setJwtToken(null);
             memberRepository.save(member);
             log.info("토큰이 무효화되었습니다.");
         } else {

@@ -47,6 +47,7 @@ public class MemberController {
         this.jwtUtil = jwtUtil;
     }
 
+    // 주석. 로그인
     @PostMapping("/members/login")
     public ResponseEntity<?> login(@RequestBody RequestLoginVO loginRequest) {
         log.info("로그인 요청 - 사용자 ID: {}", loginRequest.getMemberId()); // 로그 추가
@@ -59,7 +60,7 @@ public class MemberController {
         String jwt = jwtUtil.generateToken(authentication);
         log.info("생성된 JWT 토큰: {}", jwt);
 
-        // JWT 토큰을 데이터베이스에 저장
+        // 주석. JWT 토큰을 데이터베이스에 저장
         log.info("Updating JWT Token for memberId: {}", loginRequest.getMemberId());
         memberService.updateJwtToken(loginRequest.getMemberId(), jwt);
 
@@ -70,22 +71,26 @@ public class MemberController {
 
         JwtResponseVO jwtResponseVO = new JwtResponseVO(jwt, memberDTO);
 
-//        return ResponseEntity.ok(new JwtResponseVO(jwt));
         return ResponseEntity.ok()
-                .headers(headers)  // 헤더에 토큰을 추가
-//                .body(new JwtResponseVO(jwt));
+                .headers(headers)
                 .body(jwtResponseVO);
     }
 
-    /* 설명. 회원가입 */
+    // 주석. 회원가입
     @PostMapping("members")
-    public ResponseEntity<ResponseRegistMemberVO> registMember(@RequestBody RequestRegistMemberVO newUser) {
-        MemberDTO memberDTO = modelMapper.map(newUser, MemberDTO.class);
+    public ResponseEntity<String> registMember(@RequestBody RequestRegistMemberVO newUser) {
+        try {
+            MemberDTO memberDTO = modelMapper.map(newUser, MemberDTO.class);
+            memberService.registMember(memberDTO);  // 중복된 아이디가 있으면 예외 발생
 
-        memberService.registMember(memberDTO);
-
-        ResponseRegistMemberVO responseMember = modelMapper.map(memberDTO, ResponseRegistMemberVO.class);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseMember);
+            return ResponseEntity.status(HttpStatus.CREATED).body("회원가입이 완료되었습니다.");
+        } catch (IllegalStateException e) {
+            // 중복된 아이디인 경우 409 Conflict 상태 코드와 메시지 반환
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (Exception e) {
+            // 그 외의 다른 예외 처리
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 가입에 실패했습니다.");
+        }
     }
 
 
@@ -95,13 +100,10 @@ public class MemberController {
             @RequestHeader("Authorization") String token
     ) {
 
-//         토큰에서 사용자 ID 추출
         String userIdFromToken = jwtUtil.getMemberId(token.replace("Bearer ", ""));
 
-        // memNo로 사용자의 ID를 가져옴
         MemberDTO memberDTO = memberService.getUserByUserId(memNo);
 
-//         토큰에서 가져온 ID와 memNo의 사용자가 일치하는지 확인
         if (!memberDTO.getMemberId().equals(userIdFromToken)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 일치하지 않으면 403 Forbidden
         }
@@ -110,6 +112,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(findUser);
     }
 
+    // 주석. 닉네임 변경
     @PutMapping("/members/{memNo}/nickname")
     public ResponseEntity<?> updateNickname(
             @PathVariable("memNo") String memNo,
@@ -118,12 +121,12 @@ public class MemberController {
 
         String newNickname = request.get("nickname");
 
-        // 닉네임을 업데이트하는 서비스 메서드를 호출합니다.
         memberService.updateNickname(memNo, newNickname);
 
         return ResponseEntity.status(HttpStatus.OK).body("닉네임이 성공적으로 변경되었습니다.");
     }
 
+    // 주석. 로그아웃
     @PostMapping("/members/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
 //        String userIdFromToken = jwtUtil.getMemberId(token.replace("Bearer ", ""));

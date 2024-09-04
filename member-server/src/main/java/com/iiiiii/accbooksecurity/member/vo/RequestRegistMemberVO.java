@@ -6,6 +6,7 @@ import lombok.Data;
 public class RequestRegistMemberVO {
 
     /* 설명. 회원가입 전달 */
+    private int memberCode;
     private String memberId;
     private String memberNickname;
     private String memberEmail;
