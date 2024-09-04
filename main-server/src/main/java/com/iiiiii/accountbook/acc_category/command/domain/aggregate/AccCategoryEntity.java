@@ -35,5 +35,5 @@ public class AccCategoryEntity {
     private int memberCode;
 
    @Column(name = "parent_code", nullable = true)
-    private int parentCode;
+    private Integer parentCode;
 }

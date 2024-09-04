@@ -2,10 +2,12 @@ package com.iiiiii.accountbook.acc_category.command.application.controller;
 
 import com.iiiiii.accountbook.acc_category.command.application.service.AccCategoryService;
 import com.iiiiii.accountbook.acc_category.command.domain.aggregate.AccCategory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController("CommandAccCategoryController")
 @RequestMapping("/acc-category")
 public class AccCategoryController {
