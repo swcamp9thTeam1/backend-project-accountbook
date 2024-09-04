@@ -93,20 +93,14 @@ public class MemberController {
         }
     }
 
-
+    // 주석. 회원정보 조회
     @GetMapping("/members/{memNo}")
     public ResponseEntity<ResponseFindMemberVO> getUser(
             @PathVariable("memNo") String memNo,
             @RequestHeader("Authorization") String token
     ) {
 
-        String userIdFromToken = jwtUtil.getMemberId(token.replace("Bearer ", ""));
-
         MemberDTO memberDTO = memberService.getUserByUserId(memNo);
-
-        if (!memberDTO.getMemberId().equals(userIdFromToken)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // 일치하지 않으면 403 Forbidden
-        }
 
         ResponseFindMemberVO findUser = modelMapper.map(memberDTO, ResponseFindMemberVO.class);
         return ResponseEntity.status(HttpStatus.OK).body(findUser);

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ResponseRegistMemberVO {
 
-    private int code;
+    private int memberCode;
     private String memberId;
     private String memberNickname;
     private String memberEmail;

@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
         Member loginUser = memberRepository.findByMemberId(id);
 
         if (loginUser == null) {
-            throw new UsernameNotFoundException(id + " 이메일 아이디의 유저는 존재하지 않습니다.");
+            throw new UsernameNotFoundException(id + "유저는 존재하지 않습니다.");
         }
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

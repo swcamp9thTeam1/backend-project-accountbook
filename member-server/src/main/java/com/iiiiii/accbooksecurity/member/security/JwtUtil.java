@@ -106,16 +106,14 @@ public class JwtUtil {
         return new UsernamePasswordAuthenticationToken(userDetails, "",  authorities);
     }
 
-    /* 설명. Token에서 Claims 추출 */
     public Claims parseClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
-    /* 설명. Token에서 사용자의 id(subject 클레임) 추출 */
+
     public String getMemberId(String token) {
         return parseClaims(token).getSubject();
     }
 
-    // JwtUtil.java
     public String getMemberIdFromToken(String token) {
         Claims claims = parseClaims(token);
         return claims.getSubject();  // 보통 subject에 id를 넣음
@@ -131,5 +129,4 @@ public class JwtUtil {
                 .getExpiration()
                 .getTime() - System.currentTimeMillis();
     }
-
 }
