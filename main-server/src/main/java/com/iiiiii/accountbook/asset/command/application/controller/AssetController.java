@@ -48,7 +48,7 @@ public class AssetController {
     /* 가계부 수입 내역 등록에 따른 자산 수정 */
     @PutMapping("/{code}/in")
     public ResponseEntity<?> modifyAssetByIn(@PathVariable Integer code, @RequestBody Long amount) {
-        assetService.modifyAssetByOut(code, amount);
+        assetService.modifyAssetByIn(code, amount);
 
         return ResponseEntity.noContent().build();
     }
