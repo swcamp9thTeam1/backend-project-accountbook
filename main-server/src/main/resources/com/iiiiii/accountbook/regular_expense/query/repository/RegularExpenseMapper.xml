@@ -13,7 +13,7 @@
         <result property="accCategoryCode" column="ACC_CATEGORY_CODE"/>
     </resultMap>
 
-    <resultMap id="responseResultMap2" type="com.iiiiii.accountbook.regular_expense.query.dto.ResponseRegularExpenseDTO">
+    <resultMap id="responseResultMap2" type="com.iiiiii.accountbook.regular_expense.query.dto.RegularExpenseDTO">
         <id property="code" column="CODE"/>
         <result property="expenseDate" column="EXPENSE_DATE"/>
         <result property="name" column="NAME"/>

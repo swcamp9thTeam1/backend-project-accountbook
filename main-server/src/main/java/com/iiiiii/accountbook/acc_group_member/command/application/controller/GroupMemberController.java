@@ -4,10 +4,7 @@ import com.iiiiii.accountbook.acc_group_member.command.application.service.Group
 import com.iiiiii.accountbook.acc_group_member.command.domain.aggregate.GroupMember;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("CommandGroupMemberController")
 @RequestMapping("/acc-group-member")
@@ -39,7 +36,7 @@ public class GroupMemberController {
                 .build();
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteGroupMember(@RequestBody GroupMember deleteGroupMember) {
 
         groupMemberService.deleteGroupMember(deleteGroupMember);
