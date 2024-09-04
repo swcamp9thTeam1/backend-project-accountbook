@@ -2,6 +2,7 @@ package com.iiiiii.accountbook.acc_group_member.command.application.service;
 
 import com.iiiiii.accountbook.acc_group_member.command.domain.aggregate.GroupMember;
 import com.iiiiii.accountbook.common.GroupRole;
+import com.iiiiii.accountbook.exception.NotAllowedException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class GroupMemberServiceTests {
 
     @DisplayName("그룹 멤버 삭제 확인 테스트")
     @Test
-    public void testDeleteAccGroup() {
+    public void testDeleteAccGroup() throws NotAllowedException {
         groupMemberService.deleteGroupMember(new GroupMember(10, 1, GroupRole.ROLE_FOLLOWER));
     }
 }
