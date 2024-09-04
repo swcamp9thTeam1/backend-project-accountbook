@@ -9,7 +9,6 @@ import lombok.*;
 @Setter
 @ToString
 public class RequestRegistAccbookDTO {
-    // Accbook 관련
     private String createdAt;
     private String title;
     private Long amount;
@@ -18,9 +17,5 @@ public class RequestRegistAccbookDTO {
     private Integer accCategoryCode;
     private Integer assetCode;
 
-    // Store 관련
-    private String storeName;
-    private String storeAddress;
-    private String latitude;
-    private String longitude;
+    private RegistStoreDTO registStoreDTO;
 }

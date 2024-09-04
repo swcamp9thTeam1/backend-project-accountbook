@@ -53,27 +53,28 @@ public class AccbookService {
         Accbook accbook = new Accbook();
 
         // 1.'방문한 가게' 정보가 입력된 경우
-        if (newAccbook.getStoreName() != null) {
-
-            ResponseStoreCodeVO responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(newAccbook.getLatitude(), newAccbook.getLongitude());
+        if (newAccbook.getRegistStoreDTO() != null) {
+            ResponseStoreCodeVO responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(
+                    newAccbook.getRegistStoreDTO().getLatitude(), newAccbook.getRegistStoreDTO().getLongitude());
 
             storeCode =  (Integer) responseStoreCodeVO.getResult().get("storeCode");
-
 
             // '방문한 가게'가 가게DB에 존재하지 않는 경우 -> Store DB에 등록 후 storeCode 저장
             if (storeCode == null) {
 
                 // RegisterStoreVO 생성 및 정보 저장
                 RequestRegistStoreVO registerStoreVO = new RequestRegistStoreVO(
-                        newAccbook.getStoreName(),
-                        newAccbook.getStoreAddress(),
-                        newAccbook.getLatitude(),
-                        newAccbook.getLongitude()
+                        newAccbook.getRegistStoreDTO().getStoreName(),
+                        newAccbook.getRegistStoreDTO().getStoreAddress(),
+                        newAccbook.getRegistStoreDTO().getLatitude(),
+                        newAccbook.getRegistStoreDTO().getLongitude()
                 );
 
                 storeServiceClient.registerStore(registerStoreVO); // 가게DB 등록 메서드 호출
 
-                responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(newAccbook.getLatitude(), newAccbook.getLongitude()); // 등록 후 storeCode 다시 저장
+                responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(
+                        newAccbook.getRegistStoreDTO().getLatitude(),
+                        newAccbook.getRegistStoreDTO().getLongitude()); // 등록 후 storeCode 다시 저장
                 accbook.setStoreCode((Integer) responseStoreCodeVO.getResult().get("storeCode"));
             }
         }
