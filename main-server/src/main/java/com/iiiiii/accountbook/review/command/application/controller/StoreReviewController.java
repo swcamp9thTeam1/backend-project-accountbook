@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.review.command.application.controller;
 
+import com.iiiiii.accountbook.asset.command.domain.aggregate.vo.RegisterReviewVO;
 import com.iiiiii.accountbook.common.ResponseMessage;
 import com.iiiiii.accountbook.common.ResponseStatusText;
 import com.iiiiii.accountbook.review.command.application.service.StoreReviewService;
@@ -26,7 +27,7 @@ public class StoreReviewController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> registStoreReview(@RequestBody StoreReviewDTO newStoreReview){
+    public ResponseEntity<?> registStoreReview(@RequestBody RegisterReviewVO newStoreReview){
         StoreReview savedStoreReview = storeReviewService.registStoreReview(newStoreReview);
 
         Map<String, Object> responseMap = new HashMap<>();

@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.review.command.application.service;
 
+import com.iiiiii.accountbook.asset.command.domain.aggregate.vo.RegisterReviewVO;
 import com.iiiiii.accountbook.review.command.domain.aggregate.entity.StoreReview;
 import com.iiiiii.accountbook.review.command.domain.repository.StoreReviewRepository;
 import com.iiiiii.accountbook.review.command.domain.aggregate.dto.StoreReviewDTO;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service("StoreReviewServiceCommand")
@@ -23,9 +25,13 @@ public class StoreReviewService {
 
     @Transactional
     // 주석. 리뷰 서비스 - 리뷰 등록 메소드
-    public StoreReview registStoreReview(StoreReviewDTO newStoreReview) {
+    public StoreReview registStoreReview(RegisterReviewVO newStoreReview) {
         StoreReview storeReview = new StoreReview();
-        storeReview.setCreatedAt(newStoreReview.getCreatedAt());
+
+        // 리뷰 작성일시 설정
+        storeReview.setCreatedAt(LocalDateTime.now().toString());
+
+        // 나머지는 VO에서 가져오기
         storeReview.setVisitors(newStoreReview.getVisitors());
         storeReview.setTotalExpense(newStoreReview.getTotalExpense());
         storeReview.setOneLineReview(newStoreReview.getOneLineReview());

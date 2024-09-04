@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.review.command.application.service;
 
+import com.iiiiii.accountbook.asset.command.domain.aggregate.vo.RegisterReviewVO;
 import com.iiiiii.accountbook.review.command.domain.aggregate.dto.StoreReviewDTO;
 import com.iiiiii.accountbook.review.command.domain.aggregate.entity.StoreReview;
 import com.iiiiii.accountbook.review.command.domain.repository.StoreReviewRepository;
@@ -28,27 +29,23 @@ class StoreReviewServiceTest {
     // Stream<Arguments> 반환 -> 각 Arguments가 testAddStoreReview메소드에 전달될 테스트 데이터 세트
     public static Stream<Arguments> provideReviewDTO() {
         return Stream.of(
-                Arguments.of("2024-08-25 14:32:00", 4, 250000L, "아주 좋음 ! 강추 ! .", 2, 3),
-                Arguments.of("2024-08-28 20:00:00", 3, 180000L, "낫 배드 가성비 좋음 ", 3, 2)
+                Arguments.of(4, 250000L, "아주 좋음 ! 강추 ! .", 2, 3),
+                Arguments.of(3, 180000L, "낫 배드 가성비 좋음 ", 3, 2)
         );
     }
     @DisplayName("가게 리뷰 추가 테스트")
     @ParameterizedTest  // 파라미터 테스트
     @MethodSource("provideReviewDTO")   // 사용할 파라미터 저장
-    public void testAddStoreReview(String createdAt, Integer visitors, Long totalExpense,
+    public void testAddStoreReview(Integer visitors, Long totalExpense,
                                    String oneLineReview, Integer memberCode , Integer storeCode) {
 
         // 입력 값 set
-        StoreReviewDTO addStoreReviewDTO = new StoreReviewDTO();
-        addStoreReviewDTO.setCreatedAt(createdAt);
-        addStoreReviewDTO.setVisitors(visitors);
-        addStoreReviewDTO.setTotalExpense(totalExpense);
-        addStoreReviewDTO.setOneLineReview(oneLineReview);
-        addStoreReviewDTO.setMemberCode(memberCode);
-        addStoreReviewDTO.setStoreCode(storeCode);
+        RegisterReviewVO addStoreReviewVO = new RegisterReviewVO(
+                visitors, totalExpense, oneLineReview, memberCode, storeCode
+        );
 
         // registStoreReview 메소드 동작 확인
-        StoreReview newStoreReview = storeReviewService.registStoreReview(addStoreReviewDTO);
+        StoreReview newStoreReview = storeReviewService.registStoreReview(addStoreReviewVO);
 
         // 저장 확인
         assertNotNull(newStoreReview);
