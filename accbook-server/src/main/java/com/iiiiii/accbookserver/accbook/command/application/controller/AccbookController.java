@@ -38,9 +38,12 @@ public class AccbookController {
 
         Accbook savedAccbook = accbookService.registAccbook(newAccbook);
 
-        return ResponseEntity
-                .created(URI.create("accbookCode" + savedAccbook.getAccbookCode()))
-                .build();
+//        return ResponseEntity
+//                .created(URI.create("accbookCode" + savedAccbook.getAccbookCode()))
+//                .build();
+
+        return ResponseEntity.created(URI.create("/accbook/detail/" + savedAccbook.getAccbookCode())).build();
+
     }
 
     @PutMapping("/{accbookCode}")
