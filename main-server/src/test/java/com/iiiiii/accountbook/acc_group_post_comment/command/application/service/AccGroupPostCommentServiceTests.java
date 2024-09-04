@@ -29,14 +29,14 @@ public class AccGroupPostCommentServiceTests {
     @DisplayName("그룹 게시글 댓글 작성 확인 테스트")
     @Test
     public void testModifyGroupPostComment() {
-        AccGroupPostComment comment = new AccGroupPostComment(11, LocalDateTime.now().toString(), "변경된 댓글입니다.", 2, 1, 2);
+        AccGroupPostComment comment = new AccGroupPostComment(11, LocalDateTime.now(), "변경된 댓글입니다.", 2, 1, 2);
         accGroupPostCommentService.modifyAccGroupPostComment(comment);
     }
 
     @DisplayName("그룹 게시글 댓글 작성 확인 테스트")
     @Test
     public void testDeleteGroupPostComment() {
-        AccGroupPostComment comment = new AccGroupPostComment(11, "2024-09-03 09:59:18", "변경된 댓글입니다.", 2, 1, 2);
+        AccGroupPostComment comment = new AccGroupPostComment(11, LocalDateTime.parse("2024-09-03 09:59:18"), "변경된 댓글입니다.", 2, 1, 2);
         accGroupPostCommentService.deleteAccGroupPostComment(comment);
     }
 }
