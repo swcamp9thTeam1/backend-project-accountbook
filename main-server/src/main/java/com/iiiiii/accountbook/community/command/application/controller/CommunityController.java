@@ -4,6 +4,7 @@ import com.iiiiii.accountbook.community.command.application.service.CommunityCom
 import com.iiiiii.accountbook.community.command.application.service.CommunityFileService;
 import com.iiiiii.accountbook.community.command.application.service.CommunityPostService;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommnunityFileDTO;
+import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityCommentDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -81,11 +82,25 @@ public class CommunityController {
         return ResponseEntity.noContent().build();
     }
 
-    /* 댓글 등록 */
+    /* 댓글 및 대댓글 등록 */
+    @PostMapping("/post/{postCode}/comment")
+    public ResponseEntity<?> registComment(@RequestBody CommunityCommentDTO newComment,
+                                           @PathVariable Integer postCode) {
+        communityCommentService.registComment(postCode, newComment);
 
+        return ResponseEntity.created(URI.create("/community/post/{postCode}/comment/"
+                                        + newComment.getCommentCode())).build();
+    }
 
-    /* 댓글 수정 */
+    /* 댓글 및 대댓글 수정 */
+    @PutMapping("/post/{postCode}/comment/{commentCode}")
+    public ResponseEntity<?> modifyComment(@RequestBody CommunityCommentDTO modifiedComment,
+                                           @PathVariable Integer postCode,
+                                           @PathVariable Integer commentCode) {
+        communityCommentService.modifyComment(postCode, commentCode, modifiedComment);
 
+        return ResponseEntity.noContent().build();
+    }
 
     /* 댓글 삭제 */
 
