@@ -19,7 +19,6 @@ public class GroupMemberService {
         this.groupMemberMapper = groupMemberMapper;
     }
 
-
     public List<GroupMemberDTO> findAllGroupMember() {
         return groupMemberMapper.selectAllGroupMember();
     }

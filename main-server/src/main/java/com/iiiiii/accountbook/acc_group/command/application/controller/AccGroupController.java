@@ -2,6 +2,7 @@ package com.iiiiii.accountbook.acc_group.command.application.controller;
 
 import com.iiiiii.accountbook.acc_group.command.application.service.AccGroupService;
 import com.iiiiii.accountbook.acc_group.command.domain.aggregate.AccGroup;
+import com.iiiiii.accountbook.exception.NotAllowedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,9 @@ public class AccGroupController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> registAccGroup(@RequestBody AccGroup newAccGroup) {
-        accGroupService.registAccGroup(newAccGroup);
+    public ResponseEntity<?> registAccGroup(@RequestParam("memberCode") int memberCode,
+                                            @RequestBody AccGroup newAccGroup) {
+        accGroupService.registAccGroup(memberCode, newAccGroup);
 
         return ResponseEntity
                 .noContent()
@@ -26,8 +28,9 @@ public class AccGroupController {
     }
 
     @PostMapping("/modify")
-    public ResponseEntity<?> modifyAccGroup(@RequestBody AccGroup modifyAccGroup) {
-        accGroupService.modifyAccGroup(modifyAccGroup);
+    public ResponseEntity<?> modifyAccGroup(@RequestParam("memberCode") int memberCode,
+                                            @RequestBody AccGroup modifyAccGroup) throws NotAllowedException {
+        accGroupService.modifyAccGroup(memberCode, modifyAccGroup);
 
         return ResponseEntity
                 .noContent()
@@ -35,8 +38,9 @@ public class AccGroupController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> removeAccGroup(@RequestBody AccGroup deleteAccGroup) {
-        accGroupService.deleteAccGroup(deleteAccGroup);
+    public ResponseEntity<?> removeAccGroup(@RequestParam("memberCode") int memberCode,
+                                            @RequestBody AccGroup deleteAccGroup) throws NotAllowedException {
+        accGroupService.deleteAccGroup(memberCode, deleteAccGroup);
 
         return ResponseEntity
                 .noContent()        // 204
