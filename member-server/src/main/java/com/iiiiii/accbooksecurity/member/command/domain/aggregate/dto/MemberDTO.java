@@ -2,13 +2,10 @@ package com.iiiiii.accbooksecurity.member.command.domain.aggregate.dto;
 
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class MemberDTO {
 
+    private int memberCode;
     private String memberId;
     private String memberNickname;
     private String memberEmail;

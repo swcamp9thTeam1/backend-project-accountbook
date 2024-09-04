@@ -139,6 +139,14 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    public MemberDTO findMemberByMemberId(String memberId) {
+        Member member = memberRepository.findByMemberId(memberId);
+        if (member == null) {
+            throw new RuntimeException("Member not found with memberId: " + memberId);
+        }
+        return modelMapper.map(member, MemberDTO.class);
+    }
+
 //    @Override
 //    public void saveRefreshToken(String memberId, String refreshToken) {
 //        Member member = memberRepository.findByMemberId(memberId);
