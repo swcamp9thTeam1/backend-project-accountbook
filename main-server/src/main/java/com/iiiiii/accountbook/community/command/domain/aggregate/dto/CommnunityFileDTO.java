@@ -19,9 +19,4 @@ public class CommnunityFileDTO {
         this.path = path;
         this.communityPostCode = communityPostCode;
     }
-
-    public CommnunityFileDTO(String name, String path) {
-        this.name = name;
-        this.path = path;
-    }
 }

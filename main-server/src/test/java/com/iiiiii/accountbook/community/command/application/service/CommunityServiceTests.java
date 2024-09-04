@@ -1,11 +1,10 @@
 package com.iiiiii.accountbook.community.command.application.service;
 
+import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommnunityFileDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostDTO;
 import com.iiiiii.accountbook.community.command.domain.repository.CommunityPostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,6 +15,9 @@ public class CommunityServiceTests {
 
     @Autowired
     private CommunityPostService communityPostService;
+
+    @Autowired
+    private CommunityFileService communityFileService;
 
     @Autowired
     private CommunityPostRepository communityPostRepository;
@@ -49,9 +51,29 @@ public class CommunityServiceTests {
         assertDoesNotThrow(() -> communityPostService.removePost(6));
     }
 
-//    @DisplayName("게시글 첨부파일 등록 테스트")
-//    @Test
-//    public void registCommunityFile() {
-//
-//    }
+    @DisplayName("게시글 첨부파일 등록 테스트")
+    @Test
+    public void registCommunityFile() {
+
+        CommnunityFileDTO newFile = new CommnunityFileDTO(
+                "칼국수.jpg", "src/main/resources/static", 1);
+
+        assertDoesNotThrow(() -> communityFileService.registFile(1, newFile));
+    }
+
+    @DisplayName("게시글 첨부파일 수정 테스트")
+    @Test
+    public void modifyCommunityFile() {
+
+        CommnunityFileDTO modifiedFile = new CommnunityFileDTO(
+                1, "마라탕.jpg", "src/main/resources/static", 1);
+
+        assertDoesNotThrow(() -> communityFileService.modifyFile(1, 1, modifiedFile));
+    }
+
+    @DisplayName("게시글 첨부파일 삭제 테스트")
+    @Test
+    public void removeCommunityFile() {
+        assertDoesNotThrow(() -> communityFileService.removeFile(1, 1));
+    }
 }
