@@ -36,8 +36,7 @@ public class CommunityFileService {
             throw new IllegalArgumentException("게시글 코드가 일치하지 않습니다.");
         }
 
-        CommunityFile registedFile = modelMapper.map(newFile, CommunityFile.class);
-        communityFileRepository.save(registedFile);
+        CommunityFile registedFile = communityFileRepository.save(modelMapper.map(newFile, CommunityFile.class));
 
         return registedFile.getFileCode();
     }

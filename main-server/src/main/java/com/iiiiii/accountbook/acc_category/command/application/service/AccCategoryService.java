@@ -26,10 +26,11 @@ public class AccCategoryService {
         this.modelMapper = modelMapper;
     }
 
-    public void registAccCategory(AccCategory newAccCategory) {
-        AccCategoryEntity newAccCategoryEntity = modelMapper.map(newAccCategory, AccCategoryEntity.class);
-        accCategoryRepository.save(newAccCategoryEntity);
+    public int registAccCategory(AccCategory newAccCategory) {
+        AccCategoryEntity accCategoryEntity =
+                accCategoryRepository.save(modelMapper.map(newAccCategory, AccCategoryEntity.class));
 
+        return accCategoryEntity.getCode();
     }
 
     public void modifyAccCategory(AccCategory modifyAccCategory) {

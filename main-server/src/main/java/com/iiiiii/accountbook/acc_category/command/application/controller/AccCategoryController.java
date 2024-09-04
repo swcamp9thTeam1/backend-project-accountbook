@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
 @Slf4j
 @RestController("CommandAccCategoryController")
 @RequestMapping("/acc-category")
@@ -21,11 +23,9 @@ public class AccCategoryController {
     @PostMapping("/regist")
     public ResponseEntity<?> registAccCategory(@RequestBody AccCategory newAccCategory) {
 
-        accCategoryService.registAccCategory(newAccCategory);
+        int registedCode = accCategoryService.registAccCategory(newAccCategory);
 
-        return ResponseEntity
-                .noContent()
-                .build();
+        return ResponseEntity.created(URI.create("/acc-category/regist/" + registedCode)).build();
     }
 
     @PostMapping("/modify")
