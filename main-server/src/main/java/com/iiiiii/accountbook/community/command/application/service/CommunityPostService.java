@@ -29,8 +29,7 @@ public class CommunityPostService {
     @Transactional
     public int registPost(CommunityPostDTO newPost) {
 
-        CommunityPost registedPost = modelMapper.map(newPost, CommunityPost.class);
-        communityPostRepository.save(registedPost);
+        CommunityPost registedPost = communityPostRepository.save(modelMapper.map(newPost, CommunityPost.class));
 
         return registedPost.getPostCode();
     }
