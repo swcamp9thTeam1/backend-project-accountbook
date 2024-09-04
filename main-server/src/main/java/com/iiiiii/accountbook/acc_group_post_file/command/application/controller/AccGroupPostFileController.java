@@ -4,10 +4,7 @@ import com.iiiiii.accountbook.acc_group_post_file.command.application.service.Ac
 import com.iiiiii.accountbook.acc_group_post_file.command.domain.aggregate.AccGroupPostFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("CommandAccGroupPostFileController")
 @RequestMapping("/acc-group-post-file")
@@ -37,7 +34,7 @@ public class AccGroupPostFileController {
                 .build();
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAccGroupPostFile(@RequestBody AccGroupPostFile deleteAccGroupPostFile) {
         accGroupPostFileService.deleteAccGroupPostFile(deleteAccGroupPostFile);
 

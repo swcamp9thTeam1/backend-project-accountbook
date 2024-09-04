@@ -5,10 +5,7 @@ import com.iiiiii.accountbook.acc_group_post.command.application.service.AccGrou
 import com.iiiiii.accountbook.acc_group_post.command.domain.aggregate.AccGroupPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("CommandAccGroupPostController")
 @RequestMapping("/acc-group-post")
@@ -38,7 +35,7 @@ public class AccGroupPostController {
                 .build();
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteAccGroupPost(@RequestBody AccGroupPost deleteAccGroupPost) {
         accGroupPostService.deleteAccGroupPost(deleteAccGroupPost);
 

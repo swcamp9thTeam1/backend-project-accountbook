@@ -3,11 +3,13 @@ package com.iiiiii.accountbook.acc_group_post.command.domain.aggregate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @Data
 public class AccGroupPost {
     private int code;
-    private String createdAt;
+    private LocalDateTime createdAt;
     private String title;
     private String detail;
     private int memberCode;
@@ -20,7 +22,7 @@ public class AccGroupPost {
         this.accGroupCode = accGroupCode;
     }
 
-    public AccGroupPost(int code, String createdAt, String title, String detail, int memberCode, int accGroupCode) {
+    public AccGroupPost(int code, LocalDateTime createdAt, String title, String detail, int memberCode, int accGroupCode) {
         this.code = code;
         this.createdAt = createdAt;
         this.title = title;

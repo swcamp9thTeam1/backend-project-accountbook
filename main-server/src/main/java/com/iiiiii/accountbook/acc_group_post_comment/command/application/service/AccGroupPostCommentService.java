@@ -38,6 +38,6 @@ public class AccGroupPostCommentService {
 
     public void deleteAccGroupPostComment(AccGroupPostComment deleteAccGroupPostComment) {
         AccGroupPostCommentEntity comment = modelMapper.map(deleteAccGroupPostComment, AccGroupPostCommentEntity.class);
-        accGroupPostCommentRepository.delete(comment);
+        accGroupPostCommentRepository.deleteById(comment.getCode());
     }
 }
