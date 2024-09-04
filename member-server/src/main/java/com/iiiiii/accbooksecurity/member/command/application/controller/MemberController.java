@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -62,7 +63,18 @@ public class MemberController {
         log.info("Updating JWT Token for memberId: {}", loginRequest.getMemberId());
         memberService.updateJwtToken(loginRequest.getMemberId(), jwt);
 
-        return ResponseEntity.ok(new JwtResponseVO(jwt));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", jwt);
+
+        MemberDTO memberDTO = memberService.findMemberByMemberId(loginRequest.getMemberId());
+
+        JwtResponseVO jwtResponseVO = new JwtResponseVO(jwt, memberDTO);
+
+//        return ResponseEntity.ok(new JwtResponseVO(jwt));
+        return ResponseEntity.ok()
+                .headers(headers)  // 헤더에 토큰을 추가
+//                .body(new JwtResponseVO(jwt));
+                .body(jwtResponseVO);
     }
 
     /* 설명. 회원가입 */

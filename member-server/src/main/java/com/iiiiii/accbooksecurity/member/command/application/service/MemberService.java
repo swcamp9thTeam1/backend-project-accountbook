@@ -21,4 +21,6 @@ public interface MemberService extends UserDetailsService {
 //    boolean validateRefreshToken(String refreshToken);
 
     void invalidateJwtToken(String userId);
+
+    MemberDTO findMemberByMemberId(String memberId);
 }
