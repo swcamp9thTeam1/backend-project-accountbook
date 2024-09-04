@@ -3,6 +3,7 @@ package com.iiiiii.accountbook.config;
 import com.iiiiii.accountbook.common.ResponseError;
 import com.iiiiii.accountbook.exception.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 @Slf4j
+@ComponentScan
 public class GlobalExceptionHandler {
 
     // status code 400

@@ -4,10 +4,12 @@ import com.iiiiii.accbookserver.accbook.command.application.service.AccCommentSe
 import com.iiiiii.accbookserver.accbook.command.application.service.AccbookService;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.AccbookDTO;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.CreateAccCommentDTO;
+import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.RequestRegistAccbookDTO;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.UpdateAccCommentDTO;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.entity.AccComment;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accbookserver.common.ResponseMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 @RestController("AccbookControllerCommand")
 @RequestMapping("accbook")
+@Slf4j
 public class AccbookController {
 
     private AccbookService accbookService;
@@ -30,14 +33,15 @@ public class AccbookController {
     }
 
     /* 가계부 관련 메소드 */
-//    @PostMapping("")
-//    public ResponseEntity<?> registAccbook(@RequestBody AccbookDTO newAccbook) {
-//        Accbook savedAccbook = accbookService.registAccbook(newAccbook);
-//
-//        return ResponseEntity
-//                .created(URI.create("/com/iiiiii/accbookserver/accbook/search/detail?accbookCode=" + savedAccbook.getAccbookCode()))
-//                .build();
-//    }
+    @PostMapping("")
+    public ResponseEntity<?> registAccbook(@RequestBody RequestRegistAccbookDTO newAccbook) {
+
+        Accbook savedAccbook = accbookService.registAccbook(newAccbook);
+
+        return ResponseEntity
+                .created(URI.create("accbookCode" + savedAccbook.getAccbookCode()))
+                .build();
+    }
 
     @PutMapping("/{accbookCode}")
     public ResponseEntity<?> modifyAccbook(@RequestBody AccbookDTO modifyAccbook, @PathVariable Integer accbookCode) {
