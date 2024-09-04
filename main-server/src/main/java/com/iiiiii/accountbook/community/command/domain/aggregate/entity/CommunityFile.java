@@ -24,5 +24,5 @@ public class CommunityFile {
     private String path;                        // 파일경로
 
     @Column(name = "community_post_code")
-    private Integer communityPostCode;          // 첨부된 게시글 코드
+    private Integer communityPostCode;          // 파일이 첨부된 게시글 코드
 }
