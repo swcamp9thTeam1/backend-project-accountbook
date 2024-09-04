@@ -7,6 +7,7 @@ import com.iiiiii.accbookserver.accbook.client.StoreServiceClient;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.AccbookDTO;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.RequestRegistAccbookDTO;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.entity.Accbook;
+import com.iiiiii.accbookserver.accbook.command.domain.aggregate.vo.ResponseStoreCodeVO;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.vo.ResponseRegExpVO;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.vo.RequestRegistStoreVO;
 import com.iiiiii.accbookserver.accbook.command.domain.repository.AccbookRepository;
@@ -48,12 +49,17 @@ public class AccbookService {
     @Transactional
     public Accbook registAccbook(RequestRegistAccbookDTO newAccbook) {
 
-        Integer storeCode;
+        Integer storeCode = null;
         Accbook accbook = new Accbook();
 
         // 1.'방문한 가게' 정보가 입력된 경우
         if (newAccbook.getStoreName() != null) {
-            storeCode = storeServiceClient.getStoreCodeByLatLng(newAccbook.getLatitude(), newAccbook.getLongitude());
+
+            ResponseStoreCodeVO responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(newAccbook.getLatitude(), newAccbook.getLongitude());
+
+            storeCode =  (Integer) responseStoreCodeVO.getResult().get("storeCode");
+
+
             // '방문한 가게'가 가게DB에 존재하지 않는 경우 -> Store DB에 등록 후 storeCode 저장
             if (storeCode == null) {
 
@@ -67,11 +73,10 @@ public class AccbookService {
 
                 storeServiceClient.registerStore(registerStoreVO); // 가게DB 등록 메서드 호출
 
-                storeCode = storeServiceClient.getStoreCodeByLatLng(newAccbook.getLatitude(), newAccbook.getLongitude()); // 등록 후 storeCode 다시 저장
-                accbook.setStoreCode(storeCode);
+                responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(newAccbook.getLatitude(), newAccbook.getLongitude()); // 등록 후 storeCode 다시 저장
+                accbook.setStoreCode((Integer) responseStoreCodeVO.getResult().get("storeCode"));
             }
         }
-
 
         // 2. 자산 변경
         InOrOut financeType = accCategoryServiceClient.findOneAccCategory(newAccbook.getAccCategoryCode()).getFinanceType();
@@ -82,6 +87,7 @@ public class AccbookService {
         }
 
         // 3. 가계부 DB에 저장
+        accbook.setStoreCode(storeCode);
         accbook.setCreatedAt(newAccbook.getCreatedAt());
         accbook.setTitle(newAccbook.getTitle());
         accbook.setAmount(newAccbook.getAmount());
@@ -122,7 +128,7 @@ public class AccbookService {
 
     /* 고정지출 자동 기입 메서드 */
     @Transactional
-    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
+    @Scheduled(cron = "0 6 12 * * ?") // 매일 자정에 실행
     public void registRegularExpense() {
         // 고정지출 서비스로부터 모든 고정지출 리스트 조회
         List<ResponseRegExpVO> allResponseRegExpVO = regularExpenseServiceClient.findAllRegularExpenses();

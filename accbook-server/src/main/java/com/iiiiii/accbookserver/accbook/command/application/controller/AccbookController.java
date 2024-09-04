@@ -9,6 +9,7 @@ import com.iiiiii.accbookserver.accbook.command.domain.aggregate.dto.UpdateAccCo
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.entity.AccComment;
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.entity.Accbook;
 import com.iiiiii.accbookserver.common.ResponseMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @RestController("AccbookControllerCommand")
 @RequestMapping("accbook")
+@Slf4j
 public class AccbookController {
 
     private AccbookService accbookService;
@@ -33,6 +35,7 @@ public class AccbookController {
     /* 가계부 관련 메소드 */
     @PostMapping("")
     public ResponseEntity<?> registAccbook(@RequestBody RequestRegistAccbookDTO newAccbook) {
+
         Accbook savedAccbook = accbookService.registAccbook(newAccbook);
 
         return ResponseEntity
