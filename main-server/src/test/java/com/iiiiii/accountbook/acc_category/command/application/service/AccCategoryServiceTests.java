@@ -18,7 +18,7 @@ public class AccCategoryServiceTests {
     @Test
     public void testRegistAccCategory() {
 
-        AccCategory newAccCategory = new AccCategory("음료", InOrOut.I, YesOrNo.Y, YesOrNo.N, 3, 2);
+        AccCategory newAccCategory = new AccCategory("테스트", InOrOut.I, YesOrNo.Y, YesOrNo.N, 3, 2);
 
         accCategoryService.registAccCategory(newAccCategory);
 
