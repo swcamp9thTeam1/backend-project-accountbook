@@ -3,6 +3,8 @@ package com.iiiiii.accountbook.community.command.domain.aggregate.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "community_post_comment")
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class CommunityComment {
     private int commentCode;                    // 댓글코드
 
     @Column(name = "created_at")
-    private String commentCreatedAt;            // 댓글 작성일시
+    private LocalDateTime commentCreatedAt;     // 댓글 작성일시
 
     @Column(name = "detail")
     private String commentDetail;               // 댓글 내용

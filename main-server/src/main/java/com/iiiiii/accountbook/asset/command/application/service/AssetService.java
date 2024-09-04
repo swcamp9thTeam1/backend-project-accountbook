@@ -30,9 +30,10 @@ public class AssetService {
     /* 자산 등록 트랜잭션 */
     @Transactional
     public int registAsset(AssetDTO newAsset) {
-        Asset asset = assetRepository.save(modelMapper.map(newAsset, Asset.class));
+        Asset registedAsset = modelMapper.map(newAsset, Asset.class);
+        assetRepository.save(registedAsset);
 
-        return asset.getCode();
+        return registedAsset.getCode();
     }
 
     /* 자산 수정 트랜잭션 */
@@ -43,13 +44,13 @@ public class AssetService {
         Asset myAsset = assetRepository.findById(assetCode)
                     .orElseThrow(() -> new EntityNotFoundException("해당 코드의 자산은 존재하지 않습니다."));
 
-        if (myAsset.getCode() == modifiedAsset.getCode() && myAsset.getIsDeleted() == YesOrNo.N) {
-            assetRepository.save(modelMapper.map(modifiedAsset, Asset.class));
-        } else if (myAsset.getCode() != modifiedAsset.getCode()) {
+        if (myAsset.getCode() != modifiedAsset.getCode()) {
             throw new IllegalArgumentException("자산 코드가 일치하지 않습니다.");
-        } else {
+        } else if (myAsset.getIsDeleted() != YesOrNo.N) {
             throw new IllegalArgumentException("삭제된 자산입니다.");
         }
+
+        assetRepository.save(modelMapper.map(modifiedAsset, Asset.class));
     }
 
     /* 가계부 지출 내역 등록 시 자산 잔액 수정 트랜잭션 */

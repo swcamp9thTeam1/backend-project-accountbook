@@ -2,6 +2,8 @@ package com.iiiiii.accountbook.community.command.domain.aggregate.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -9,13 +11,13 @@ import lombok.*;
 @ToString
 public class CommunityPostDTO {
 
-    private int postCode;           // 게시글 코드
-    private String createdAt;       // 작성일시
-    private String title;           // 제목
-    private String detail;          // 내용
-    private int memberCode;         // 작성자
+    private int postCode;               // 게시글 코드
+    private LocalDateTime createdAt;    // 작성일시
+    private String title;               // 제목
+    private String detail;              // 내용
+    private int memberCode;             // 작성자
 
-    public CommunityPostDTO(String createdAt, String title, String detail, int memberCode) {
+    public CommunityPostDTO(LocalDateTime createdAt, String title, String detail, int memberCode) {
         this.createdAt = createdAt;
         this.title = title;
         this.detail = detail;

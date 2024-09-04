@@ -1,12 +1,14 @@
 package com.iiiiii.accountbook.community.command.application.service;
 
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommnunityFileDTO;
+import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityCommentDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostDTO;
-import com.iiiiii.accountbook.community.command.domain.repository.CommunityPostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +22,7 @@ public class CommunityServiceTests {
     private CommunityFileService communityFileService;
 
     @Autowired
-    private CommunityPostRepository communityPostRepository;
+    private CommunityCommentService communityCommentService;
 
     @DisplayName("새로운 게시글 등록 테스트")
     @Test
@@ -28,7 +30,7 @@ public class CommunityServiceTests {
 
         CommunityPostDTO communityPost =
                 new CommunityPostDTO(
-                        "2024-02-01 10:10:00", "꿀템 발견!", "이거 보이면 꼭 사세요", 3);
+                        LocalDateTime.now(), "꿀템 발견!", "이거 보이면 꼭 사세요", 3);
 
         assertDoesNotThrow(() -> communityPostService.registPost(communityPost));
     }
@@ -38,8 +40,8 @@ public class CommunityServiceTests {
     public void modifyCommunityPost() {
 
         CommunityPostDTO modifiedPost =
-                new CommunityPostDTO(
-                        6, "2024-02-05 11:00:00", "꿀템 발견!", "단종 됐나봐요..", 3);
+                new CommunityPostDTO(6, LocalDateTime.now(),
+                        "꿀템 발견!", "단종 됐나봐요..", 3);
 
         assertDoesNotThrow(() -> communityPostService.modifyPost(6, modifiedPost));
     }
@@ -75,5 +77,33 @@ public class CommunityServiceTests {
     @Test
     public void removeCommunityFile() {
         assertDoesNotThrow(() -> communityFileService.removeFile(1, 1));
+    }
+
+    @DisplayName("게시글 댓글 등록 테스트")
+    @Test
+    public void registCommunityComment() {
+
+        CommunityCommentDTO newComment =
+                new CommunityCommentDTO(LocalDateTime.now(), "우왕 감사합니다!",
+                        2, 9, null);
+
+        assertDoesNotThrow(() -> communityCommentService.registComment(2, newComment));
+    }
+
+    @DisplayName("게시글 댓글 수정 테스트")
+    @Test
+    public void modifyCommunityComment() {
+
+        CommunityCommentDTO modifiedComment =
+                new CommunityCommentDTO(1, LocalDateTime.now(),
+                        "저도 가본 곳이네요!", 2, 9, null);
+
+        assertDoesNotThrow(() -> communityCommentService.modifyComment(2, 1, modifiedComment));
+    }
+
+    @DisplayName("게시글 댓글 삭제 테스트")
+    @Test
+    public void removeCommunityComment() {
+        assertDoesNotThrow(() -> communityCommentService.removeComment(2, 1));
     }
 }

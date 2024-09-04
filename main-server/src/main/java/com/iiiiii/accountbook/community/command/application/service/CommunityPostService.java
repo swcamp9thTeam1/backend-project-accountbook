@@ -27,8 +27,12 @@ public class CommunityPostService {
 
     /* 게시글 등록 트랜잭션 */
     @Transactional
-    public void registPost(CommunityPostDTO newPost) {
-        communityPostRepository.save(modelMapper.map(newPost, CommunityPost.class));
+    public int registPost(CommunityPostDTO newPost) {
+
+        CommunityPost registedPost = modelMapper.map(newPost, CommunityPost.class);
+        communityPostRepository.save(registedPost);
+
+        return registedPost.getPostCode();
     }
 
     /* 게시글 수정 트랜잭션 */
