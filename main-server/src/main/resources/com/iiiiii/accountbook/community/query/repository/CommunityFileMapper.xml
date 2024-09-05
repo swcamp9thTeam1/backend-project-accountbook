@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.community.query.repository.CommunityFileMapper">
+    <resultMap id="communityPostFileResultMap" type="com.iiiiii.accountbook.community.query.dto.CommunityFileDTO">
+        <id property="fileCode" column="CODE"/>
+        <result property="name" column="NAME"/>
+        <result property="path" column="PATH"/>
+        <result property="communityPostCode" column="COMMUNITY_POST_CODE"></result>
+    </resultMap>
+
+    <select id="selectCommunityPostFiles" resultMap="communityPostFileResultMap" parameterType="_int">
+        SELECT
+               A.CODE
+             , A.NAME
+             , A.PATH
+             , A.COMMUNITY_POST_CODE
+          FROM COMMUNITY_POST_FILE
+         WHERE A.COMMUNITY_POST_CODE = #{communityPostCode}
+    </select>
+
+</mapper>

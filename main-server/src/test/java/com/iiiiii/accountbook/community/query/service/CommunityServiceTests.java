@@ -1,4 +1,4 @@
 package com.iiiiii.accountbook.community.query.service;
 
-public class CommunityService {
+public class CommunityServiceTests {
 }
