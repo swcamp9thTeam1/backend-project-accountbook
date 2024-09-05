@@ -13,13 +13,6 @@ public class RegularExpense {
     private int assetCode;
     private int accCategoryCode;
 
-    public RegularExpense(String name, int amount, int memberCode, int assetCode, int accCategoryCode) {
-        this.name = name;
-        this.amount = amount;
-        this.memberCode = memberCode;
-        this.assetCode = assetCode;
-        this.accCategoryCode = accCategoryCode;
-    }
 
     public RegularExpense(int expenseDate, String name, int amount, int memberCode, int assetCode, int accCategoryCode) {
         this.expenseDate = expenseDate;

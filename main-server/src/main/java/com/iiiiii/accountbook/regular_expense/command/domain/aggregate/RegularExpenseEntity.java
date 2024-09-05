@@ -13,7 +13,7 @@ public class RegularExpenseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int code;
 
-    @Column(name = "expense_date", nullable = true)
+    @Column(name = "expense_date")
     private int expenseDate;
 
     @Column(name = "name")

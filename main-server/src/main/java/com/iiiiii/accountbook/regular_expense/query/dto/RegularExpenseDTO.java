@@ -14,13 +14,6 @@ public class RegularExpenseDTO {
     private int assetCode;
     private int accCategoryCode;
 
-    public RegularExpenseDTO(String name, long amount, int memberCode, int assetCode, int accCategoryCode) {
-        this.name = name;
-        this.amount = amount;
-        this.memberCode = memberCode;
-        this.assetCode = assetCode;
-        this.accCategoryCode = accCategoryCode;
-    }
 
     public RegularExpenseDTO(int expenseDate, String name, long amount, int memberCode, int assetCode, int accCategoryCode) {
         this.expenseDate = expenseDate;
