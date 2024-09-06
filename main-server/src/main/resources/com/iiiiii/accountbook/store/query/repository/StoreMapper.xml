@@ -59,8 +59,8 @@
           JOIN STORE_REVIEW B ON (A.CODE = B.STORE_CODE)
         </if>
         <where>
-            <if test="isGood == true">
-                A.IS_GOOD = 'Y'
+            <if test="isGood != null">
+                A.IS_GOOD = #{ isGood }
             </if>
             <if test="latitude != null">
                 AND A.LATITUDE = #{ latitude }

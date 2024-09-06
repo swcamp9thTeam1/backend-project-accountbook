@@ -32,7 +32,7 @@ public class StoreService {
         return storeMapper.searchStore(criteria);
     }
 
-    public Integer getStoreCodeByLatLng(StoreSearchCriteria criteria) {
+    public Integer findStoreCodeByLatLng(StoreSearchCriteria criteria) {
         List<StoreDTO> foundStores = storeMapper.searchStore(criteria);
         if (foundStores.isEmpty()) {
             return null;
