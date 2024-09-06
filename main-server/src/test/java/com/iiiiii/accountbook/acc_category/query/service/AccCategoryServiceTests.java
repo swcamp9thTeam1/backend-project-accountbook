@@ -25,61 +25,63 @@ public class AccCategoryServiceTests {
     @Test
     public void testFindAllAccCategory() {
         List<AccCategoryDTO> list = accCategoryService.findAllAccCategory();
-
         Assertions.assertTrue(!list.isEmpty());
     }
 
     @DisplayName("회원의 가계부 카테고리 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {1, 2, 5})
     public void testFindAccCategoryByMemberCode(int memberCode) {
         List<AccCategoryDTO> list = accCategoryService.findAccCategoryByMemberCode(memberCode);
-
         Assertions.assertTrue(!list.isEmpty());
     }
 
     @DisplayName("회원의 가계부 카테고리명 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {1, 2, 4})
     public void testFindAccCategoryName(int memberCode) {
         List<String> list = accCategoryService.findAllAccCategoryName(memberCode);
-
         Assertions.assertTrue(!list.isEmpty());
     }
 
     @DisplayName("회원의 가계부 카테고리 코드 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {1, 2, 6})
     public void testFindAccCategoryCode(int memberCode) {
         List<Integer> list = accCategoryService.findAllAccCategoryCode(memberCode);
-
         Assertions.assertTrue(list.size()>0);
     }
 
     @DisplayName("회원의 수입/지출 별 가계부 카테고리 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {3, 2, 4})
     public void testFindAccCategoryByIO(int memberCode) {
-        List<AccCategoryDTO> list = accCategoryService.findAccCategoryByIO(memberCode, InOrOut.O);
-
-        Assertions.assertTrue(!list.isEmpty());
+        int total = accCategoryService.findAccCategoryByMemberCode(memberCode).size();
+        int result = 0;
+        for (InOrOut ioo : InOrOut.values())
+            result += accCategoryService.findAccCategoryByIO(memberCode, ioo).size();
+        Assertions.assertEquals(total, result);
     }
 
     @DisplayName("회원의 삭제 여부 별 가계부 카테고리 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {1, 2, 6})
     public void testFindAccCategoryByIsDeleted(int memberCode) {
-        List<AccCategoryDTO> list = accCategoryService.findAccCategoryByIsDeleted(memberCode, YesOrNo.N);
-
-        Assertions.assertTrue(!list.isEmpty());
+        int total = accCategoryService.findAccCategoryByMemberCode(memberCode).size();
+        int result = 0;
+        for (YesOrNo ny: YesOrNo.values())
+            result += accCategoryService.findAccCategoryByIsDeleted(memberCode, ny).size();
+        Assertions.assertEquals(total, result);
     }
 
     @DisplayName("회원의 공개 여부 별 가계부 카테고리 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {2, 3, 4})
     public void testFindAccCategoryByVisibility(int memberCode) {
-        List<AccCategoryDTO> list = accCategoryService.findAccCategoryByIsDeleted(memberCode, YesOrNo.Y);
-
-        Assertions.assertTrue(!list.isEmpty());
+        int total = accCategoryService.findAccCategoryByMemberCode(memberCode).size();
+        int result = 0;
+        for (YesOrNo ny: YesOrNo.values())
+            result += accCategoryService.findAccCategoryByIsDeleted(memberCode, ny).size();
+        Assertions.assertEquals(total, result);
     }
 }

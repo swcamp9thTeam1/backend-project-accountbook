@@ -24,7 +24,6 @@ public class AccGroupPostFileController {
 
     @GetMapping("/")
     public ResponseEntity<List<AccGroupPostFileDTO>> findAllGroupPostFile() {
-
         List<AccGroupPostFileDTO> groupPostFile = accGroupPostFileService.findAllGroupPostFile();
 
         return ResponseEntity
@@ -34,7 +33,6 @@ public class AccGroupPostFileController {
 
     @GetMapping("/{fileCode}")
     public ResponseEntity<AccGroupPostFileDTO> findGroupPostFileByFileCode(@PathVariable int fileCode) {
-
         AccGroupPostFileDTO groupPostFile = accGroupPostFileService.findGroupPostFileByFileCode(fileCode);
 
         return ResponseEntity
@@ -44,7 +42,6 @@ public class AccGroupPostFileController {
 
     @GetMapping("/posts/{postCode}")
     public ResponseEntity<List<AccGroupPostFileDTO>> findGroupPostFileByPostCode(@PathVariable int postCode) {
-
         List<AccGroupPostFileDTO> groupPostFile = accGroupPostFileService.findGroupPostFileByPostCode(postCode);
 
         return ResponseEntity

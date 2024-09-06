@@ -34,10 +34,10 @@ public class AccGroupController {
                 .body(accGroups);
     }
 
-    @GetMapping("/{code}")
-    public ResponseEntity<AccGroupDTO> findOneAccGroup(@PathVariable("code") int code) {
+    @GetMapping("/{groupCode}")
+    public ResponseEntity<AccGroupDTO> findOneAccGroup(@PathVariable("groupCode") int groupCode) {
 
-        AccGroupDTO accGroup = accGroupService.findOneAccGroup(code);
+        AccGroupDTO accGroup = accGroupService.findOneAccGroup(groupCode);
 
         return ResponseEntity
                 .status(HttpStatus.OK)

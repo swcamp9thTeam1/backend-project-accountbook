@@ -3,7 +3,9 @@ package com.iiiiii.accountbook.acc_group_post.command.application.controller;
 import com.iiiiii.accountbook.acc_group_post.command.application.service.AccGroupPostService;
 
 import com.iiiiii.accountbook.acc_group_post.command.domain.aggregate.AccGroupPost;
+import com.iiiiii.accountbook.acc_group_post.command.domain.aggregate.AccGroupPostEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,20 +21,20 @@ public class AccGroupPostController {
 
     @PostMapping("/regist")
     public ResponseEntity<?> registAccGroupPost(@RequestBody AccGroupPost newAccGroupPost) {
-        accGroupPostService.registAccGroupPost(newAccGroupPost);
+        AccGroupPostEntity result = accGroupPostService.registAccGroupPost(newAccGroupPost);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @PostMapping("/modify")
     public ResponseEntity<?> modifyAccGroupPost(@RequestBody AccGroupPost modifyAccGroupPost) {
-        accGroupPostService.modifyAccGroupPost(modifyAccGroupPost);
+        AccGroupPostEntity result = accGroupPostService.modifyAccGroupPost(modifyAccGroupPost);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @DeleteMapping("/delete")
@@ -40,7 +42,7 @@ public class AccGroupPostController {
         accGroupPostService.deleteAccGroupPost(deleteAccGroupPost);
 
         return ResponseEntity
-                .noContent()
+                .status(HttpStatus.OK)
                 .build();
     }
 }

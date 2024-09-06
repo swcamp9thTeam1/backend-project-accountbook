@@ -35,14 +35,14 @@ public class GroupMemberService {
         this.commandGroupService = commandGroupService;
     }
 
-    public void registGroupMember(GroupMember newGroupMember) {
+    public GroupMemberEntity registGroupMember(GroupMember newGroupMember) {
         GroupMemberEntity registMember = modelMapper.map(newGroupMember, GroupMemberEntity.class);
-        groupMemberRepository.save(registMember);
+        return groupMemberRepository.save(registMember);
     }
 
-    public void modifyGroupMember(GroupMember modifyGroupMember) {
+    public GroupMemberEntity modifyGroupMember(GroupMember modifyGroupMember) {
         GroupMemberEntity modifyMember = modelMapper.map(modifyGroupMember, GroupMemberEntity.class);
-        groupMemberRepository.saveAndFlush(modifyMember);
+        return groupMemberRepository.saveAndFlush(modifyMember);
     }
 
 

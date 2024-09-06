@@ -21,7 +21,7 @@ public class AccGroupPostCommentService {
         this.modelMapper = modelMapper;
     }
 
-    public void registAccGroupPostComment(AccGroupPostComment newAccGroupPostComment) throws Exception {
+    public AccGroupPostCommentEntity registAccGroupPostComment(AccGroupPostComment newAccGroupPostComment) throws Exception {
         AccGroupPostCommentEntity comment = modelMapper.map(newAccGroupPostComment, AccGroupPostCommentEntity.class);
 
         if (comment.getParentCode() != null) {
@@ -31,14 +31,14 @@ public class AccGroupPostCommentService {
         }
         comment.setCreatedAt(LocalDateTime.now());
 
-        accGroupPostCommentRepository.save(comment);
+        return accGroupPostCommentRepository.save(comment);
     }
 
 
-    public void modifyAccGroupPostComment(AccGroupPostComment modifyAccGroupPostComment) {
+    public AccGroupPostCommentEntity modifyAccGroupPostComment(AccGroupPostComment modifyAccGroupPostComment) {
         AccGroupPostCommentEntity comment = modelMapper.map(modifyAccGroupPostComment, AccGroupPostCommentEntity.class);
         comment.setCreatedAt(LocalDateTime.now());
-        accGroupPostCommentRepository.saveAndFlush(comment);
+        return accGroupPostCommentRepository.saveAndFlush(comment);
     }
 
 

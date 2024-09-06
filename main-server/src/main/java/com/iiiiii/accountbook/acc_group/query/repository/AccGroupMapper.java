@@ -9,7 +9,7 @@ import java.util.List;
 public interface AccGroupMapper {
     List<AccGroupDTO> selectAllAccGroups();
 
-    AccGroupDTO selectOneAccGroup(int code);
+    AccGroupDTO selectOneAccGroup(int groupCode);
 
     List<Integer> selectAllAccGroupCodes();
 

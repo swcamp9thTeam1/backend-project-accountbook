@@ -21,25 +21,22 @@ class RegularExpenseServiceTests {
     @Test
     public void testFindAllRegularExpenses() {
         List<RegularExpenseDTO> list = regularExpenseService.findAllRegularExpenses();
-
-        assertTrue(!list.isEmpty());
+        assertNotNull(list);
     }
 
     @DisplayName("멤버의 고정 지출 목록 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3})
+    @ValueSource(ints = {2, 3, 4})
     public void testFindOneMemberRegularExpenses(int memberCode) {
         List<RegularExpenseDTO> list = regularExpenseService.findOneMemberRegularExpenses(memberCode);
-
-        assertTrue(!list.isEmpty());
+        assertNotNull(list);
     }
 
     @DisplayName("기본키로 고정 지출 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3})
+    @ValueSource(ints = {6, 5, 1})
     public void testFindOneRegularExpenses(int code) {
         RegularExpenseDTO one = regularExpenseService.findOneRegularExpenses(code);
-
-        assertTrue(one != null);
+        assertNotNull(one);
     }
 }

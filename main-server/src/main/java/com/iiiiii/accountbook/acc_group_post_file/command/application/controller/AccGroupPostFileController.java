@@ -2,7 +2,9 @@ package com.iiiiii.accountbook.acc_group_post_file.command.application.controlle
 
 import com.iiiiii.accountbook.acc_group_post_file.command.application.service.AccGroupPostFileService;
 import com.iiiiii.accountbook.acc_group_post_file.command.domain.aggregate.AccGroupPostFile;
+import com.iiiiii.accountbook.acc_group_post_file.command.domain.aggregate.AccGroupPostFileEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,21 +19,21 @@ public class AccGroupPostFileController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> registAccGroupPostFile(@RequestBody AccGroupPostFile newAccGroupPostFile) {
-        accGroupPostFileService.registAccGroupPostFile(newAccGroupPostFile);
+    public ResponseEntity<AccGroupPostFileEntity> registAccGroupPostFile(@RequestBody AccGroupPostFile newAccGroupPostFile) {
+        AccGroupPostFileEntity result = accGroupPostFileService.registAccGroupPostFile(newAccGroupPostFile);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @PostMapping("/modify")
-    public ResponseEntity<?> modifyAccGroupPostFile(@RequestBody AccGroupPostFile modifyAccGroupPostFile) {
-        accGroupPostFileService.modifyAccGroupPostFile(modifyAccGroupPostFile);
+    public ResponseEntity<AccGroupPostFileEntity> modifyAccGroupPostFile(@RequestBody AccGroupPostFile modifyAccGroupPostFile) {
+        AccGroupPostFileEntity result = accGroupPostFileService.modifyAccGroupPostFile(modifyAccGroupPostFile);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @DeleteMapping("/delete")
@@ -39,7 +41,7 @@ public class AccGroupPostFileController {
         accGroupPostFileService.deleteAccGroupPostFile(deleteAccGroupPostFile);
 
         return ResponseEntity
-                .noContent()
+                .status(HttpStatus.OK)
                 .build();
     }
 }
