@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.community.query.repository.CommunityPostMapper">
+    <resultMap id="communityPostResultMap" type="com.iiiiii.accountbook.community.query.dto.CommunityPostDTO">
+        <id property="postCode" column="CODE"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="title" column="TITLE"/>
+        <result property="detail" column="DETAIL"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+    </resultMap>
+
+    <select id="selectAllCommunityPosts" resultMap="communityPostResultMap">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.TITLE
+             , A.MEMBER_CODE
+          FROM COMMUNITY_POST A
+         ORDER BY A.CODE DESC
+    </select>
+
+    <select id="selectOneCommunityPost" resultMap="communityPostResultMap" parameterType="_int">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.TITLE
+             , A.DETAIL
+             , A.MEMBER_CODE
+          FROM COMMUNITY_POST A
+         WHERE A.CODE = #{postCode}
+    </select>
+
+</mapper>

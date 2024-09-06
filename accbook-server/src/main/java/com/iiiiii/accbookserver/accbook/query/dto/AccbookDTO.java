@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 @ToString
 public class AccbookDTO {
     private int accbookCode;
-    private java.util.Date createdAt;
+    private LocalDateTime createdAt;
     private Long amount;
     private YesOrNo isRegular;
     private String title;

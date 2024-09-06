@@ -28,15 +28,17 @@ public class CommunityFileService {
 
     /* 게시글 첨부파일 등록 트랜잭션 */
     @Transactional
-    public void registFile(Integer postCode, CommnunityFileDTO newFile) {
+    public int registFile(Integer postCode, CommnunityFileDTO newFile) {
 
-        if (!communityPostRepository.existsById(newFile.getCommunityPostCode())) {
+        if (!communityPostRepository.existsById(postCode)) {
             throw new EntityNotFoundException("존재하지 않는 게시글입니다.");
         } else if (!postCode.equals(newFile.getCommunityPostCode())) {
             throw new IllegalArgumentException("게시글 코드가 일치하지 않습니다.");
         }
 
-        communityFileRepository.save(modelMapper.map(newFile, CommunityFile.class));
+        CommunityFile registedFile = communityFileRepository.save(modelMapper.map(newFile, CommunityFile.class));
+
+        return registedFile.getFileCode();
     }
 
     /* 게시글 첨부파일 수정 트랜잭션 */
@@ -50,8 +52,8 @@ public class CommunityFileService {
 
         if (!file.getCommunityPostCode().equals(postCode)) {
             throw new IllegalArgumentException("이 게시글에는 해당 파일이 존재하지 않습니다.");
-        } else if (!file.getCommunityPostCode().equals(modifiedFile.getCommunityPostCode())) {
-            throw new IllegalArgumentException("게시글 코드가 일치하지 않습니다.");
+        } else if (!fileCode.equals(modifiedFile.getFileCode())) {
+            throw new IllegalArgumentException("첨부파일 코드가 일치하지 않습니다.");
         }
 
         communityFileRepository.save(modelMapper.map(modifiedFile, CommunityFile.class));

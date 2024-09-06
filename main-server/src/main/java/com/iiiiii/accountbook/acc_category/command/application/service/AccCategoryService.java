@@ -25,7 +25,7 @@ public class AccCategoryService {
         this.accCategoryService = accCategoryService;
         this.modelMapper = modelMapper;
     }
-
+  
     public AccCategoryEntity registAccCategory(AccCategory newAccCategory) {
         AccCategoryEntity newAccCategoryEntity = modelMapper.map(newAccCategory, AccCategoryEntity.class);
         AccCategoryEntity result = accCategoryRepository.save(newAccCategoryEntity);

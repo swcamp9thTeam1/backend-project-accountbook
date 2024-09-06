@@ -32,9 +32,9 @@ public class CommunityController {
     /* 게시글 등록 */
     @PostMapping("/post")
     public ResponseEntity<?> registPost(@RequestBody CommunityPostDTO newPost) {
-        communityPostService.registPost(newPost);
+        int registedCode = communityPostService.registPost(newPost);
 
-        return ResponseEntity.created(URI.create("/community/post/" + newPost.getPostCode())).build();
+        return ResponseEntity.created(URI.create("/community/post/" + registedCode)).build();
     }
 
     /* 게시글 수정 */
@@ -57,9 +57,9 @@ public class CommunityController {
     // 게시글에서 이어져야 함
     @PostMapping("/post/{postCode}")
     public ResponseEntity<?> registFile(@RequestBody CommnunityFileDTO newFile, @PathVariable Integer postCode) {
-        communityFileService.registFile(postCode, newFile);
+        int registedCode = communityFileService.registFile(postCode, newFile);
 
-        return ResponseEntity.created(URI.create("/community/post/{postCode}/" + newFile.getFileCode())).build();
+        return ResponseEntity.created(URI.create("/community/post/{postCode}/" + registedCode)).build();
     }
 
     /* 첨부파일 수정 */
@@ -86,10 +86,9 @@ public class CommunityController {
     @PostMapping("/post/{postCode}/comment")
     public ResponseEntity<?> registComment(@RequestBody CommunityCommentDTO newComment,
                                            @PathVariable Integer postCode) {
-        communityCommentService.registComment(postCode, newComment);
+        int registedCode = communityCommentService.registComment(postCode, newComment);
 
-        return ResponseEntity.created(URI.create("/community/post/{postCode}/comment/"
-                                        + newComment.getCommentCode())).build();
+        return ResponseEntity.created(URI.create("/community/post/{postCode}/comment/" + registedCode)).build();
     }
 
     /* 댓글 및 대댓글 수정 */
@@ -102,6 +101,11 @@ public class CommunityController {
         return ResponseEntity.noContent().build();
     }
 
-    /* 댓글 삭제 */
+    /* 댓글 및 대댓글 삭제 */
+    @DeleteMapping("/post/{postCode}/comment/{commentCode}")
+    public ResponseEntity<?> removeComment(@PathVariable Integer postCode, @PathVariable Integer commentCode) {
+        communityCommentService.removeComment(postCode, commentCode);
 
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -8,10 +8,7 @@ import com.iiiiii.accbookserver.accbook.query.service.AccbookService;
 import com.iiiiii.accbookserver.common.ResponseMessageGeneric;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,9 +68,9 @@ public class AccbookController {
         return ResponseEntity.ok(new ResponseMessageGeneric<>(accbooks));
     }
 
-    @GetMapping("detail")
+    @GetMapping("detail/{accbookCode}")
     ResponseEntity<ResponseMessageGeneric<AccbookDetailDTO>> findAccbookDetailBy(
-            @RequestParam("accbookCode") Integer accbookCode) {
+            @PathVariable("accbookCode") Integer accbookCode) {
 
         AccbookDetailDTO foundAccbook = accbookService.findAccbookDetailBy(accbookCode);
         return ResponseEntity.ok(new ResponseMessageGeneric<>(foundAccbook));
