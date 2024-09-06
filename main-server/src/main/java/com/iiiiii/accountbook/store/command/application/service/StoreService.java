@@ -1,13 +1,14 @@
 package com.iiiiii.accountbook.store.command.application.service;
 
 import com.iiiiii.accountbook.common.YesOrNo;
-import com.iiiiii.accountbook.exception.NotValidRequestException;
+import com.iiiiii.accountbook.exception.NotAllowedRegisterGoodStoreFileTypeException;
+import com.iiiiii.accountbook.exception.NotFoundStoreException;
+import com.iiiiii.accountbook.exception.NotFullySuccessRegisterGoodStoreException;
 import com.iiiiii.accountbook.store.command.domain.aggregate.entity.Store;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RegisterStoreVO;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyGoodStoreVO;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RequestModifyStoreVO;
 import com.iiiiii.accountbook.store.command.domain.repository.StoreRepository;
-import com.iiiiii.accountbook.exception.NotFoundStoreException;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
@@ -43,7 +44,7 @@ public class StoreService {
         // 엑셀 파일인지 확인
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         if (!"xls".equals(extension) && !"xlsx".equals(extension)) {
-            throw new NotValidRequestException("엑셀 파일만 업로드 해주세요.");
+            throw new NotAllowedRegisterGoodStoreFileTypeException();
         }
 
         List<StoreDTO> newStores = parsingStoreExcel(file, extension);
@@ -58,7 +59,11 @@ public class StoreService {
                 newStoreDTO.getGoodMenuPrice()
         )).collect(Collectors.toList());
 
-        storeRepository.saveAll(storeEntities);
+        List<Store> results = storeRepository.saveAll(storeEntities);
+
+        if (results.size() != newStores.size()) {
+            throw new NotFullySuccessRegisterGoodStoreException();
+        }
     }
 
     private List<StoreDTO> parsingStoreExcel(MultipartFile file, String extension) throws Exception {
