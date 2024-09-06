@@ -21,7 +21,8 @@ public class GlobalExceptionHandler {
             NotValidRequestException.class,
             NotFoundStoreException.class,
             NotAllowedGroupRoleException.class,
-            NotGroupMemberException.class
+            NotGroupMemberException.class,
+            NotAllowedRegisterGoodStoreFileTypeException.class
     })
     public ResponseEntity<ResponseError> handleBadRequest(Exception e) {
         return ResponseEntity
