@@ -28,8 +28,8 @@ public class AccGroupService {
         return accGroupMapper.selectAllAccGroups();
     }
 
-    public AccGroupDTO findOneAccGroup(int code) {
-        return accGroupMapper.selectOneAccGroup(code);
+    public AccGroupDTO findOneAccGroup(int groupCode) {
+        return accGroupMapper.selectOneAccGroup(groupCode);
     }
 
     public List<Integer> findAccGroupCodes() {

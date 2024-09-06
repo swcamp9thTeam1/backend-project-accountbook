@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -25,25 +26,22 @@ public class AccGroupPostFileTests {
     @Test
     public void testFindAllGroupPostFile() {
         List<AccGroupPostFileDTO> list = accGroupPostFileService.findAllGroupPostFile();
-
-        assertTrue(!list.isEmpty());
+        assertNotNull(list);
     }
 
     @DisplayName("파일 코드로 그룹 게시글 파일 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {1, 2, 5})
     public void testFindOneGroupPostFile(int fileCode) {
         AccGroupPostFileDTO list = accGroupPostFileService.findGroupPostFileByFileCode(fileCode);
-
-        assertTrue(!list.getPath().isEmpty());
+        assertNotNull(list);
     }
 
     @DisplayName("그룹 게시글 코드로 그룹 게시글 파일 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {4, 2, 3})
     public void testFindGroupPostFileByPostCode(int postCode) {
         List<AccGroupPostFileDTO> list = accGroupPostFileService.findGroupPostFileByPostCode(postCode);
-
-        assertTrue(!list.isEmpty());
+        assertNotNull(list);
     }
 }

@@ -37,7 +37,7 @@ public class AccGroupService {
         this.commandMemberService = commandMemberService;
     }
 
-    public void registAccGroup(int memberCode, AccGroup newAccGroup) {
+    public AccGroupEntity registAccGroup(int memberCode, AccGroup newAccGroup) {
         List<String> names = accGroupService.findAccGroupNames()
                 .stream()
                 .filter(name -> name.equals((newAccGroup.getName())))
@@ -49,16 +49,18 @@ public class AccGroupService {
 
             // 그룹 생성시 생성자가 그룹장이 됨
             commandMemberService.registGroupMember(new GroupMember(memberCode, newGroup.getCode(), GroupRole.ROLE_LEADER));
+
+            return newGroup;
         }
     }
 
-    public void modifyAccGroup(int memberCode, AccGroup modifyAccGroup) throws NotAllowedException {
+    public AccGroupEntity modifyAccGroup(int memberCode, AccGroup modifyAccGroup) throws NotAllowedException {
         List<GroupMemberDTO> member = queryMemberService.findGroupMemberByRole(modifyAccGroup.getCode(), GroupRole.ROLE_LEADER);
 
         // 그룹장만 수정 가능
         if (memberCode == member.get(0).getMemberCode()) {
             AccGroupEntity modify = modelMapper.map(modifyAccGroup, AccGroupEntity.class);
-            accGroupRepository.saveAndFlush(modify);
+            return accGroupRepository.saveAndFlush(modify);
         } else {
             throw new NotAllowedException("수정");
         }

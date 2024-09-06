@@ -11,10 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class GroupMemberServiceTests {
+
     private GroupMemberService groupMemberService;
 
     @Autowired
@@ -26,7 +28,6 @@ public class GroupMemberServiceTests {
     @Test
     public void testFindAllGroupMember() {
         List<GroupMemberDTO> list = groupMemberService.findAllGroupMember();
-
         assertTrue(!list.isEmpty());
     }
 
@@ -35,7 +36,6 @@ public class GroupMemberServiceTests {
     @ValueSource(ints = {1, 2, 3})
     public void testFindGroupByMemberCode(int memberCode) {
         List<GroupMemberDTO> list = groupMemberService.findGroupByMemberCode(memberCode);
-
         assertTrue(!list.isEmpty());
     }
 
@@ -44,7 +44,6 @@ public class GroupMemberServiceTests {
     @ValueSource(ints = {1, 2, 3})
     public void testFindMemberByGroupCode(int groupCode) {
         List<GroupMemberDTO> list = groupMemberService.findMemberByGroupCode(groupCode);
-
         assertTrue(!list.isEmpty());
     }
 
@@ -52,8 +51,10 @@ public class GroupMemberServiceTests {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3})
     public void testFindAllGroupMember(int groupCode) {
-        List<GroupMemberDTO> list = groupMemberService.findGroupMemberByRole(groupCode, GroupRole.ROLE_FOLLOWER);
-
-        assertTrue(!list.isEmpty());
+        int total = groupMemberService.findMemberByGroupCode(groupCode).size();
+        int result = 0;
+        for (GroupRole role: GroupRole.values())
+            result += groupMemberService.findGroupMemberByRole(groupCode, role).size();
+        assertEquals(total, result);
     }
 }

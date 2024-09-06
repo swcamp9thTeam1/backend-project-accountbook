@@ -21,7 +21,6 @@ public class AccGroupPostCommentController {
 
     @GetMapping("/")
     public ResponseEntity<List<AccGroupPostCommentDTO>> findAllGroupPostComment() {
-
         List<AccGroupPostCommentDTO> groupPostComment = accGroupPostCommentService.findAllGroupPostComment();
 
         return ResponseEntity
@@ -31,7 +30,6 @@ public class AccGroupPostCommentController {
 
     @GetMapping("/{accGroupPostCommentCode}")
     public ResponseEntity<AccGroupPostCommentDTO> findGroupPostCommentByCommentCode(@PathVariable int accGroupPostCommentCode) {
-
         AccGroupPostCommentDTO groupPostComment = accGroupPostCommentService.findGroupPostCommentByCommentCode(accGroupPostCommentCode);
 
         return ResponseEntity
@@ -41,7 +39,6 @@ public class AccGroupPostCommentController {
 
     @GetMapping("/recomment/{accGroupPostCommentCode}")
     public ResponseEntity<AccGroupPostCommentDTO> findGroupPostCommentRecomment(@PathVariable int accGroupPostCommentCode) {
-
         AccGroupPostCommentDTO groupPostComment = accGroupPostCommentService.findGroupPostCommentRecomment(accGroupPostCommentCode);
 
         return ResponseEntity
@@ -51,7 +48,6 @@ public class AccGroupPostCommentController {
 
     @GetMapping("/posts/{postCode}")
     public ResponseEntity<List<AccGroupPostCommentDTO>> findGroupPostCommentByPostCode(@PathVariable int postCode) {
-
         List<AccGroupPostCommentDTO> groupPostComment = accGroupPostCommentService.findGroupPostCommentByPostCode(postCode);
 
         return ResponseEntity
@@ -61,7 +57,6 @@ public class AccGroupPostCommentController {
 
     @GetMapping("/members/{memberCode}")
     public ResponseEntity<List<AccGroupPostCommentDTO>> findGroupPostCommentByMemberCode(@PathVariable int memberCode) {
-
         List<AccGroupPostCommentDTO> groupPostComment = accGroupPostCommentService.findGroupPostCommentByMemberCode(memberCode);
 
         return ResponseEntity

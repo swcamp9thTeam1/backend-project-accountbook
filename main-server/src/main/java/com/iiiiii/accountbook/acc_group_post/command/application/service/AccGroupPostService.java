@@ -21,17 +21,17 @@ public class AccGroupPostService {
         this.modelmapper = modelmapper;
     }
 
-    public void registAccGroupPost(AccGroupPost newAccGroupPost) {
+    public AccGroupPostEntity registAccGroupPost(AccGroupPost newAccGroupPost) {
         AccGroupPostEntity groupPostEntity = modelmapper.map(newAccGroupPost, AccGroupPostEntity.class);
         groupPostEntity.setCreatedAt(LocalDateTime.now());
-        accGroupPostRepository.save(groupPostEntity);
+        return accGroupPostRepository.save(groupPostEntity);
     }
 
 
-    public void modifyAccGroupPost(AccGroupPost modifyAccGroupPost) {
+    public AccGroupPostEntity modifyAccGroupPost(AccGroupPost modifyAccGroupPost) {
         AccGroupPostEntity groupPostEntity = modelmapper.map(modifyAccGroupPost, AccGroupPostEntity.class);
         groupPostEntity.setCreatedAt(LocalDateTime.now());
-        accGroupPostRepository.saveAndFlush(groupPostEntity);
+        return accGroupPostRepository.saveAndFlush(groupPostEntity);
     }
 
     public void deleteAccGroupPost(AccGroupPost deleteAccGroupPost) {

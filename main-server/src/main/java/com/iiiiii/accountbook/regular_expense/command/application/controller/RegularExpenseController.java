@@ -2,7 +2,9 @@ package com.iiiiii.accountbook.regular_expense.command.application.controller;
 
 import com.iiiiii.accountbook.regular_expense.command.application.service.RegularExpenseService;
 import com.iiiiii.accountbook.regular_expense.command.domain.aggregate.RegularExpense;
+import com.iiiiii.accountbook.regular_expense.command.domain.aggregate.RegularExpenseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,21 +19,21 @@ public class RegularExpenseController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> registRegularExpenses(@RequestBody RegularExpense newRegularExpense) {
-        regularExpenseService.registRegularExpense(newRegularExpense);
+    public ResponseEntity<RegularExpenseEntity> registRegularExpenses(@RequestBody RegularExpense newRegularExpense) {
+        RegularExpenseEntity result = regularExpenseService.registRegularExpense(newRegularExpense);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @PostMapping("/modify")
-    public ResponseEntity<?> modifyRegularExpenses(@RequestBody RegularExpense modifyRegularExpense) {
-        regularExpenseService.modifyRegularExpense(modifyRegularExpense);
+    public ResponseEntity<RegularExpenseEntity> modifyRegularExpenses(@RequestBody RegularExpense modifyRegularExpense) {
+        RegularExpenseEntity result = regularExpenseService.modifyRegularExpense(modifyRegularExpense);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @DeleteMapping("/delete")
@@ -39,7 +41,7 @@ public class RegularExpenseController {
         regularExpenseService.deleteRegularExpense(deleteRegularExpense);
 
         return ResponseEntity
-                .noContent()        // 204
+                .status(HttpStatus.OK)
                 .build();
     }
 

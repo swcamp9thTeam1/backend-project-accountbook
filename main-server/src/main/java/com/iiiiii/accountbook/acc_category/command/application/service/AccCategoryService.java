@@ -26,15 +26,16 @@ public class AccCategoryService {
         this.modelMapper = modelMapper;
     }
 
-    public void registAccCategory(AccCategory newAccCategory) {
+    public AccCategoryEntity registAccCategory(AccCategory newAccCategory) {
         AccCategoryEntity newAccCategoryEntity = modelMapper.map(newAccCategory, AccCategoryEntity.class);
-        accCategoryRepository.save(newAccCategoryEntity);
-
+        AccCategoryEntity result = accCategoryRepository.save(newAccCategoryEntity);
+        return result;
     }
 
-    public void modifyAccCategory(AccCategory modifyAccCategory) {
+    public AccCategoryEntity modifyAccCategory(AccCategory modifyAccCategory) {
         AccCategoryEntity modifyAccCategoryEntity = modelMapper.map(modifyAccCategory, AccCategoryEntity.class);
-        accCategoryRepository.saveAndFlush(modifyAccCategoryEntity);
+        AccCategoryEntity result = accCategoryRepository.saveAndFlush(modifyAccCategoryEntity);
+        return result;
     }
 
     public void deleteAccCategory(AccCategory deleteAccCategory) {

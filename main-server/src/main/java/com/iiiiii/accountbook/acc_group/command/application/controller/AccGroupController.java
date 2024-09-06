@@ -2,8 +2,10 @@ package com.iiiiii.accountbook.acc_group.command.application.controller;
 
 import com.iiiiii.accountbook.acc_group.command.application.service.AccGroupService;
 import com.iiiiii.accountbook.acc_group.command.domain.aggregate.AccGroup;
+import com.iiiiii.accountbook.acc_group.command.domain.aggregate.AccGroupEntity;
 import com.iiiiii.accountbook.exception.NotAllowedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,23 +20,23 @@ public class AccGroupController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> registAccGroup(@RequestParam("memberCode") int memberCode,
-                                            @RequestBody AccGroup newAccGroup) {
-        accGroupService.registAccGroup(memberCode, newAccGroup);
+    public ResponseEntity<AccGroupEntity> registAccGroup(@RequestParam("memberCode") int memberCode,
+                                                         @RequestBody AccGroup newAccGroup) {
+        AccGroupEntity result = accGroupService.registAccGroup(memberCode, newAccGroup);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @PostMapping("/modify")
-    public ResponseEntity<?> modifyAccGroup(@RequestParam("memberCode") int memberCode,
+    public ResponseEntity<AccGroupEntity> modifyAccGroup(@RequestParam("memberCode") int memberCode,
                                             @RequestBody AccGroup modifyAccGroup) throws NotAllowedException {
-        accGroupService.modifyAccGroup(memberCode, modifyAccGroup);
+        AccGroupEntity result = accGroupService.modifyAccGroup(memberCode, modifyAccGroup);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @DeleteMapping("/delete")
@@ -43,7 +45,7 @@ public class AccGroupController {
         accGroupService.deleteAccGroup(memberCode, deleteAccGroup);
 
         return ResponseEntity
-                .noContent()        // 204
+                .status(HttpStatus.OK)
                 .build();
     }
 }

@@ -23,7 +23,7 @@
              , A.NAME
              , A.INTRO
           FROM ACC_GROUP A
-         WHERE A.CODE = #{code}
+         WHERE A.CODE = #{groupCode}
     </select>
 
     <select id="selectAllAccGroupCodes" resultType="_int">

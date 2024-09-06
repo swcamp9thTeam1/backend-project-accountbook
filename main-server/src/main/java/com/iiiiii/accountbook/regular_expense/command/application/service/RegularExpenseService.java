@@ -23,15 +23,15 @@ public class RegularExpenseService {
     }
 
     // 고정 지출 설정(입력값: "expenseDate", "name", "amount", "memberCode", "assetCode", "accCategoryCode")
-    public void registRegularExpense(RegularExpense newRegularExpense) {
+    public RegularExpenseEntity registRegularExpense(RegularExpense newRegularExpense) {
         RegularExpenseEntity regularExpenseEntity = modelMapper.map(newRegularExpense, RegularExpenseEntity.class);
-        regularExpenseRepository.save(regularExpenseEntity);
+        return regularExpenseRepository.save(regularExpenseEntity);
     }
 
     // 고정 지출 수정(입력값: "code", "expenseDate", "name", "amount", "memberCode", "assetCode", "accCategoryCode")
-    public void modifyRegularExpense(RegularExpense modifyRegularExpense) {
+    public RegularExpenseEntity modifyRegularExpense(RegularExpense modifyRegularExpense) {
         RegularExpenseEntity newEntity = modelMapper.map(modifyRegularExpense, RegularExpenseEntity.class);
-        regularExpenseRepository.saveAndFlush(newEntity);
+        return regularExpenseRepository.saveAndFlush(newEntity);
     }
 
     // 고정 지출 삭제(입력값: "code", "expenseDate", "name", "amount", "memberCode", "assetCode", "accCategoryCode")

@@ -21,7 +21,6 @@ public class RegularExpenseController {
 
     @GetMapping("/")
     public ResponseEntity<List<RegularExpenseDTO>> findAllRegularExpenses() {
-
         List<RegularExpenseDTO> regularExpenses = regularExpenseService.findAllRegularExpenses();
 
         return ResponseEntity
@@ -31,7 +30,6 @@ public class RegularExpenseController {
 
     @GetMapping("/{regularExpenseCode}")
     public ResponseEntity<RegularExpenseDTO> findOneRegularExpenses(@PathVariable("regularExpenseCode") int regularExpenseCode) {
-
         RegularExpenseDTO regularExpenses = regularExpenseService.findOneRegularExpenses(regularExpenseCode);
 
         return ResponseEntity
@@ -41,7 +39,6 @@ public class RegularExpenseController {
 
     @GetMapping("/members/{memberCode}")
     public ResponseEntity<List<RegularExpenseDTO>> findOneMemberRegularExpenses(@PathVariable("memberCode") int memberCode) {
-
         List<RegularExpenseDTO> regularExpenses = regularExpenseService.findOneMemberRegularExpenses(memberCode);
 
         return ResponseEntity

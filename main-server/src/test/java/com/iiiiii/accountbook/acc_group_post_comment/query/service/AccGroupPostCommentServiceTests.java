@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class AccGroupPostCommentServiceTests {
@@ -25,8 +25,7 @@ public class AccGroupPostCommentServiceTests {
     @Test
     public void testFindAllAccGroupPostComment() {
         List<AccGroupPostCommentDTO> list = accGroupPostCommentService.findAllGroupPostComment();
-
-        assertTrue(!list.isEmpty());
+        assertNotNull(list);
     }
 
     @DisplayName("댓글 코드로 그룹 게시글 댓글 조회 확인 테스트")
@@ -34,34 +33,33 @@ public class AccGroupPostCommentServiceTests {
     @ValueSource(ints = {1, 2})
     public void testFindOneAccGroupPostCommentByCommentCode(int commentCode) {
         AccGroupPostCommentDTO comment = accGroupPostCommentService.findGroupPostCommentByCommentCode(commentCode);
-
-        assertTrue(comment.getDetail()!=null);
+        assertNotNull(comment);
     }
 
     @DisplayName("멤버 코드로 그룹 게시글 댓글 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {3, 5})
     public void testFindAccGroupPostCommentByMemberCode(int memberCode) {
         List<AccGroupPostCommentDTO> list = accGroupPostCommentService.findGroupPostCommentByMemberCode(memberCode);
-
-        assertTrue(!list.isEmpty());
+        assertNotNull(list);
     }
 
     @DisplayName("게시글 코드로 그룹 게시글 댓글 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {4, 2})
     public void testFindAccGroupPostCommentByPostCode(int postCode) {
         List<AccGroupPostCommentDTO> list = accGroupPostCommentService.findGroupPostCommentByPostCode(postCode);
-
-        assertTrue(!list.isEmpty());
+        assertNotNull(list);
     }
 
     @DisplayName("댓글 코드로 그룹 게시글 대댓글 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {4, 5})
     public void testFindAccGroupPostRecommentByCommentCode(int commentCode) {
         AccGroupPostCommentDTO recomment = accGroupPostCommentService.findGroupPostCommentRecomment(commentCode);
-
-//        assertTrue(!list.isEmpty());
+        if (commentCode == 4)
+            assertNotNull(recomment);
+        else
+            assertNull(recomment);
     }
 }

@@ -24,14 +24,14 @@ public class AccGroupPostFileService {
     }
 
 
-    public void registAccGroupPostFile(AccGroupPostFile newAccGroupPostFile) {
+    public AccGroupPostFileEntity registAccGroupPostFile(AccGroupPostFile newAccGroupPostFile) {
         AccGroupPostFileEntity postFile = modelMapper.map(newAccGroupPostFile, AccGroupPostFileEntity.class);
-        accGroupPostFileRepository.save(postFile);
+        return accGroupPostFileRepository.save(postFile);
     }
 
-    public void modifyAccGroupPostFile(AccGroupPostFile modifyAccGroupPostFile) {
+    public AccGroupPostFileEntity modifyAccGroupPostFile(AccGroupPostFile modifyAccGroupPostFile) {
         AccGroupPostFileEntity postFile = modelMapper.map(modifyAccGroupPostFile, AccGroupPostFileEntity.class);
-        accGroupPostFileRepository.saveAndFlush(postFile);
+        return accGroupPostFileRepository.saveAndFlush(postFile);
     }
 
     public void deleteAccGroupPostFile(AccGroupPostFile deleteAccGroupPostFile) {

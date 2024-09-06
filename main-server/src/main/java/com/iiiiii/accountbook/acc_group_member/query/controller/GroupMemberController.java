@@ -22,7 +22,6 @@ public class GroupMemberController {
 
     @GetMapping("/")
     public ResponseEntity<List<GroupMemberDTO>> findAllGroupMember() {
-
         List<GroupMemberDTO> groupMember = groupMemberService.findAllGroupMember();
 
         return ResponseEntity
@@ -32,7 +31,6 @@ public class GroupMemberController {
 
     @GetMapping("/groups/{memberCode}")
     public ResponseEntity<List<GroupMemberDTO>> findGroupByMemberCode(@PathVariable("memberCode") int memberCode) {
-
         List<GroupMemberDTO> groupMember = groupMemberService.findGroupByMemberCode(memberCode);
 
         return ResponseEntity
@@ -42,7 +40,6 @@ public class GroupMemberController {
 
     @GetMapping("/members/{groupCode}")
     public ResponseEntity<List<GroupMemberDTO>> findMemberByGroupCode(@PathVariable("groupCode") int groupCode) {
-
         List<GroupMemberDTO> groupMember = groupMemberService.findMemberByGroupCode(groupCode);
 
         return ResponseEntity
@@ -53,7 +50,6 @@ public class GroupMemberController {
     @GetMapping("/role")
     public ResponseEntity<List<GroupMemberDTO>> findGroupMemberByRole(@RequestParam("groupCode") int groupCode,
                                                                       @RequestParam("role") GroupRole role) {
-
         List<GroupMemberDTO> groupMember = groupMemberService.findGroupMemberByRole(groupCode, role);
 
         return ResponseEntity

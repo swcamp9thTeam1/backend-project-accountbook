@@ -3,6 +3,8 @@ package com.iiiiii.accountbook.acc_group.query.service;
 import com.iiiiii.accountbook.acc_group.query.dto.AccGroupDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -23,15 +25,21 @@ public class AccGroupServiceTests {
     @Test
     public void testFindAllAccGroup() {
         List<AccGroupDTO> list = accGroupService.findAllAccGroup();
-
         assertTrue(!list.isEmpty());
+    }
+
+    @DisplayName("그룹 코드로 그룹 조회 확인 테스트")
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3})
+    public void testFindOneAccGroup(int groupCode) {
+        AccGroupDTO list = accGroupService.findOneAccGroup(groupCode);
+        assertTrue(list.getCode()>0);
     }
 
     @DisplayName("그룹 코드 조회 확인 테스트")
     @Test
     public void testFindAccGroupCode() {
         List<Integer> list = accGroupService.findAccGroupCodes();
-
         assertTrue(!list.isEmpty());
     }
 
@@ -39,7 +47,6 @@ public class AccGroupServiceTests {
     @Test
     public void testFindAccGroupName() {
         List<String> list = accGroupService.findAccGroupNames();
-
         assertTrue(!list.isEmpty());
     }
 }

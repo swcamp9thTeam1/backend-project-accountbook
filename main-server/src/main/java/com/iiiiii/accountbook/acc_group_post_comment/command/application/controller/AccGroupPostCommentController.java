@@ -2,7 +2,9 @@ package com.iiiiii.accountbook.acc_group_post_comment.command.application.contro
 
 import com.iiiiii.accountbook.acc_group_post_comment.command.application.service.AccGroupPostCommentService;
 import com.iiiiii.accountbook.acc_group_post_comment.command.domain.aggregate.AccGroupPostComment;
+import com.iiiiii.accountbook.acc_group_post_comment.command.domain.aggregate.AccGroupPostCommentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,20 +20,20 @@ public class AccGroupPostCommentController {
 
     @PostMapping("/regist")
     public ResponseEntity<?> registAccGroupPostComment(@RequestBody AccGroupPostComment newAccGroupPostComment) throws Exception {
-        accGroupPostCommentService.registAccGroupPostComment(newAccGroupPostComment);
+        AccGroupPostCommentEntity result = accGroupPostCommentService.registAccGroupPostComment(newAccGroupPostComment);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @PostMapping("/modify")
     public ResponseEntity<?> modifyAccGroupPostComment(@RequestBody AccGroupPostComment modifyAccGroupPostComment) {
-        accGroupPostCommentService.modifyAccGroupPostComment(modifyAccGroupPostComment);
+        AccGroupPostCommentEntity result = accGroupPostCommentService.modifyAccGroupPostComment(modifyAccGroupPostComment);
 
         return ResponseEntity
-                .noContent()
-                .build();
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @DeleteMapping("/delete")
@@ -39,7 +41,7 @@ public class AccGroupPostCommentController {
         accGroupPostCommentService.deleteAccGroupPostComment(deleteAccGroupPostComment);
 
         return ResponseEntity
-                .noContent()
+                .status(HttpStatus.OK)
                 .build();
     }
 }
