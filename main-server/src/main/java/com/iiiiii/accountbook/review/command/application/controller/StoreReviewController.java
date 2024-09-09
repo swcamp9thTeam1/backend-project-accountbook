@@ -26,6 +26,7 @@ public class StoreReviewController {
         this.storeReviewService = storeReviewService;
     }
 
+    // ???
     @PostMapping("/regist")
     public ResponseEntity<?> registStoreReview(@RequestBody RegisterReviewVO newStoreReview){
         StoreReview savedStoreReview = storeReviewService.registStoreReview(newStoreReview);
