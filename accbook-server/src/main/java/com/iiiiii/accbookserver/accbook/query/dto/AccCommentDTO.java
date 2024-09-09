@@ -7,6 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class AccCommentDTO {
     private String detail;
     private String createdAt;
