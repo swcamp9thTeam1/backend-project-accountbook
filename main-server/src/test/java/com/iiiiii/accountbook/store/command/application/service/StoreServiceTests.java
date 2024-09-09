@@ -1,8 +1,9 @@
 package com.iiiiii.accountbook.store.command.application.service;
 
-import com.iiiiii.accountbook.exception.NotAllowedException;
 import com.iiiiii.accountbook.exception.NotAllowedRegisterGoodStoreFileTypeException;
 import com.iiiiii.accountbook.store.command.domain.aggregate.vo.RegisterStoreVO;
+import com.iiiiii.accountbook.store.query.dto.StoreDTO;
+import com.iiiiii.accountbook.store.query.repository.StoreMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -26,6 +28,9 @@ class StoreServiceTests {
 
     @Autowired
     private StoreService storeService;
+
+    @Autowired
+    private StoreMapper storeMapper;
 
     private static Stream<Arguments> providerStoreFiles() {
         return Stream.of(
@@ -80,16 +85,17 @@ class StoreServiceTests {
         String lng = "126.927739";
 
         // when
-        storeService.registerStore(new RegisterStoreVO(
+        int addedStoreCode = storeService.registerStore(new RegisterStoreVO(
                 storeName, storeAddress, lat, lng
         ));
 
         // then
-//        List<Store> foundStores = storeRepository.findByLatitudeAndLongitude(lat, lng);
-//        foundStores.forEach(store -> {
-//            assertEquals(store.getStoreName(),storeName);
-//        });
-
+        StoreDTO foundStore = storeMapper.selectStoreById(addedStoreCode);
+        assertThat(foundStore).isNotNull();
+        assertThat(foundStore.getStoreName()).isEqualTo(storeName);
+        assertThat(foundStore.getAddress()).isEqualTo(storeAddress);
+        assertThat(foundStore.getLatitude()).isEqualTo(lat);
+        assertThat(foundStore.getLongitude()).isEqualTo(lng);
     }
 
     @DisplayName("착한가격업소였던 가게를 일반가게로 변경하는 테스트")
