@@ -1,5 +1,6 @@
 package com.iiiiii.accountbook.store.common;
 
+import com.iiiiii.accountbook.common.YesOrNo;
 import lombok.*;
 
 @NoArgsConstructor
@@ -8,12 +9,16 @@ import lombok.*;
 @Setter
 @ToString
 public class StoreSearchCriteria {
-    private Boolean isGood;
+    private YesOrNo isGood;
     private Boolean isManyReview;
     private String longitude;
     private String latitude;
 
-    public StoreSearchCriteria(Boolean isGood, Boolean isManyReview) {
+    public StoreSearchCriteria(YesOrNo isGood) {
+        this.isGood = isGood;
+    }
+
+    public StoreSearchCriteria(YesOrNo isGood, Boolean isManyReview) {
         this.isGood = isGood;
         this.isManyReview = isManyReview;
     }

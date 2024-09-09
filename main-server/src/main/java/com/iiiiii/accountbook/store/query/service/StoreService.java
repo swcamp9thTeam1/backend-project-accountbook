@@ -1,6 +1,5 @@
 package com.iiiiii.accountbook.store.query.service;
 
-import com.iiiiii.accountbook.exception.EmptyResultSearchStoreException;
 import com.iiiiii.accountbook.store.common.StoreSearchCriteria;
 import com.iiiiii.accountbook.store.query.dto.StoreDTO;
 import com.iiiiii.accountbook.store.query.repository.StoreMapper;
@@ -22,28 +21,18 @@ public class StoreService {
     }
 
     public List<StoreDTO> findAllStores() {
-        List<StoreDTO> stores = storeMapper.selectAllStores();
-//        log.info("stores: {}", stores);
-
-        return stores;
+        return storeMapper.selectAllStores();
     }
 
     public StoreDTO findStoreById(int storeCode) {
-        StoreDTO store = storeMapper.selectStoreById(storeCode);
-//        log.info("store: {}", store);
-
-        return store;
+        return storeMapper.selectStoreById(storeCode);
     }
 
     public List<StoreDTO> searchStore(StoreSearchCriteria criteria) {
-        List<StoreDTO> stores = storeMapper.searchStore(criteria);
-
-//        log.info("stores: {}", stores);
-
-        return stores;
+        return storeMapper.searchStore(criteria);
     }
 
-    public Integer getStoreCodeByLatLng(StoreSearchCriteria criteria) {
+    public Integer findStoreCodeByLatLng(StoreSearchCriteria criteria) {
         List<StoreDTO> foundStores = storeMapper.searchStore(criteria);
         if (foundStores.isEmpty()) {
             return null;

@@ -57,7 +57,7 @@ public class StoreController {
     }
 
     @PutMapping("/good/{storeCode}/change-n")
-    public ResponseEntity<?> modifyGoodStoreToN(@PathVariable int storeCode) {
+    public ResponseEntity<?> modifyGoodStoreToN(@PathVariable int storeCode) throws Exception {
 
         storeService.modifyGoodStoreToN(storeCode);
 
