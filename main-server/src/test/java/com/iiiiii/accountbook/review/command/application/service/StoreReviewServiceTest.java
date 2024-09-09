@@ -5,6 +5,7 @@ import com.iiiiii.accountbook.review.command.domain.aggregate.dto.StoreReviewDTO
 import com.iiiiii.accountbook.review.command.domain.aggregate.entity.StoreReview;
 import com.iiiiii.accountbook.review.command.domain.repository.StoreReviewRepository;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -53,10 +54,19 @@ class StoreReviewServiceTest {
     }
 
 
+    // //////////////////////////////////////////////////////////////////////////////////////
+    // 수정할 값
+    public static Stream<Arguments> provideReviewDTO2(){
+        return Stream.of(
+                Arguments.of("2024-09-09", 5, 30000L, "좋구만요", 1, 1),
+                Arguments.of("2024-09-09", 5, 30000L, "맛있어요! ", 2, 2),
+                Arguments.of("2024-09-09", 5, 30000L, "가성비가 엄청 좋아요 ! ", 3, 3)
+        );
+    }
     // 주석. 2. 리뷰 수정 서비스 테스트 코드
     @DisplayName("라뷰 수정 테스트")
     @ParameterizedTest
-    @MethodSource("provideReviewDTO")
+    @MethodSource("provideReviewDTO2")
     void testModifyStoreReview(String createdAt, Integer visitors, Long totalExpense,
                                String oneLineReview, Integer memberCode , Integer storeCode){
 
@@ -102,7 +112,7 @@ class StoreReviewServiceTest {
     // 주석. 3. 리뷰 삭제 서비스 테스트 코드
     @DisplayName("리뷰 삭제 테스트")
     @ParameterizedTest
-    @MethodSource("provideReviewDTO")
+    @MethodSource("provideReviewDTO2")
     void testRemoveStoreReview(String createdAt, Integer visitors, Long totalExpense,
                                String oneLineReview, Integer memberCode , Integer storeCode){
         // given 초기 설정
