@@ -61,31 +61,13 @@ public class AccbookService {
 
             // '방문한 가게'가 가게DB에 존재하지 않는 경우 -> Store DB에 등록 후 storeCode 저장
             if (storeCode == null) {
-
-                // RegisterStoreVO 생성 및 정보 저장
-                RequestRegistStoreVO registerStoreVO = new RequestRegistStoreVO(
-                        newAccbook.getRegistStoreDTO().getStoreName(),
-                        newAccbook.getRegistStoreDTO().getStoreAddress(),
-                        newAccbook.getRegistStoreDTO().getLatitude(),
-                        newAccbook.getRegistStoreDTO().getLongitude()
-                );
-
-                storeServiceClient.registerStore(registerStoreVO); // 가게DB 등록 메서드 호출
-
-                responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(
-                        newAccbook.getRegistStoreDTO().getLatitude(),
-                        newAccbook.getRegistStoreDTO().getLongitude()); // 등록 후 storeCode 다시 저장
-                accbook.setStoreCode((Integer) responseStoreCodeVO.getResult().get("storeCode"));
+                storeCode = registNotExistStore(newAccbook, accbook);
             }
         }
 
         // 2. 자산 변경
         InOrOut financeType = accCategoryServiceClient.findOneAccCategory(newAccbook.getAccCategoryCode()).getFinanceType();
-        if (financeType == InOrOut.I) {           // 수입인 경우
-            assetServiceClient.modifyAssetByIn(newAccbook.getAssetCode(), newAccbook.getAmount());
-        } else if (financeType == InOrOut.O) {    // 지출인 경우
-            assetServiceClient.modifyAssetByOut(newAccbook.getAssetCode(), newAccbook.getAmount());
-        }
+        changeAsset(financeType, newAccbook.getAssetCode(), newAccbook.getAmount());
 
         // 3. 가계부 DB에 저장
         accbook.setStoreCode(storeCode);
@@ -120,7 +102,7 @@ public class AccbookService {
         // 트랜젝션 커밋 시 JPA가 자동으로 변경된 엔티티를 DB에 반영 (Dirty Checking)
         return accbook;
     }
-
+    
     @Transactional
     public void removeAccbook(Integer accbookCode) {
         Accbook accbook = accbookRepository.findById(accbookCode).orElseThrow(IllegalArgumentException::new);
@@ -159,4 +141,33 @@ public class AccbookService {
         // 가계부DB에 저장
         accbookRepository.saveAll(accbookList);
     }
+
+    private Integer registNotExistStore(RequestRegistAccbookDTO newAccbook, Accbook accbook) {
+
+        // 가게DB에 새 가게 등록
+        ResponseStoreCodeVO responseStoreCodeVO;
+        RequestRegistStoreVO registerStoreVO = new RequestRegistStoreVO(
+                newAccbook.getRegistStoreDTO().getStoreName(),
+                newAccbook.getRegistStoreDTO().getStoreAddress(),
+                newAccbook.getRegistStoreDTO().getLatitude(),
+                newAccbook.getRegistStoreDTO().getLongitude()
+        );
+        storeServiceClient.registerStore(registerStoreVO);
+
+        // 등록된 가게 storeCode 다시 저장
+        responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(
+                newAccbook.getRegistStoreDTO().getLatitude(),
+                newAccbook.getRegistStoreDTO().getLongitude());
+        return (Integer) responseStoreCodeVO.getResult().get("storeCode");
+
+    }
+    
+    private void changeAsset(InOrOut financeType, Integer assetCode, Long amount) {
+        if (financeType == InOrOut.I) {           // 수입인 경우
+            assetServiceClient.modifyAssetByIn(assetCode, amount);
+        } else if (financeType == InOrOut.O) {    // 지출인 경우
+            assetServiceClient.modifyAssetByOut(assetCode, amount);
+        }
+    }
+
 }
