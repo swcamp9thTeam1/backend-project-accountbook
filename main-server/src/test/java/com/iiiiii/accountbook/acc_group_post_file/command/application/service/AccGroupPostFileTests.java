@@ -31,7 +31,7 @@ public class AccGroupPostFileTests {
     @DisplayName("그룹 게시글 파일 수정 확인 테스트")
     @Test
     public void testModifyAccGroupPostFile() {
-        AccGroupPostFile modifyPostFile = new AccGroupPostFile(1, "수정 테스트 파일", "com/iiiiii/accbookdb/acc_group_post_file", 3);
+        AccGroupPostFile modifyPostFile = new AccGroupPostFile(12, "수정 테스트 파일", "com/iiiiii/accbookdb/acc_group_post_file", 1);
         String result = accGroupPostFileService.modifyAccGroupPostFile(modifyPostFile).getName();
         assertTrue("수정 테스트 파일".equals(result));
     }
@@ -39,8 +39,8 @@ public class AccGroupPostFileTests {
     @DisplayName("그룹 게시글 파일 삭제 확인 테스트")
     @Test
     public void testDeleteAccGroupPostFile() {
-        AccGroupPostFile deletePostFile = new AccGroupPostFile(1, "테스트 파일", "com/iiiiii/accbookdb/acc_group_post_file", 3);
+        AccGroupPostFile deletePostFile = new AccGroupPostFile(12, "수정 테스트 파일", "com/iiiiii/accbookdb/acc_group_post_file", 1);
         accGroupPostFileService.deleteAccGroupPostFile(deletePostFile);
-        assertNull(queryService.findGroupPostFileByFileCode(1));
+        assertNull(queryService.findGroupPostFileByFileCode(12));
     }
 }

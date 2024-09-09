@@ -8,6 +8,7 @@ import com.iiiiii.accountbook.acc_group_member.command.domain.aggregate.GroupMem
 import com.iiiiii.accountbook.acc_group_member.query.dto.GroupMemberDTO;
 import com.iiiiii.accountbook.common.GroupRole;
 import com.iiiiii.accountbook.exception.NotAllowedException;
+import com.iiiiii.accountbook.exception.NotAvailableException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -37,7 +38,7 @@ public class AccGroupService {
         this.commandMemberService = commandMemberService;
     }
 
-    public AccGroupEntity registAccGroup(int memberCode, AccGroup newAccGroup) {
+    public AccGroupEntity registAccGroup(int memberCode, AccGroup newAccGroup) throws NotAvailableException {
         List<String> names = accGroupService.findAccGroupNames()
                 .stream()
                 .filter(name -> name.equals((newAccGroup.getName())))
@@ -51,6 +52,8 @@ public class AccGroupService {
             commandMemberService.registGroupMember(new GroupMember(memberCode, newGroup.getCode(), GroupRole.ROLE_LEADER));
 
             return newGroup;
+        } else {
+            throw new NotAvailableException("이미 존재하는 그룹명 입니다.");
         }
     }
 

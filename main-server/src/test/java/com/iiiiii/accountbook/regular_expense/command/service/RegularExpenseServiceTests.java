@@ -35,7 +35,7 @@ class RegularExpenseServiceTests {
     @Test
     public void testModifyRegularExpense() {
         String result = regularExpenseService.modifyRegularExpense(
-                new RegularExpense(17, 7, "고정지출수정테스트", 70000, 7, 3, 3)).getName();
+                new RegularExpense(10, 16, "고정지출수정테스트", 70000, 5, 3, 3)).getName();
         assertEquals("고정지출수정테스트", result);
     }
 
@@ -43,8 +43,8 @@ class RegularExpenseServiceTests {
     @Test
     public void testDeleteRegularExpense() {
         regularExpenseService.deleteRegularExpense(
-                new RegularExpense(16, 1, "예금", 50000, 1, 1, 1));
-        RegularExpenseDTO result = queryService.findOneRegularExpenses(16);
+                new RegularExpense(10, 16, "고정지출수정테스트", 70000, 5, 3, 3));
+        RegularExpenseDTO result = queryService.findOneRegularExpenses(10);
         assertNull(result);
     }
 }

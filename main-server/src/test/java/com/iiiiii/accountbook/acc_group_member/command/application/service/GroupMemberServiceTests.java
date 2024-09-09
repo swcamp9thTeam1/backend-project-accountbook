@@ -8,7 +8,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @SpringBootTest
 public class GroupMemberServiceTests {
@@ -37,14 +38,12 @@ public class GroupMemberServiceTests {
 
     @DisplayName("그룹 멤버 삭제 확인 테스트")
     @Test
-    @Transactional
     public void testDeleteAccGroup() throws NotAllowedException {
         groupMemberService.deleteGroupMember(new GroupMember(10, 1, GroupRole.ROLE_FOLLOWER));
-        Assertions.assertNull(queryService.findGroupMemberByRole(1, GroupRole.ROLE_FOLLOWER)
+        Assertions.assertTrue(queryService.findGroupMemberByRole(1, GroupRole.ROLE_FOLLOWER)
                 .stream()
-                .filter(member -> member.getMemberCode()==10)
-                .findAny()
-                .get()
+                .filter(member -> member.getMemberCode() == 10)
+                .collect(Collectors.toList()).isEmpty()
         );
     }
 }
