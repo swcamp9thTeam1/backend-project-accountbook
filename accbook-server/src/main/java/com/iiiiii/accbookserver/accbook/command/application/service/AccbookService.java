@@ -84,20 +84,71 @@ public class AccbookService {
     }
 
     @Transactional
-    public Accbook modifyAccbook(int accbookCode, AccbookDTO modifyAccbook) {
+    public Accbook modifyAccbook(int accbookCode, RequestRegistAccbookDTO modifyAccbook) {
 
+        // 1. 가계부 세부사항이 수정되는 경우
         // 영속 상태인 엔티티 만들기
         Accbook accbook = accbookRepository.findById(accbookCode).orElseThrow(IllegalArgumentException::new);
 
         // 영속 엔티티에 변경된 값 저장 (기존값 + 수정값 상태로 가져온다고 가정)
         accbook.setCreatedAt(modifyAccbook.getCreatedAt());
         accbook.setTitle(modifyAccbook.getTitle());
-        accbook.setAmount(modifyAccbook.getAmount());
         accbook.setIsRegular(modifyAccbook.getIsRegular());
         accbook.setMemberCode(modifyAccbook.getMemberCode());
+
+        // 2. 방문한 가게가 추가/수정/삭제되는 경우
+        if (modifyAccbook.getRegistStoreDTO() == null) {
+            // 2-1. 방문한 가게가 null인 경우
+            accbook.setStoreCode(null);
+        } else {
+            // 2-2. 방문한 가게가 추가/수정된 경우
+            Integer storeCode = null;
+
+            ResponseStoreCodeVO responseStoreCodeVO = storeServiceClient.getStoreCodeByLatLng(
+                    modifyAccbook.getRegistStoreDTO().getLatitude(), modifyAccbook.getRegistStoreDTO().getLongitude());
+
+            storeCode =  (Integer) responseStoreCodeVO.getResult().get("storeCode");
+
+            // '방문한 가게'가 가게DB에 존재하지 않는 경우, Store DB에 등록 후 storeCode 저장
+            if (storeCode == null) {
+                storeCode = registNotExistStore(modifyAccbook, accbook);
+            }
+        }
+
+        // 3. 자산이 변경된 경우
+        /* 경우의 수
+         * 3-1. 자산 카테고리가 변경된 경우 (ex. 지출 -> 수입)
+         * 3-2. 사용한 자산이 변경된 경우 (ex. 국민카드 -> 신한카드)
+         * 3-3. 사용 금액만 변경된 경우 (ex. 1000원 지출 -> 3000원 지출)
+         * 3-4. 혼합
+         * */
+        InOrOut beforeFinanceType = accCategoryServiceClient.findOneAccCategory(accbook.getAccCategoryCode()).getFinanceType();
+        InOrOut afterFinanceType = accCategoryServiceClient.findOneAccCategory(modifyAccbook.getAccCategoryCode()).getFinanceType();
+        Integer beforeAssetCode = accbook.getAssetCode();
+        Integer afterAssetCode = modifyAccbook.getAssetCode();
+
+        if (beforeFinanceType == afterFinanceType) {    // 수입/지출이 변경되지 않은 경우
+            /*
+             * 1000 지출 -> 2000 지출: 지출 1000원
+             * 2000 지출 -> 1000 지출: 지출 -1000원
+             * 1000 수입 -> 2000 수입: 수입 1000원
+             * 2000 수입 -> 1000 수입: 수입 -1000원
+             * - 내역을 저장한다면 어떻게 저장해야 할 것인지 고려 필요
+             * */
+            if (beforeAssetCode == afterAssetCode) {    // 자산 코드가 변경되지 않은 경우
+                changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount() - accbook.getAmount());
+            } else {    // 자산 코드가 변경된 경우
+                changeAsset(beforeFinanceType, beforeAssetCode, -accbook.getAmount());      // 기존의 자산 복구
+                changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount());   // 변경된 자산 변동
+            }
+        } else {        // 수입/지출이 변경된 경우
+            changeAsset(beforeFinanceType, beforeAssetCode, -accbook.getAmount());          // 기존의 자산 복구
+            changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount());       // 변경된 자산 변동
+        }
+
         accbook.setAccCategoryCode(modifyAccbook.getAccCategoryCode());
-        accbook.setStoreCode(modifyAccbook.getStoreCode());
         accbook.setAssetCode(modifyAccbook.getAssetCode());
+        accbook.setAmount(modifyAccbook.getAmount());
 
         // 트랜젝션 커밋 시 JPA가 자동으로 변경된 엔티티를 DB에 반영 (Dirty Checking)
         return accbook;
