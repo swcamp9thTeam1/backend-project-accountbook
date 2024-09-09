@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class AccbookDetailDTO {
     private int accbookCode;
     private String createdAt;
