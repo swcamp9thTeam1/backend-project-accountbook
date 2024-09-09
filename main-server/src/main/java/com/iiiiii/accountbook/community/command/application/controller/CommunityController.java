@@ -117,18 +117,18 @@ public class CommunityController {
     }
 
     /* 게시글 스크랩 */
-    @PostMapping("/post/{postCode}/scrap")
-    public ResponseEntity<?> addScrap(@RequestBody CommunityPostScrapDTO newScrap, @PathVariable Integer postCode) {
-        CommunityPostScrapId scrapCode = communityPostScrapService.addScrap(postCode, newScrap);
+    @PostMapping("/post/{communityPostCode}/scrap")
+    public ResponseEntity<?> addScrap(@RequestBody CommunityPostScrapDTO newScrap,
+                                      @PathVariable Integer communityPostCode) {
+        int scrapMemberCode = communityPostScrapService.addScrap(communityPostCode, newScrap);
 
-        return ResponseEntity.created(URI.create("/community/post/{postCode}/scrap/" + scrapCode)).build();
+        return ResponseEntity.created(URI.create("/community/post/{communityPostCode}/scrap/" + scrapMemberCode)).build();
     }
 
     /* 게시글 스크랩 취소 */
-    @DeleteMapping("/post/{postCode}/scrap/{postScrapId}")
-    public ResponseEntity<?> cancelScrap(@PathVariable Integer postCode,
-                                         @PathVariable CommunityPostScrapId postScrapId) {
-        communityPostScrapService.cancelScrap(postCode, postScrapId);
+    @DeleteMapping("/post/scrap/delete")
+    public ResponseEntity<?> cancelScrap(@RequestBody CommunityPostScrapDTO postScrap) {
+        communityPostScrapService.cancelScrap(postScrap);
 
         return ResponseEntity.noContent().build();
     }

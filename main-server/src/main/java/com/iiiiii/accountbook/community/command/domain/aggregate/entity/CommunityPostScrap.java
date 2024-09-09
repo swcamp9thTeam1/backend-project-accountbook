@@ -1,19 +1,21 @@
 package com.iiiiii.accountbook.community.command.domain.aggregate.entity;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Table(name = "community_post_scrap")
+@IdClass(CommunityPostScrapId.class)
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class CommunityPostScrap {
 
-    @EmbeddedId
-    private CommunityPostScrapId postScrapId;       // 복합키(회원코드 + 커뮤니티게시글코드)
+    @Id
+    @Column(name = "member_code")
+    private Integer memberCode;             // 회원 코드
+
+    @Id
+    @Column(name = "community_post_code")
+    private Integer communityPostCode;      // 커뮤니티 게시글 코드
 }

@@ -2,7 +2,6 @@ package com.iiiiii.accountbook.community.command.application.service;
 
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostScrapDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.entity.CommunityPostScrap;
-import com.iiiiii.accountbook.community.command.domain.aggregate.entity.CommunityPostScrapId;
 import com.iiiiii.accountbook.community.command.domain.repository.CommunityPostRepository;
 import com.iiiiii.accountbook.community.command.domain.repository.CommunityPostScrapRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -31,29 +30,28 @@ public class CommunityPostScrapService {
 
     /* 게시글 스크랩(등록) 트랜잭션 */
     @Transactional
-    public CommunityPostScrapId addScrap(Integer postCode, CommunityPostScrapDTO newScrap) {
+    public int addScrap(Integer communityPostCode, CommunityPostScrapDTO newScrap) {
 
-        if (!communityPostRepository.existsById(postCode)) {
+        if (!communityPostRepository.existsById(communityPostCode)) {
             throw new EntityNotFoundException("존재하지 않는 게시글입니다.");
-        } else if (!postCode.equals(newScrap.getCommunityPostCode())) {
+        } else if (!communityPostCode.equals(newScrap.getCommunityPostCode())) {
             throw new IllegalArgumentException("게시글 코드가 일치하지 않습니다.");
+        }
+
+        if (newScrap.getMemberCode() == communityPostRepository.findById(communityPostCode).get().getMemberCode()) {
+            throw new IllegalArgumentException("작성자 본인의 게시글은 스크랩 할 수 없습니다.");
         }
 
         CommunityPostScrap scrap = communityPostScrapRepository
                                     .save(modelMapper.map(newScrap, CommunityPostScrap.class));
 
-        return scrap.getPostScrapId();
+        return scrap.getMemberCode();
     }
 
     /* 게시글 스크랩 취소(삭제) 트랜잭션 */
-    public void cancelScrap(Integer postCode, CommunityPostScrapId postScrapId) {
+    @Transactional
+    public void cancelScrap(CommunityPostScrapDTO postScrap) {
 
-        if (!communityPostRepository.existsById(postCode)) {
-            throw new EntityNotFoundException("존재하지 않는 게시글입니다.");
-        } else if (!communityPostScrapRepository.existsById(postScrapId)) {
-            throw new EntityNotFoundException("스크랩 하지 않은 게시글입니다.");
-        }
-
-        communityPostScrapRepository.deleteById(postScrapId);
+        communityPostScrapRepository.delete(modelMapper.map(postScrap, CommunityPostScrap.class));
     }
 }
