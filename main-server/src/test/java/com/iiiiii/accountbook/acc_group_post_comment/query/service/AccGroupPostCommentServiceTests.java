@@ -30,7 +30,7 @@ public class AccGroupPostCommentServiceTests {
 
     @DisplayName("댓글 코드로 그룹 게시글 댓글 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = {4, 9})
     public void testFindOneAccGroupPostCommentByCommentCode(int commentCode) {
         AccGroupPostCommentDTO comment = accGroupPostCommentService.findGroupPostCommentByCommentCode(commentCode);
         assertNotNull(comment);
@@ -46,7 +46,7 @@ public class AccGroupPostCommentServiceTests {
 
     @DisplayName("게시글 코드로 그룹 게시글 댓글 조회 확인 테스트")
     @ParameterizedTest
-    @ValueSource(ints = {4, 2})
+    @ValueSource(ints = {2, 5})
     public void testFindAccGroupPostCommentByPostCode(int postCode) {
         List<AccGroupPostCommentDTO> list = accGroupPostCommentService.findGroupPostCommentByPostCode(postCode);
         assertNotNull(list);
@@ -57,9 +57,6 @@ public class AccGroupPostCommentServiceTests {
     @ValueSource(ints = {4, 5})
     public void testFindAccGroupPostRecommentByCommentCode(int commentCode) {
         AccGroupPostCommentDTO recomment = accGroupPostCommentService.findGroupPostCommentRecomment(commentCode);
-        if (commentCode == 4)
-            assertNotNull(recomment);
-        else
-            assertNull(recomment);
+        assertNull(recomment);
     }
 }

@@ -4,6 +4,7 @@ import com.iiiiii.accountbook.acc_group.command.application.service.AccGroupServ
 import com.iiiiii.accountbook.acc_group.command.domain.aggregate.AccGroup;
 import com.iiiiii.accountbook.acc_group.command.domain.aggregate.AccGroupEntity;
 import com.iiiiii.accountbook.exception.NotAllowedException;
+import com.iiiiii.accountbook.exception.NotAvailableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class AccGroupController {
 
     @PostMapping("/regist")
     public ResponseEntity<AccGroupEntity> registAccGroup(@RequestParam("memberCode") int memberCode,
-                                                         @RequestBody AccGroup newAccGroup) {
+                                                         @RequestBody AccGroup newAccGroup) throws NotAvailableException {
         AccGroupEntity result = accGroupService.registAccGroup(memberCode, newAccGroup);
 
         return ResponseEntity

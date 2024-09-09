@@ -6,9 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,7 +27,7 @@ public class AccGroupPostServiceTests {
     @DisplayName("그룹 게시글 작성 확인 테스트")
     @Test
     public void testRegistAccGroupPost() {
-        AccGroupPost newPost = new AccGroupPost("테스트 게시글", "테스트 게시글 작성 내용", 2, 3);
+        AccGroupPost newPost = new AccGroupPost("테스트 게시글", "테스트 게시글 작성 내용", 3, 2);
         int result = accGroupPostService.registAccGroupPost(newPost).getCode();
         Assertions.assertTrue(result > 0);
     }
@@ -35,17 +35,16 @@ public class AccGroupPostServiceTests {
     @DisplayName("그룹 게시글 수정 확인 테스트")
     @Test
     public void testModifyAccGroupPost() {
-        AccGroupPost modifyPost = new AccGroupPost(2, LocalDateTime.now(), "게시글 수정 테스트", "테스트 게시글 작성 내용", 2, 3);
+        AccGroupPost modifyPost = new AccGroupPost(2, LocalDateTime.now(), "게시글 수정 테스트", "테스트 게시글 작성 내용", 2, 1);
         String result = accGroupPostService.modifyAccGroupPost(modifyPost).getTitle();
         Assertions.assertEquals("게시글 수정 테스트", result);
     }
 
     @DisplayName("그룹 게시글 삭제 확인 테스트")
     @Test
-    @Transactional
     public void testDeleteAccGroupPost() {
-        AccGroupPost deletePost = new AccGroupPost(2, LocalDateTime.parse("2024-08-27 14:42:49"), "게시글 수정 테스트", "테스트 게시글 작성 내용", 2, 3);
+        AccGroupPost deletePost = new AccGroupPost(4, LocalDateTime.parse("2024-08-04 12:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), "Post Title 4", "Post detail 4", 4, 2);
         accGroupPostService.deleteAccGroupPost(deletePost);
-        Assertions.assertNull(queryService.findGroupPostByGroupPostCode(2));
+        Assertions.assertNull(queryService.findGroupPostByGroupPostCode(4));
     }
 }

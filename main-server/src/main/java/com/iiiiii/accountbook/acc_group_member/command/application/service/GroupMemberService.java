@@ -68,10 +68,9 @@ public class GroupMemberService {
 
                 newLeader.setRole(GroupRole.ROLE_LEADER);
                 groupMemberRepository.saveAndFlush(newLeader);
-
-                GroupMemberEntity deleteMember = modelMapper.map(deleteGroupMember, GroupMemberEntity.class);
-                groupMemberRepository.delete(deleteMember);
             }
         }
+        GroupMemberEntity deleteMember = modelMapper.map(deleteGroupMember, GroupMemberEntity.class);
+        groupMemberRepository.delete(deleteMember);
     }
 }

@@ -33,7 +33,7 @@ public class AccCategoryServiceTests {
     @DisplayName("가계부 카테고리 수정 확인 테스트")
     @Test
     public void testModifyAccCategory() {
-        AccCategory modifyAccCategory = new AccCategory(20,"카테고리수정테스트", InOrOut.O, YesOrNo.N, YesOrNo.N, 2, 3);
+        AccCategory modifyAccCategory = new AccCategory(16,"카테고리수정테스트", InOrOut.O, YesOrNo.N, YesOrNo.N, 2, 3);
         String result = accCategoryService.modifyAccCategory(modifyAccCategory).getName();
         Assertions.assertTrue("카테고리수정테스트".equals(result));
     }
@@ -41,9 +41,9 @@ public class AccCategoryServiceTests {
     @DisplayName("가계부 카테고리 삭제 확인 테스트")
     @Test
     public void testDeleteAccCategory() {
-        AccCategory deleteAccCategory = new AccCategory(20,"카테고리수정테스트", InOrOut.O, YesOrNo.N, YesOrNo.N, 2, 3);
+        AccCategory deleteAccCategory = new AccCategory(16,"카테고리삭제테스트", InOrOut.O, YesOrNo.N, YesOrNo.N, 2, 3);
         accCategoryService.deleteAccCategory(deleteAccCategory);
-        YesOrNo result = queryService.findOneAccCategory(deleteAccCategory.getCode()).getIsDeleted();
-        Assertions.assertEquals(result, YesOrNo.Y);
+        String result = queryService.findOneAccCategory(deleteAccCategory.getCode()).getIsDeleted().name();
+        Assertions.assertEquals(result, YesOrNo.Y.name());
     }
 }
