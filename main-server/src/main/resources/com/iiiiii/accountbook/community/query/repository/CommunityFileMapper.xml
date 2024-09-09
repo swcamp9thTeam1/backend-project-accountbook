@@ -7,16 +7,16 @@
         <id property="fileCode" column="CODE"/>
         <result property="name" column="NAME"/>
         <result property="path" column="PATH"/>
-        <result property="communityPostCode" column="COMMUNITY_POST_CODE"></result>
+        <result property="communityPostCode" column="COMMUNITY_POST_CODE"/>
     </resultMap>
 
-    <select id="selectCommunityPostFiles" resultMap="communityPostFileResultMap" parameterType="_int">
+    <select id="selectFilesOfOneCommunityPost" resultMap="communityPostFileResultMap" parameterType="_int">
         SELECT
                A.CODE
              , A.NAME
              , A.PATH
              , A.COMMUNITY_POST_CODE
-          FROM COMMUNITY_POST_FILE
+          FROM COMMUNITY_POST_FILE A
          WHERE A.COMMUNITY_POST_CODE = #{communityPostCode}
     </select>
 
