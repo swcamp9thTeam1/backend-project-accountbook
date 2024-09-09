@@ -1,6 +1,7 @@
 package com.iiiiii.accountbook.store.command.application.service;
 
 import com.iiiiii.accountbook.common.YesOrNo;
+import com.iiiiii.accountbook.exception.AlreadyGeneralStoreException;
 import com.iiiiii.accountbook.exception.NotAllowedRegisterGoodStoreFileTypeException;
 import com.iiiiii.accountbook.exception.NotFoundStoreException;
 import com.iiiiii.accountbook.exception.NotFullySuccessRegisterGoodStoreException;
@@ -162,10 +163,16 @@ public class StoreService {
     }
 
     @Transactional
-    public void modifyGoodStoreToN(int storeCode) {
+    public void modifyGoodStoreToN(int storeCode) throws Exception {
 
         // 가게를 삭제하지 않고, 착한가격업소 정보만 비운다. (UPDATE)
-        Store foundStore = storeRepository.findById(storeCode).orElseThrow(IllegalArgumentException::new);
+        Store foundStore = storeRepository.findById(storeCode).orElseThrow(NotFoundStoreException::new);
+
+        // 이미 일반가게이면 예외 처리
+        if (foundStore.getIsGood() == YesOrNo.N) {
+            throw new AlreadyGeneralStoreException();
+        }
+
         foundStore.setIsGood(YesOrNo.N);
         foundStore.setGoodMenuName(null);
         foundStore.setGoodMenuPrice(null);
