@@ -63,6 +63,7 @@ class StoreReviewServiceTest {
                 Arguments.of("2024-09-09", 5, 30000L, "가성비가 엄청 좋아요 ! ", 3, 3)
         );
     }
+
     // 주석. 2. 리뷰 수정 서비스 테스트 코드
     @DisplayName("라뷰 수정 테스트")
     @ParameterizedTest
@@ -105,6 +106,34 @@ class StoreReviewServiceTest {
         assertEquals(modifiedStoreReviewEntity.getOneLineReview(), modifyStoreReviewDTO.getOneLineReview());
         assertEquals(modifiedStoreReviewEntity.getMemberCode(), modifyStoreReviewDTO.getMemberCode());
         assertEquals(modifiedStoreReviewEntity.getStoreCode(), modifyStoreReviewDTO.getStoreCode());
+
+    }
+    // 주석. 가게 코드로 조회가 되지 않는 리뷰일 경우 예외가 올바르게 발생하는지 검증하는 테스트코드
+    @DisplayName("가게 리뷰 수정 예외 발생 검증 테스트")
+    @ParameterizedTest
+    @MethodSource("provideReviewDTO2")
+    public void testAddStoreReviewException(String createdAt, Integer visitors, Long totalExpense,
+                                            String oneLineReview, Integer memberCode , Integer storeCode) {
+
+        // DTO (수정할 데이터)
+        StoreReviewDTO modifyStoreReviewDTO = new StoreReviewDTO();
+        modifyStoreReviewDTO.setCreatedAt(createdAt);
+        modifyStoreReviewDTO.setVisitors(visitors);
+        modifyStoreReviewDTO.setTotalExpense(totalExpense);
+        modifyStoreReviewDTO.setOneLineReview(oneLineReview);
+        modifyStoreReviewDTO.setMemberCode(memberCode);
+        modifyStoreReviewDTO.setStoreCode(storeCode);
+
+        // when
+        // then
+        // 여기서 잘못된 번호를 조회 -> "리뷰가 없습니다." 가 나와야함(잘못된 리뷰 코드로 조회)
+        // 설정. 존재하지 않는 9999번 리뷰를 조회한다.
+        // IllegalArgumentException이 올바르게 나오는지 확인 (문구 확인)
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            storeReviewService.modifyStoreReview(9999, modifyStoreReviewDTO);
+        });
+        assertEquals("리뷰가 없습니다." , exception.getMessage());
+
 
     }
 
