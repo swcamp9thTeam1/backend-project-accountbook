@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -35,7 +36,7 @@ public class CommunityCommentServiceTests {
         comments.add(new CommunityCommentDTO(2, LocalDateTime.parse("2024-01-01T12:12:00"),
                 "와우 몰랐던 혜택이네요..", 1, 4, null));
         comments.add(new CommunityCommentDTO(3, LocalDateTime.parse("2024-01-01T12:11:00"),
-                "넵ㅎㅎ", 1, 1, 1));
+                "넵ㅎㅎ", 2, 1, 1));
     }
 
     @DisplayName("커뮤니티 게시글의 댓글 목록 조회 테스트")
@@ -44,13 +45,16 @@ public class CommunityCommentServiceTests {
 
         // given
         int postCode = 1;
-        given(communityCommentService.findCommentsOfCommunityPost(postCode)).willReturn(comments);
+        given(communityCommentService.findCommentsOfCommunityPost(postCode)).willReturn(
+                comments.stream().filter(comment -> comment.getCommunityPostCode() == postCode)
+                                 .collect(Collectors.toList())
+        );
 
         // when
         List<CommunityCommentDTO> foundComments = communityCommentService.findCommentsOfCommunityPost(postCode);
 
         // then
-        assertThat(foundComments.size()).isEqualTo(comments.size());
+        assertThat(foundComments.size()).isEqualTo(2);
     }
 
 }
