@@ -22,4 +22,5 @@ public class AccbookDTO {
     private Integer storeCode;
     private Integer assetCode;
     private InOrOutOrTransfer financeType;
+    private Integer inAssetCode;
 }

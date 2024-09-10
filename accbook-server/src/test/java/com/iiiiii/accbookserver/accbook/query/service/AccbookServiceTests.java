@@ -112,10 +112,10 @@ class AccbookServiceTests {
     public void testFindWeeklyAccbookBy(int memberCode, String findDate, Integer weekNo) {
         // given
         List<AccbookDTO> mockAccbooks = new ArrayList<>();
-        mockAccbooks.add(new AccbookDTO(1, LocalDateTime.of(2024, 8, 10, 0, 0), 30000L, YesOrNo.N, "교보문고", memberCode, 1, 1, 1, InOrOutOrTransfer.I));
-        mockAccbooks.add(new AccbookDTO(2, LocalDateTime.of(2024, 8, 11, 0, 0), 12000L, YesOrNo.N, "마라탕", memberCode, 2, null, 1, InOrOutOrTransfer.I));
-        mockAccbooks.add(new AccbookDTO(3, LocalDateTime.of(2024, 7, 12, 0, 0), 4000L, YesOrNo.N, "카페", memberCode, 2, null, 1, InOrOutOrTransfer.I));
-        mockAccbooks.add(new AccbookDTO(4, LocalDateTime.of(2024, 7, 13, 0, 0), 45000L, YesOrNo.N, "올리브영", memberCode, 1, null, 1, InOrOutOrTransfer.I));
+        mockAccbooks.add(new AccbookDTO(1, LocalDateTime.of(2024, 8, 10, 0, 0), 30000L, YesOrNo.N, "교보문고", memberCode, 1, 1, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(2, LocalDateTime.of(2024, 8, 11, 0, 0), 12000L, YesOrNo.N, "마라탕", memberCode, 2, null, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(3, LocalDateTime.of(2024, 7, 12, 0, 0), 4000L, YesOrNo.N, "카페", memberCode, 2, null, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(4, LocalDateTime.of(2024, 7, 13, 0, 0), 45000L, YesOrNo.N, "올리브영", memberCode, 1, null, 1, InOrOutOrTransfer.I, null));
 
         // findDate를 주 번호로 변환
         LocalDate findDateAsLocalDate = LocalDate.parse(findDate + "-01");
@@ -153,10 +153,10 @@ class AccbookServiceTests {
     public void testFindMonthlyAccbookBy(int memberCode, String findDate) {
         // given
         List<AccbookDTO> mockAccbooks = new ArrayList<>();
-        mockAccbooks.add(new AccbookDTO(1, LocalDateTime.of(2024, 8, 1, 0, 0), 30000L, YesOrNo.N, "교보문고", memberCode, 1, 1, 1, InOrOutOrTransfer.I));
-        mockAccbooks.add(new AccbookDTO(2, LocalDateTime.of(2024, 8, 2, 0, 0), 12000L, YesOrNo.N, "마라탕", memberCode, 2, null, 1, InOrOutOrTransfer.I));
-        mockAccbooks.add(new AccbookDTO(3, LocalDateTime.of(2024, 8, 2, 0, 0), 4000L, YesOrNo.N, "카페", memberCode, 2, null, 1, InOrOutOrTransfer.I));
-        mockAccbooks.add(new AccbookDTO(4, LocalDateTime.of(2024, 7, 2, 0, 0), 45000L, YesOrNo.N, "올리브영", memberCode, 1, null, 1, InOrOutOrTransfer.I));
+        mockAccbooks.add(new AccbookDTO(1, LocalDateTime.of(2024, 8, 1, 0, 0), 30000L, YesOrNo.N, "교보문고", memberCode, 1, 1, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(2, LocalDateTime.of(2024, 8, 2, 0, 0), 12000L, YesOrNo.N, "마라탕", memberCode, 2, null, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(3, LocalDateTime.of(2024, 8, 2, 0, 0), 4000L, YesOrNo.N, "카페", memberCode, 2, null, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(4, LocalDateTime.of(2024, 7, 2, 0, 0), 45000L, YesOrNo.N, "올리브영", memberCode, 1, null, 1, InOrOutOrTransfer.I, null));
 
         // mockAccbooks 리스트에서 지정된 findDate와 같은 가계부 내역만 리턴 (expected)
         when(accbookService.findMonthlyAccbookBy(memberCode, findDate)).thenReturn(mockAccbooks.stream()
@@ -235,7 +235,7 @@ class AccbookServiceTests {
         comments.add(new AccCommentDTO("좋아요!", "2024-09-02", 2, null, 3));
 
         AccbookDetailDTO mockAccbook = new AccbookDetailDTO(accbookCode, "2024-09-01", 10000L, YesOrNo.N,
-                "편의점", "생활비", "마트", "신용카드", InOrOutOrTransfer.I, comments);
+                "편의점", "생활비", "마트", "신용카드", InOrOutOrTransfer.I, null, comments);
 
         when(accbookService.findAccbookDetailBy(accbookCode)).thenReturn(mockAccbook);
 

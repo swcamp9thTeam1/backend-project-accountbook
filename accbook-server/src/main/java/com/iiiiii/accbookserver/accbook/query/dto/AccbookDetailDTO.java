@@ -22,5 +22,6 @@ public class AccbookDetailDTO {
     private String storeName;
     private String assetName;
     private InOrOutOrTransfer financeType;
+    private String inAssetName;
     private List<AccCommentDTO> accCommentDTOList;  // 댓글 목록
 }
