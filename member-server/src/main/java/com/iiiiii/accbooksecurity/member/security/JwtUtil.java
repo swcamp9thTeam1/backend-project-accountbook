@@ -8,6 +8,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,16 +35,21 @@ public class JwtUtil {
     private MemberService memberService;
     private MemberRepository memberRepository;
 
+    private StandardPBEStringEncryptor encryptor;
 
     public JwtUtil(
+            StandardPBEStringEncryptor encryptor,
             @Value("${token.secret}") String secretKey,
             MemberService memberService
     ) {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        this.key = Keys.hmacShaKeyFor(keyBytes);
         this.memberService = memberService;
-    }
+        this.encryptor = encryptor;
+        String decryptSecretKey = this.encryptor.decrypt(secretKey.replace("ENC(", "").replace(")", ""));
 
+        byte[] keyBytes = Decoders.BASE64.decode(decryptSecretKey);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
+
+    }
 
     // 주석. JWT 토큰 생성 추가
     public String generateToken(Authentication authentication) {
