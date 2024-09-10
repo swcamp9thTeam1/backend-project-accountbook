@@ -25,8 +25,8 @@ class StoreReviewServiceTest {
     StoreReviewRepository storeReviewRepository;
 
 
-    // 주석. 1. 리뷰 추가 서비스 테스트코드
-    // 주석. 테스트 메소드에 제공할 데이터 소스 반환 메소드
+    /* 주석. 테스트코드. 1. 리뷰 추가 서비스 테스트코드 */
+    // 테스트 메소드에 제공할 데이터 소스 반환 메소드
     // Stream<Arguments> 반환 -> 각 Arguments가 testAddStoreReview메소드에 전달될 테스트 데이터 세트
     public static Stream<Arguments> provideReviewDTO() {
         return Stream.of(
@@ -54,7 +54,7 @@ class StoreReviewServiceTest {
     }
 
 
-    // //////////////////////////////////////////////////////////////////////////////////////
+
     // 수정할 값
     public static Stream<Arguments> provideReviewDTO2(){
         return Stream.of(
@@ -64,7 +64,7 @@ class StoreReviewServiceTest {
         );
     }
 
-    // 주석. 2. 리뷰 수정 서비스 테스트 코드
+    /* 주석. 테스트코드. 2. 리뷰 수정 서비스 테스트 코드 */
     @DisplayName("라뷰 수정 테스트")
     @ParameterizedTest
     @MethodSource("provideReviewDTO2")
@@ -72,7 +72,7 @@ class StoreReviewServiceTest {
                                String oneLineReview, Integer memberCode , Integer storeCode){
 
         // given (테스트 상황 설정)
-        // 주석. 수정할 리뷰 엔티티와 DTO 객체 생성
+        // 수정할 리뷰 엔티티와 DTO 객체 생성
         // 초기 엔티티 (수정 전 값)
         StoreReview initialStoreReview = new StoreReview();
         initialStoreReview.setCreatedAt(createdAt);
@@ -96,7 +96,7 @@ class StoreReviewServiceTest {
 
 
         // when (서비스의 메소드 호출로 엔티티 수정)
-        // 주석. modifiedStoreReviewEntity: 실제로 수정된 엔티티의 결과
+        // modifiedStoreReviewEntity: 실제로 수정된 엔티티의 결과
         StoreReview modifiedStoreReviewEntity = storeReviewService.modifyStoreReview(initialStoreReview.getStoreReviewCode(), modifyStoreReviewDTO);
 
         // then(modifyStoreReview) -> given 와 when(modifiedStoreReviewEntity) 을 비교
@@ -108,21 +108,20 @@ class StoreReviewServiceTest {
         assertEquals(modifiedStoreReviewEntity.getStoreCode(), modifyStoreReviewDTO.getStoreCode());
 
     }
-    // 주석. 가게 코드로 조회가 되지 않는 리뷰일 경우 예외가 올바르게 발생하는지 검증하는 테스트코드
+    /* 주석. 테스코드. 3. 가게 리뷰 수정 시, 예외가 올바르게 발생하는지 검증하는 테스트코드 */
     @DisplayName("가게 리뷰 수정 예외 발생 검증 테스트")
-    @ParameterizedTest
-    @MethodSource("provideReviewDTO2")
-    public void testAddStoreReviewException(String createdAt, Integer visitors, Long totalExpense,
-                                            String oneLineReview, Integer memberCode , Integer storeCode) {
+    @Test
+    public void testAddStoreReviewException() {
 
         // DTO (수정할 데이터)
         StoreReviewDTO modifyStoreReviewDTO = new StoreReviewDTO();
-        modifyStoreReviewDTO.setCreatedAt(createdAt);
-        modifyStoreReviewDTO.setVisitors(visitors);
-        modifyStoreReviewDTO.setTotalExpense(totalExpense);
-        modifyStoreReviewDTO.setOneLineReview(oneLineReview);
-        modifyStoreReviewDTO.setMemberCode(memberCode);
-        modifyStoreReviewDTO.setStoreCode(storeCode);
+        modifyStoreReviewDTO.setCreatedAt("2024-09-10");
+        modifyStoreReviewDTO.setVisitors(100);
+        modifyStoreReviewDTO.setTotalExpense(5000L);
+        modifyStoreReviewDTO.setOneLineReview("맛이 좋습니다요");
+        modifyStoreReviewDTO.setMemberCode(1);
+        modifyStoreReviewDTO.setStoreCode(1);
+
 
         // when
         // then
@@ -133,12 +132,10 @@ class StoreReviewServiceTest {
             storeReviewService.modifyStoreReview(9999, modifyStoreReviewDTO);
         });
         assertEquals("리뷰가 없습니다." , exception.getMessage());
-
-
     }
 
 
-    // 주석. 3. 리뷰 삭제 서비스 테스트 코드
+    /* 주석. 테스트코드. 4.  리뷰 삭제 서비스 테스트 코드 */
     @DisplayName("리뷰 삭제 테스트")
     @ParameterizedTest
     @MethodSource("provideReviewDTO2")
@@ -167,8 +164,22 @@ class StoreReviewServiceTest {
 
         // then 결과 점검
         assertFalse(storeReviewRepository.existsById(removeReviewCode));
-
     }
+
+    /* 주석. 테스트코드. 5. 리뷰 삭제 서비스 테스트의 예외 발생이 잘 작동하는지 확인하기 위한 테스트코드 */
+    // 리뷰 목록에 없는 리뷰를 삭제하고자 하는 경우 예외가 잘 작동하는지 확인
+    // 9999번 리뷰 코드 조회 -> 목록에 없으므로 예외 (IllegalArgumentException) 발생
+    @DisplayName("리뷰 삭제 예외 발생 테스트코드")
+    @Test
+    void testRemoveStoreReviewException() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            storeReviewService.removeStoreReview(9999);
+        });
+        assertEquals("리뷰가 존재하지 않습니다." ,exception.getMessage());
+    }
+
+
+
 
 
 

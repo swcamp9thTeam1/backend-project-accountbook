@@ -71,7 +71,10 @@ public class StoreReviewService {
     @Transactional
     public void removeStoreReview(Integer reviewCode){
 
-        StoreReview storeReview = storeReviewRepository.findById(reviewCode).orElseThrow(IllegalArgumentException::new);
+//        StoreReview storeReview = storeReviewRepository.findById(reviewCode).orElseThrow(IllegalArgumentException::new);
+//        storeReviewRepository.delete(storeReview);
+        StoreReview storeReview = storeReviewRepository.findById(reviewCode)
+                .orElseThrow(() -> new IllegalArgumentException("리뷰가 존재하지 않습니다."));
         storeReviewRepository.delete(storeReview);
     }
 
