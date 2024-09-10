@@ -57,6 +57,10 @@ dependencies {
 
     // eureka
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // https://mvnrepository.com/artifact/org.jasypt/jasypt
+    implementation 'org.jasypt:jasypt:1.9.3'
+
 }
 
 dependencyManagement {

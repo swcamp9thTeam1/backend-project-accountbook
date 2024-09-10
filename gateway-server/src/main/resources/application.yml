@@ -52,4 +52,9 @@ spring:
 # token config 설정
 token:
   # secret 키 생성
-  secret: UjBvrc1cxUv5GUeAA1UhA3dTs6iRd47m9BOGGmjJSQ91E5m3yLQ6460RwXaQStJYbFDVzlLszgOOxGCU0NgK8g==
+  secret: ENC(ky8shvJwQboFih4cWJocMZqICgX0a54ZuBzY/LoUv1mW1tidWiYVQEEek4DjwJwAgabg9iX3A3hm0rblePMTweUzatufjd+4DNkIMtPFnPvLYzLtsDf7Z3rW1SVFSSX3DVvR5JcGrrI=)
+
+jasypt:
+  encryptor:
+    password: 123456
+    algorithm: PBEWithMD5AndDES

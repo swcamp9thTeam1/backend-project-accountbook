@@ -65,6 +65,8 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+    // https://mvnrepository.com/artifact/org.jasypt/jasypt
+    implementation 'org.jasypt:jasypt:1.9.3'
 }
 
 dependencyManagement {

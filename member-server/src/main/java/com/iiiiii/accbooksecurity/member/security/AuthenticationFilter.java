@@ -12,6 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +35,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private MemberService memberService;
     private Environment env;
 
+    private StandardPBEStringEncryptor encryptor;
+
     public AuthenticationFilter(AuthenticationManager authenticationManager,
                                 MemberService memberService,
                                 Environment env) {
@@ -39,6 +44,16 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 //        super.setAuthenticationManager(authenticationManager);
         this.memberService = memberService;
         this.env = env;
+    }
+
+    public AuthenticationFilter(AuthenticationManager authenticationManager,
+                                MemberService memberService,
+                                Environment env,
+                                StandardPBEStringEncryptor encryptor) {
+        super(authenticationManager);
+        this.memberService = memberService;
+        this.env = env;
+        this.encryptor = encryptor;
     }
 
     @Override
@@ -78,11 +93,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         Claims claims = Jwts.claims().setSubject(userName);
         claims.put("auth", roles);
 
+        String secretKey = encryptor.decrypt(env.getProperty("token.secret").replace("ENC(", "").replace(")", ""));
+
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis()
                         + Long.parseLong(env.getProperty("token.expiration_time"))))
-                .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
 
         response.addHeader("token", token);
