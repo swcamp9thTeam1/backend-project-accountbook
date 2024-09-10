@@ -1,6 +1,6 @@
 package com.iiiiii.accountbook.review.command.application.service;
 
-import com.iiiiii.accountbook.asset.command.domain.aggregate.vo.RegisterReviewVO;
+import com.iiiiii.accountbook.review.command.domain.aggregate.vo.RegisterReviewVO;
 import com.iiiiii.accountbook.review.command.domain.aggregate.entity.StoreReview;
 import com.iiiiii.accountbook.review.command.domain.repository.StoreReviewRepository;
 import com.iiiiii.accountbook.review.command.domain.aggregate.dto.StoreReviewDTO;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service("StoreReviewServiceCommand")
 @Slf4j

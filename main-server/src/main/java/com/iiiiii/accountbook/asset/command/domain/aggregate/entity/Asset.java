@@ -39,7 +39,10 @@ public class Asset {
     private YesOrNo isDeleted;                          // 삭제여부
 
     @Column(name = "member_code")
-    private int memberCode;                             // 회원코드
+    private Integer memberCode;                         // 회원코드
+
+    @Column(name = "related_asset_code")
+    private Integer relatedAssetCode;                   // 연동된 자산코드(체크카드의 경우)
 
     @PrePersist
     public void prePersist() {

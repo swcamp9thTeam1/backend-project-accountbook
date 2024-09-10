@@ -23,8 +23,10 @@ public class AssetController {
 
     /* 자산 등록 */
     @PostMapping("")
-    public ResponseEntity<?> registAsset(@RequestBody AssetDTO newAsset) {
-        int registedCode = assetService.registAsset(newAsset);
+    public ResponseEntity<?> registAsset(@RequestBody AssetDTO newAsset,
+                                         @RequestParam Integer bankAssetNo,
+                                         @RequestParam Integer memberCode) {
+        int registedCode = assetService.registAsset(newAsset, bankAssetNo, memberCode);
 
         return ResponseEntity.created(URI.create("/assets/" + registedCode)).build();
     }
