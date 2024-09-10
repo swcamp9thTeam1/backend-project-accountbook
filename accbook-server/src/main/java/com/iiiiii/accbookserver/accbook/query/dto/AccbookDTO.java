@@ -1,5 +1,6 @@
 package com.iiiiii.accbookserver.accbook.query.dto;
 
+import com.iiiiii.accbookserver.common.InOrOutOrTransfer;
 import com.iiiiii.accbookserver.common.YesOrNo;
 import lombok.*;
 
@@ -20,4 +21,6 @@ public class AccbookDTO {
     private Integer accCategoryCode;
     private Integer storeCode;
     private Integer assetCode;
+    private InOrOutOrTransfer financeType;
+    private Integer inAssetCode;
 }

@@ -1,6 +1,7 @@
 package com.iiiiii.accbookserver.accbook.command.domain.aggregate.vo;
 
 import com.iiiiii.accbookserver.common.InOrOut;
+import com.iiiiii.accbookserver.common.InOrOutOrTransfer;
 import com.iiiiii.accbookserver.common.YesOrNo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ResponseAccCategoryVO {
     private int code;
     private String name;
-    private InOrOut financeType;
+    private InOrOutOrTransfer financeType;
     private YesOrNo visibility;
     private YesOrNo isDeleted;
     private int memberCode;

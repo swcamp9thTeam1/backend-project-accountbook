@@ -1,6 +1,6 @@
 package com.iiiiii.accbookserver.accbook.query.dto;
 
-import com.iiiiii.accbookserver.common.InOrOut;
+import com.iiiiii.accbookserver.common.InOrOutOrTransfer;
 import lombok.*;
 
 @AllArgsConstructor
@@ -10,6 +10,6 @@ import lombok.*;
 @ToString
 public class AccbookCategoryStatsDTO {
     private String CategoryName;
-    private InOrOut financeType;
+    private InOrOutOrTransfer financeType;
     private Long totalSpent;
 }

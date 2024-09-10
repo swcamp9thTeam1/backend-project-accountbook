@@ -3,6 +3,7 @@ package com.iiiiii.accbookserver.accbook.query.service;
 import com.iiiiii.accbookserver.accbook.query.dto.*;
 import com.iiiiii.accbookserver.accbook.query.repository.AccbookMapper;
 import com.iiiiii.accbookserver.common.InOrOut;
+import com.iiiiii.accbookserver.common.InOrOutOrTransfer;
 import com.iiiiii.accbookserver.common.YesOrNo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -111,10 +112,10 @@ class AccbookServiceTests {
     public void testFindWeeklyAccbookBy(int memberCode, String findDate, Integer weekNo) {
         // given
         List<AccbookDTO> mockAccbooks = new ArrayList<>();
-        mockAccbooks.add(new AccbookDTO(1, LocalDateTime.of(2024, 8, 10, 0, 0), 30000L, YesOrNo.N, "교보문고", memberCode, 1, 1, 1));
-        mockAccbooks.add(new AccbookDTO(2, LocalDateTime.of(2024, 8, 11, 0, 0), 12000L, YesOrNo.N, "마라탕", memberCode, 2, null, 1));
-        mockAccbooks.add(new AccbookDTO(3, LocalDateTime.of(2024, 7, 12, 0, 0), 4000L, YesOrNo.N, "카페", memberCode, 2, null, 1));
-        mockAccbooks.add(new AccbookDTO(4, LocalDateTime.of(2024, 7, 13, 0, 0), 45000L, YesOrNo.N, "올리브영", memberCode, 1, null, 1));
+        mockAccbooks.add(new AccbookDTO(1, LocalDateTime.of(2024, 8, 10, 0, 0), 30000L, YesOrNo.N, "교보문고", memberCode, 1, 1, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(2, LocalDateTime.of(2024, 8, 11, 0, 0), 12000L, YesOrNo.N, "마라탕", memberCode, 2, null, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(3, LocalDateTime.of(2024, 7, 12, 0, 0), 4000L, YesOrNo.N, "카페", memberCode, 2, null, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(4, LocalDateTime.of(2024, 7, 13, 0, 0), 45000L, YesOrNo.N, "올리브영", memberCode, 1, null, 1, InOrOutOrTransfer.I, null));
 
         // findDate를 주 번호로 변환
         LocalDate findDateAsLocalDate = LocalDate.parse(findDate + "-01");
@@ -152,10 +153,10 @@ class AccbookServiceTests {
     public void testFindMonthlyAccbookBy(int memberCode, String findDate) {
         // given
         List<AccbookDTO> mockAccbooks = new ArrayList<>();
-        mockAccbooks.add(new AccbookDTO(1, LocalDateTime.of(2024, 8, 1, 0, 0), 30000L, YesOrNo.N, "교보문고", memberCode, 1, 1, 1));
-        mockAccbooks.add(new AccbookDTO(2, LocalDateTime.of(2024, 8, 2, 0, 0), 12000L, YesOrNo.N, "마라탕", memberCode, 2, null, 1));
-        mockAccbooks.add(new AccbookDTO(3, LocalDateTime.of(2024, 8, 2, 0, 0), 4000L, YesOrNo.N, "카페", memberCode, 2, null, 1));
-        mockAccbooks.add(new AccbookDTO(4, LocalDateTime.of(2024, 7, 2, 0, 0), 45000L, YesOrNo.N, "올리브영", memberCode, 1, null, 1));
+        mockAccbooks.add(new AccbookDTO(1, LocalDateTime.of(2024, 8, 1, 0, 0), 30000L, YesOrNo.N, "교보문고", memberCode, 1, 1, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(2, LocalDateTime.of(2024, 8, 2, 0, 0), 12000L, YesOrNo.N, "마라탕", memberCode, 2, null, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(3, LocalDateTime.of(2024, 8, 2, 0, 0), 4000L, YesOrNo.N, "카페", memberCode, 2, null, 1, InOrOutOrTransfer.I, null));
+        mockAccbooks.add(new AccbookDTO(4, LocalDateTime.of(2024, 7, 2, 0, 0), 45000L, YesOrNo.N, "올리브영", memberCode, 1, null, 1, InOrOutOrTransfer.I, null));
 
         // mockAccbooks 리스트에서 지정된 findDate와 같은 가계부 내역만 리턴 (expected)
         when(accbookService.findMonthlyAccbookBy(memberCode, findDate)).thenReturn(mockAccbooks.stream()
@@ -209,9 +210,9 @@ class AccbookServiceTests {
     public void testFindMonthlyCategoryStatBy(int memberCode, String findDate) {
         // given
         List<AccbookCategoryStatsDTO> mockAccbooks = new ArrayList<>();
-        mockAccbooks.add(new AccbookCategoryStatsDTO("식비", InOrOut.O, 300000L));
-        mockAccbooks.add(new AccbookCategoryStatsDTO("월급", InOrOut.I, 5000000L));
-        mockAccbooks.add(new AccbookCategoryStatsDTO("생활비", InOrOut.O, 400000L));
+        mockAccbooks.add(new AccbookCategoryStatsDTO("식비", InOrOutOrTransfer.O, 300000L));
+        mockAccbooks.add(new AccbookCategoryStatsDTO("월급", InOrOutOrTransfer.I, 5000000L));
+        mockAccbooks.add(new AccbookCategoryStatsDTO("생활비", InOrOutOrTransfer.O, 400000L));
 
         when(accbookService.findMonthlyCategoryStatBy(memberCode, findDate)).thenReturn(mockAccbooks);
 
@@ -219,9 +220,9 @@ class AccbookServiceTests {
         List<AccbookCategoryStatsDTO> foundAccbooks = accbookService.findMonthlyCategoryStatBy(memberCode, findDate);   // actual
 
         // then
-        assertTrue(foundAccbooks.stream().anyMatch(category -> category.getCategoryName().equals("식비") && category.getFinanceType().equals(InOrOut.O) &&category.getTotalSpent().equals(300000L)));
-        assertTrue(foundAccbooks.stream().anyMatch(category -> category.getCategoryName().equals("월급") && category.getFinanceType().equals(InOrOut.I) &&category.getTotalSpent().equals(5000000L)));
-        assertTrue(foundAccbooks.stream().anyMatch(category -> category.getCategoryName().equals("생활비") && category.getFinanceType().equals(InOrOut.O) &&category.getTotalSpent().equals(400000L)));
+        assertTrue(foundAccbooks.stream().anyMatch(category -> category.getCategoryName().equals("식비") && category.getFinanceType().equals(InOrOutOrTransfer.O) &&category.getTotalSpent().equals(300000L)));
+        assertTrue(foundAccbooks.stream().anyMatch(category -> category.getCategoryName().equals("월급") && category.getFinanceType().equals(InOrOutOrTransfer.I) &&category.getTotalSpent().equals(5000000L)));
+        assertTrue(foundAccbooks.stream().anyMatch(category -> category.getCategoryName().equals("생활비") && category.getFinanceType().equals(InOrOutOrTransfer.O) &&category.getTotalSpent().equals(400000L)));
     }
 
     @DisplayName("가계부 코멘트 조회 테스트")
@@ -234,7 +235,7 @@ class AccbookServiceTests {
         comments.add(new AccCommentDTO("좋아요!", "2024-09-02", 2, null, 3));
 
         AccbookDetailDTO mockAccbook = new AccbookDetailDTO(accbookCode, "2024-09-01", 10000L, YesOrNo.N,
-                "편의점", "생활비", "마트", "신용카드", comments);
+                "편의점", "생활비", "마트", "신용카드", InOrOutOrTransfer.I, null, comments);
 
         when(accbookService.findAccbookDetailBy(accbookCode)).thenReturn(mockAccbook);
 

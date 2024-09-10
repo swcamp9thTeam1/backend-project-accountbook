@@ -2,6 +2,7 @@ package com.iiiiii.gatewayserver.filter;
 
 import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.env.Environment;
@@ -20,9 +21,12 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
 
     Environment env;
 
-    public AuthorizationHeaderFilter(Environment env) {
+    private StandardPBEStringEncryptor encryptor;
+
+    public AuthorizationHeaderFilter(Environment env, StandardPBEStringEncryptor encryptor) {
         super(Config.class);
         this.env = env;
+        this.encryptor = encryptor;
     }
 
     public static class Config {
@@ -68,9 +72,12 @@ public class AuthorizationHeaderFilter extends AbstractGatewayFilterFactory<Auth
         boolean returnValue = true;
 
         String subject = null;
+
+        String secretKey = encryptor.decrypt(env.getProperty("token.secret").replace("ENC(", "").replace(")", ""));
+
         try {
             subject = Jwts.parser()
-                    .setSigningKey(env.getProperty("token.secret"))
+                    .setSigningKey(secretKey)
                     .parseClaimsJws(jwt)
                     .getBody()
                     .getSubject();
