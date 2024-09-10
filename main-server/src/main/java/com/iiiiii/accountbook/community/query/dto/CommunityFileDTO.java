@@ -10,7 +10,10 @@ import lombok.*;
 public class CommunityFileDTO {
 
     private int fileCode;               // 첨부파일 코드
+
     private String name;                // 첨부파일명
+
     private String path;                // 파일경로
+
     private int communityPostCode;      // 파일이 첨부된 게시글 코드
 }

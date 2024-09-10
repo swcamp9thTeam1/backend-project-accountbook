@@ -1,6 +1,7 @@
 package com.iiiiii.accountbook.community.query.dto;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -12,8 +13,12 @@ import java.time.LocalDateTime;
 public class CommunityPostDTO {
 
     private int postCode;               // 게시글코드
+
     private LocalDateTime createdAt;    // 작성일시
+
     private String title;               // 제목
+
     private String detail;              // 내용
+
     private int memberCode;             // 작성자(회원코드)
 }
