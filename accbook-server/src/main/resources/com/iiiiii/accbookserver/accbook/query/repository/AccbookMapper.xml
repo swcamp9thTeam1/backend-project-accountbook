@@ -14,6 +14,7 @@
         <result property="accCategoryCode" column="ACC_CATEGORY_CODE" />
         <result property="storeCode" column="STORE_CODE" />
         <result property="assetCode" column="ASSET_CODE" />
+        <result property="financeType" column="FINANCE_TYPE" />
     </resultMap>
 
     <resultMap id="accbookTop3CategoryResultMap" type="com.iiiiii.accbookserver.accbook.query.dto.AccbookTop3CategoryDTO">
@@ -47,6 +48,7 @@
         <result property="accCategoryName" column="ACC_CATEGORY_NAME" />
         <result property="storeName" column="STORE_NAME" />
         <result property="assetName" column="ASSET_NAME" />
+        <result property="financeType" column="FINANCE_TYPE" />
 
         <!-- AccCommentDTO 리스트 매핑 -->
         <collection property="accCommentDTOList" ofType="com.iiiiii.accbookserver.accbook.query.dto.AccCommentDTO"
@@ -65,6 +67,7 @@
         , A.ACC_CATEGORY_CODE
         , A.STORE_CODE
         , A.ASSET_CODE
+        , A.FINANCE_TYPE
         FROM ACCBOOK A
         WHERE A.MEMBER_CODE = #{ memberCode }
         AND DATE_FORMAT(A.created_at, '%Y-%m-%d') = #{ findDate };
@@ -81,6 +84,7 @@
         , A.ACC_CATEGORY_CODE
         , A.STORE_CODE
         , A.ASSET_CODE
+        , A.FINANCE_TYPE
         FROM accbook A
         WHERE A.member_code = #{ memberCode }
         AND DATE_FORMAT(A.created_at, '%Y-%m') = #{ findDate }
@@ -98,6 +102,7 @@
         , A.ACC_CATEGORY_CODE
         , A.STORE_CODE
         , A.ASSET_CODE
+        , A.FINANCE_TYPE
         FROM ACCBOOK A
         WHERE A.MEMBER_CODE = #{ memberCode }
         AND DATE_FORMAT(A.created_at, '%Y-%m') = DATE_FORMAT(STR_TO_DATE(#{ findDate }, '%Y-%m-%d'), '%Y-%m');
@@ -167,6 +172,7 @@
              , B.name AS acc_category_name
              , C.name AS store_name
              , D.name AS asset_name
+             , A.finance_type
           FROM accbook A LEFT JOIN acc_category B ON A.acc_category_code = B.code
                          LEFT JOIN store C ON A.store_code = C.code
                          LEFT JOIN asset D ON A.asset_code = D.code

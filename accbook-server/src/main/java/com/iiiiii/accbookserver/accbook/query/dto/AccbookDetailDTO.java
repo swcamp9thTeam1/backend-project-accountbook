@@ -1,5 +1,6 @@
 package com.iiiiii.accbookserver.accbook.query.dto;
 
+import com.iiiiii.accbookserver.common.InOrOutOrTransfer;
 import com.iiiiii.accbookserver.common.YesOrNo;
 import lombok.*;
 
@@ -20,5 +21,6 @@ public class AccbookDetailDTO {
     private String accCategoryName;
     private String storeName;
     private String assetName;
+    private InOrOutOrTransfer financeType;
     private List<AccCommentDTO> accCommentDTOList;  // 댓글 목록
 }
