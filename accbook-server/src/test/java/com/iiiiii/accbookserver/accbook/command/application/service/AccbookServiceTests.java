@@ -12,6 +12,7 @@ import com.iiiiii.accbookserver.accbook.command.domain.aggregate.vo.ResponseAccC
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.vo.ResponseStoreCodeVO;
 import com.iiiiii.accbookserver.accbook.command.domain.repository.AccbookRepository;
 import com.iiiiii.accbookserver.common.InOrOut;
+import com.iiiiii.accbookserver.common.InOrOutOrTransfer;
 import com.iiiiii.accbookserver.common.YesOrNo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -69,7 +70,7 @@ class AccbookServiceTests {
         );
     }
 
-    /* 개인필기. Mockito를 통한 Service & Repository 테스트 요약
+    /*  Mockito를 통한 Service & Repository 테스트 요약
      *  해당 테스트를 위해서 Service 구현체와 모의 객체를 구성한 Mapper 간의 비교
      *  가상의 모의 객체의 결과와 Service의 구현체에서 구성한 값이 같으면 통과
     * */
@@ -112,7 +113,7 @@ class AccbookServiceTests {
 
         // ServiceClient 호출 (FeignClient 통신)
         ResponseAccCategoryVO responseAccCategoryVO = new ResponseAccCategoryVO();
-        responseAccCategoryVO.setFinanceType(InOrOut.I);
+        responseAccCategoryVO.setFinanceType(InOrOutOrTransfer.I);
         when(accCategoryServiceClient.findOneAccCategory(initialAccbook.getAccCategoryCode())).thenReturn(responseAccCategoryVO);
         doNothing().when(assetServiceClient).modifyAssetByIn(1, 3000L);
 
@@ -166,7 +167,7 @@ class AccbookServiceTests {
         ResponseStoreCodeVO responseStoreCodeVO = new ResponseStoreCodeVO();
         responseStoreCodeVO.setResult(result); // result 맵을 ResponseStoreCodeVO에 설정
         ResponseAccCategoryVO responseAccCategoryVO = new ResponseAccCategoryVO();
-        responseAccCategoryVO.setFinanceType(InOrOut.I);
+        responseAccCategoryVO.setFinanceType(InOrOutOrTransfer.I);
 
         when(storeServiceClient.getStoreCodeByLatLng(existStore.getLatitude(), existStore.getLongitude())).thenReturn(responseStoreCodeVO);
         when(accCategoryServiceClient.findOneAccCategory(initialAccbook.getAccCategoryCode())).thenReturn(responseAccCategoryVO);

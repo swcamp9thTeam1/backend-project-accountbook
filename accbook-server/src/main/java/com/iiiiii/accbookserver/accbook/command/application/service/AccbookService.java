@@ -12,6 +12,7 @@ import com.iiiiii.accbookserver.accbook.command.domain.aggregate.vo.ResponseRegE
 import com.iiiiii.accbookserver.accbook.command.domain.aggregate.vo.RequestRegistStoreVO;
 import com.iiiiii.accbookserver.accbook.command.domain.repository.AccbookRepository;
 import com.iiiiii.accbookserver.common.InOrOut;
+import com.iiiiii.accbookserver.common.InOrOutOrTransfer;
 import com.iiiiii.accbookserver.common.YesOrNo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,8 @@ public class AccbookService {
         }
 
         // 2. 자산 변경
-        InOrOut financeType = accCategoryServiceClient.findOneAccCategory(newAccbook.getAccCategoryCode()).getFinanceType();
-        changeAsset(financeType, newAccbook.getAssetCode(), newAccbook.getAmount());
+        InOrOutOrTransfer financeType = newAccbook.getFinanceType();
+        changeAsset(financeType, newAccbook.getAssetCode(), newAccbook.getAmount(), newAccbook.getInAssetCode());
 
         // 3. 가계부 DB에 저장
         accbook.setStoreCode(storeCode);
@@ -78,6 +79,8 @@ public class AccbookService {
         accbook.setMemberCode(newAccbook.getMemberCode());
         accbook.setAccCategoryCode(newAccbook.getAccCategoryCode());
         accbook.setAssetCode(newAccbook.getAssetCode());
+        accbook.setFinanceType(newAccbook.getFinanceType());
+        accbook.setInAssetCode(newAccbook.getInAssetCode());
 
         accbookRepository.save(accbook);
         return accbook;
@@ -122,8 +125,8 @@ public class AccbookService {
          * 3-3. 사용 금액만 변경된 경우 (ex. 1000원 지출 -> 3000원 지출)
          * 3-4. 혼합
          * */
-        InOrOut beforeFinanceType = accCategoryServiceClient.findOneAccCategory(accbook.getAccCategoryCode()).getFinanceType();
-        InOrOut afterFinanceType = accCategoryServiceClient.findOneAccCategory(modifyAccbook.getAccCategoryCode()).getFinanceType();
+        InOrOutOrTransfer beforeFinanceType = accCategoryServiceClient.findOneAccCategory(accbook.getAccCategoryCode()).getFinanceType();
+        InOrOutOrTransfer afterFinanceType = accCategoryServiceClient.findOneAccCategory(modifyAccbook.getAccCategoryCode()).getFinanceType();
         Integer beforeAssetCode = accbook.getAssetCode();
         Integer afterAssetCode = modifyAccbook.getAssetCode();
 
@@ -136,14 +139,14 @@ public class AccbookService {
              * - 내역을 저장한다면 어떻게 저장해야 할 것인지 고려 필요
              * */
             if (beforeAssetCode == afterAssetCode) {    // 자산 코드가 변경되지 않은 경우
-                changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount() - accbook.getAmount());
+                changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount() - accbook.getAmount(), null);
             } else {    // 자산 코드가 변경된 경우
-                changeAsset(beforeFinanceType, beforeAssetCode, -accbook.getAmount());      // 기존의 자산 복구
-                changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount());   // 변경된 자산 변동
+                changeAsset(beforeFinanceType, beforeAssetCode, -accbook.getAmount(), null);      // 기존의 자산 복구
+                changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount(), null);   // 변경된 자산 변동
             }
         } else {        // 수입/지출이 변경된 경우
-            changeAsset(beforeFinanceType, beforeAssetCode, -accbook.getAmount());          // 기존의 자산 복구
-            changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount());       // 변경된 자산 변동
+            changeAsset(beforeFinanceType, beforeAssetCode, -accbook.getAmount(), null);          // 기존의 자산 복구
+            changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount(), null);       // 변경된 자산 변동
         }
 
         accbook.setAccCategoryCode(modifyAccbook.getAccCategoryCode());
@@ -213,11 +216,14 @@ public class AccbookService {
 
     }
     
-    private void changeAsset(InOrOut financeType, Integer assetCode, Long amount) {
-        if (financeType == InOrOut.I) {           // 수입인 경우
+    private void changeAsset(InOrOutOrTransfer financeType, Integer assetCode, Long amount, Integer inAssetCode) {
+        if (financeType == InOrOutOrTransfer.I) {           // 수입인 경우
             assetServiceClient.modifyAssetByIn(assetCode, amount);
-        } else if (financeType == InOrOut.O) {    // 지출인 경우
+        } else if (financeType == InOrOutOrTransfer.O) {    // 지출인 경우
             assetServiceClient.modifyAssetByOut(assetCode, amount);
+        } else if (financeType == InOrOutOrTransfer.T) {
+            assetServiceClient.modifyAssetByOut(assetCode, amount);
+            assetServiceClient.modifyAssetByIn(inAssetCode, amount);
         }
     }
 

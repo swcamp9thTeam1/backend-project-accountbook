@@ -34,7 +34,7 @@ public class Accbook {
     @Column(name = "member_code", nullable = false)
     private Integer memberCode;
 
-    @Column(name = "acc_category_code", nullable = true) // financy_type이 '이체'인 경우에는 카테고리 null
+    @Column(name = "acc_category_code", nullable = true) // finance_type이 '이체'인 경우에는 카테고리 null
     private Integer accCategoryCode;
 
     @Column(name = "store_code", nullable = true)
@@ -43,7 +43,10 @@ public class Accbook {
     @Column(name = "asset_code", nullable = false)
     private Integer assetCode;
 
-    @Column(name = "financy_type", nullable = false)
+    @Column(name = "finance_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private InOrOutOrTransfer financyType;
+    private InOrOutOrTransfer financeType;
+
+    @Column(name = "in_asset_code", nullable = true)    // 가계부 이체 시 '입금 자산'에 해당(이체하는 경우 제외 모두 null)
+    private Integer inAssetCode;
 }
