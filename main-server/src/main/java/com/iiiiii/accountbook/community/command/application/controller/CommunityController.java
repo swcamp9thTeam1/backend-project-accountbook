@@ -2,10 +2,14 @@ package com.iiiiii.accountbook.community.command.application.controller;
 
 import com.iiiiii.accountbook.community.command.application.service.CommunityCommentService;
 import com.iiiiii.accountbook.community.command.application.service.CommunityFileService;
+import com.iiiiii.accountbook.community.command.application.service.CommunityPostScrapService;
 import com.iiiiii.accountbook.community.command.application.service.CommunityPostService;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommnunityFileDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityCommentDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostDTO;
+import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostScrapDTO;
+import com.iiiiii.accountbook.community.command.domain.aggregate.entity.CommunityPostScrap;
+import com.iiiiii.accountbook.community.command.domain.aggregate.entity.CommunityPostScrapId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +23,17 @@ public class CommunityController {
     private final CommunityPostService communityPostService;
     private final CommunityFileService communityFileService;
     private final CommunityCommentService communityCommentService;
+    private final CommunityPostScrapService communityPostScrapService;
 
     @Autowired
     public CommunityController(CommunityPostService communityPostService,
                                CommunityFileService communityFileService,
-                               CommunityCommentService communityCommentService) {
+                               CommunityCommentService communityCommentService,
+                               CommunityPostScrapService communityPostScrapService) {
         this.communityPostService = communityPostService;
         this.communityFileService = communityFileService;
         this.communityCommentService = communityCommentService;
+        this.communityPostScrapService = communityPostScrapService;
     }
 
     /* 게시글 등록 */
@@ -105,6 +112,23 @@ public class CommunityController {
     @DeleteMapping("/post/{postCode}/comment/{commentCode}")
     public ResponseEntity<?> removeComment(@PathVariable Integer postCode, @PathVariable Integer commentCode) {
         communityCommentService.removeComment(postCode, commentCode);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    /* 게시글 스크랩 */
+    @PostMapping("/post/{communityPostCode}/scrap")
+    public ResponseEntity<?> addScrap(@RequestBody CommunityPostScrapDTO newScrap,
+                                      @PathVariable Integer communityPostCode) {
+        int scrapMemberCode = communityPostScrapService.addScrap(communityPostCode, newScrap);
+
+        return ResponseEntity.created(URI.create("/community/post/{communityPostCode}/scrap/" + scrapMemberCode)).build();
+    }
+
+    /* 게시글 스크랩 취소 */
+    @DeleteMapping("/post/scrap/delete")
+    public ResponseEntity<?> cancelScrap(@RequestBody CommunityPostScrapDTO postScrap) {
+        communityPostScrapService.cancelScrap(postScrap);
 
         return ResponseEntity.noContent().build();
     }

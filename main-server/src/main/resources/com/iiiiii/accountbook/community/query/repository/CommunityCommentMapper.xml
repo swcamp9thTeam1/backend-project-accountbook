@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.community.query.repository.CommunityCommentMapper">
+    <resultMap id="communityCommentResultMap" type="com.iiiiii.accountbook.community.query.dto.CommunityCommentDTO">
+        <id property="commentCode" column="CODE"/>
+        <result property="createdAt" column="CREATED_AT"/>
+        <result property="detail" column="DETAIL"/>
+        <result property="communityPostCode" column="COMMUNITY_POST_CODE"/>
+        <result property="memberCode" column="MEMBER_CODE"/>
+        <result property="parentCode" column="PARENT_CODE"/>
+    </resultMap>
+
+    <select id="selectCommentsOfOneCommunityPost" resultMap="communityCommentResultMap" parameterType="_int">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.DETAIL
+             , A.COMMUNITY_POST_CODE
+             , A.MEMBER_CODE
+             , A.PARENT_CODE
+          FROM COMMUNITY_POST_COMMENT A
+         WHERE A.COMMUNITY_POST_CODE = #{communityPostCode}
+    </select>
+
+</mapper>

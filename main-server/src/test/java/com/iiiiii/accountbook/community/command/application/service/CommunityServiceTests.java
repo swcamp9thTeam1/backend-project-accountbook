@@ -3,12 +3,19 @@ package com.iiiiii.accountbook.community.command.application.service;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommnunityFileDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityCommentDTO;
 import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostDTO;
+import com.iiiiii.accountbook.community.command.domain.aggregate.dto.CommunityPostScrapDTO;
+import com.iiiiii.accountbook.community.command.domain.repository.CommunityPostScrapRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,6 +30,18 @@ public class CommunityServiceTests {
 
     @Autowired
     private CommunityCommentService communityCommentService;
+
+    @Autowired
+    private CommunityPostScrapService communityPostScrapService;
+
+    @Autowired
+    private CommunityPostScrapRepository communityPostScrapRepository;
+
+    private static Stream<Arguments> provideMemberCodeAndPostCode() {
+        return Stream.of(
+                Arguments.of(3, 2)
+        );
+    }
 
     @DisplayName("새로운 게시글 등록 테스트")
     @Test
@@ -105,5 +124,30 @@ public class CommunityServiceTests {
     @Test
     public void removeCommunityComment() {
         assertDoesNotThrow(() -> communityCommentService.removeComment(2, 1));
+    }
+
+    @DisplayName("게시글 스크랩 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndPostCode")
+    public void addCommunityPostScrap(int memberCode, int postCode) {
+
+        CommunityPostScrapDTO newScrap = new CommunityPostScrapDTO(memberCode, postCode);
+
+        int scrapMemberCode = communityPostScrapService.addScrap(postCode, newScrap);
+
+        assertEquals(memberCode, scrapMemberCode);
+    }
+
+    @DisplayName("스크랩했던 게시글 스크랩 취소(삭제) 테스트")
+    @ParameterizedTest
+    @MethodSource("provideMemberCodeAndPostCode")
+    public void cancelCommunityPostScrap(int memberCode, int postCode) {
+
+        Long initCount = communityPostScrapRepository.count();
+
+        CommunityPostScrapDTO scrap = new CommunityPostScrapDTO(memberCode, postCode);
+        communityPostScrapService.cancelScrap(scrap);
+
+        assertNotEquals(initCount, communityPostScrapRepository.count());
     }
 }
