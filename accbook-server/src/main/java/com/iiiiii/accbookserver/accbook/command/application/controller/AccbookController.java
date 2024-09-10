@@ -47,7 +47,7 @@ public class AccbookController {
     }
 
     @PutMapping("/{accbookCode}")
-    public ResponseEntity<?> modifyAccbook(@RequestBody AccbookDTO modifyAccbook, @PathVariable Integer accbookCode) {
+    public ResponseEntity<?> modifyAccbook(@PathVariable Integer accbookCode, @RequestBody RequestRegistAccbookDTO modifyAccbook) {
         Accbook accbook = accbookService.modifyAccbook(accbookCode, modifyAccbook);
 
         Map<String, Object> responseMap = new HashMap<>();
