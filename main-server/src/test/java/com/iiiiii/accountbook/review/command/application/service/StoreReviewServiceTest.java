@@ -5,6 +5,7 @@ import com.iiiiii.accountbook.review.command.domain.aggregate.dto.StoreReviewDTO
 import com.iiiiii.accountbook.review.command.domain.aggregate.entity.StoreReview;
 import com.iiiiii.accountbook.review.command.domain.repository.StoreReviewRepository;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
