@@ -10,8 +10,11 @@ import java.util.List;
 @Service
 public class CommunityCommentService {
 
-    @Autowired
-    CommunityCommentMapper communityCommentMapper;
+    private final CommunityCommentMapper communityCommentMapper;
+
+    public CommunityCommentService(CommunityCommentMapper communityCommentMapper) {
+        this.communityCommentMapper = communityCommentMapper;
+    }
 
     /* 한 게시글의 댓글 목록 조회 */
     public List<CommunityCommentDTO> findCommentsOfCommunityPost(int postCode) {
