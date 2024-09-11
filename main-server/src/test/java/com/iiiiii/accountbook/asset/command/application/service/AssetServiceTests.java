@@ -70,16 +70,19 @@ public class AssetServiceTests {
     }
 
     @DisplayName("가계부 내역 등록 시 자산 잔액 변동 테스트")
-    @Test
-    public void updateAssetByAccbook() {
+    @ParameterizedTest
+    @ValueSource(ints = 9)
+    public void updateAssetByAccbook(int assetCode) {
 
-        assertDoesNotThrow(() -> assetService.modifyAssetByOut(9, 5000000L));
-        assertDoesNotThrow(() -> assetService.modifyAssetByIn(9, 2000000L));
+        assetService.modifyAssetByOut(assetCode, 5000000L);
+        assetService.modifyAssetByIn(assetCode, 2000000L);
+
+        assertEquals(27000000L, assetRepository.findById(assetCode).get().getBalance());
     }
 
     @DisplayName("보유 중인 자산 삭제 시 자산의 삭제여부, 잔액, 결제일 변경 테스트")
     @ParameterizedTest
-    @ValueSource(ints = 11)
+    @ValueSource(ints = 8)
     public void modifyAssetToDelete(int assetCode) {
 
         assetService.modifyAssetToDelete(assetCode);

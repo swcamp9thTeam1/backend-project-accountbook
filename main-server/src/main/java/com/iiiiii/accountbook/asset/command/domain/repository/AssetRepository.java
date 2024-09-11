@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface AssetRepository extends JpaRepository<Asset, Integer> {
 
-    List<Asset> findByMemberCodeAndAssetCategory(Integer memberCode, AssetCategory assetCategory);
+    List<Asset> findByMemberCodeAndCategory(Integer memberCode, AssetCategory assetCategory);
 }

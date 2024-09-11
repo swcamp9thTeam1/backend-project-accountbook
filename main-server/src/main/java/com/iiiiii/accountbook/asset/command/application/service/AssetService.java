@@ -34,7 +34,7 @@ public class AssetService {
     public int registAsset(AssetDTO newAsset, Integer bankAssetNo, Integer memberCode) {
 
         if (newAsset.getCategory() == AssetCategory.C) {    // 체크카드 자산 등록의 경우, 계좌 자산 연동 필요
-            List<Asset> bankAssets = assetRepository.findByMemberCodeAndAssetCategory(memberCode, AssetCategory.B);
+            List<Asset> bankAssets = assetRepository.findByMemberCodeAndCategory(memberCode, AssetCategory.B);
 
             if (bankAssets.isEmpty())
                 throw new IllegalArgumentException("연동 가능한 계좌 자산이 없습니다.");
