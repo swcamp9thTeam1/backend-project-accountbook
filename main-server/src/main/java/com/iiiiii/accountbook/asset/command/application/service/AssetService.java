@@ -3,15 +3,17 @@ package com.iiiiii.accountbook.asset.command.application.service;
 import com.iiiiii.accountbook.asset.command.domain.aggregate.entity.Asset;
 import com.iiiiii.accountbook.asset.command.domain.aggregate.dto.AssetDTO;
 import com.iiiiii.accountbook.asset.command.domain.repository.AssetRepository;
+import com.iiiiii.accountbook.common.AssetCategory;
 import com.iiiiii.accountbook.common.YesOrNo;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service("AssetServiceCommand")
 @Slf4j
@@ -29,7 +31,16 @@ public class AssetService {
 
     /* 자산 등록 트랜잭션 */
     @Transactional
-    public int registAsset(AssetDTO newAsset) {
+    public int registAsset(AssetDTO newAsset, Integer bankAssetNo, Integer memberCode) {
+
+        if (newAsset.getCategory() == AssetCategory.C) {    // 체크카드 자산 등록의 경우, 계좌 자산 연동 필요
+            List<Asset> bankAssets = assetRepository.findByMemberCodeAndCategory(memberCode, AssetCategory.B);
+
+            if (bankAssets.isEmpty())
+                throw new IllegalArgumentException("연동 가능한 계좌 자산이 없습니다.");
+
+            newAsset.setRelatedAssetCode(modelMapper.map(bankAssets.get(bankAssetNo), AssetDTO.class).getCode());
+        }
 
         Asset registedAsset = assetRepository.save(modelMapper.map(newAsset, Asset.class));
 
@@ -48,6 +59,14 @@ public class AssetService {
             throw new IllegalArgumentException("자산 코드가 일치하지 않습니다.");
         } else if (myAsset.getIsDeleted() != YesOrNo.N) {
             throw new IllegalArgumentException("삭제된 자산입니다.");
+        }
+
+        if (modifiedAsset.getCategory() == AssetCategory.C) {
+            if (modifiedAsset.getRelatedAssetCode() == null ||
+                    assetRepository.findById(modifiedAsset.getRelatedAssetCode()).get()
+                                    .getCategory() != AssetCategory.B) {
+                throw new IllegalArgumentException("계좌 자산 연동이 필요합니다.");
+            }
         }
 
         assetRepository.save(modelMapper.map(modifiedAsset, Asset.class));

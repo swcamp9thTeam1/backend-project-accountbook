@@ -18,4 +18,5 @@ public class AssetDTO {
     private Integer paymentDate;        // 결제일
     private YesOrNo isDeleted;          // 삭제여부
     private int memberCode;             // 회원코드
+    private Integer relatedAssetCode;   // 연동된 자산코드(체크카드의 경우)
 }

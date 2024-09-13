@@ -1,4 +1,4 @@
-package com.iiiiii.accountbook.asset.command.domain.aggregate.vo;
+package com.iiiiii.accountbook.review.command.domain.aggregate.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

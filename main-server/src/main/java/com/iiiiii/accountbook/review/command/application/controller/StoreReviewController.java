@@ -1,6 +1,6 @@
 package com.iiiiii.accountbook.review.command.application.controller;
 
-import com.iiiiii.accountbook.asset.command.domain.aggregate.vo.RegisterReviewVO;
+import com.iiiiii.accountbook.review.command.domain.aggregate.vo.RegisterReviewVO;
 import com.iiiiii.accountbook.common.ResponseMessage;
 import com.iiiiii.accountbook.common.ResponseStatusText;
 import com.iiiiii.accountbook.review.command.application.service.StoreReviewService;

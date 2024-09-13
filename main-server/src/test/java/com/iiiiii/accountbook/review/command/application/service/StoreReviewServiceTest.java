@@ -1,6 +1,6 @@
 package com.iiiiii.accountbook.review.command.application.service;
 
-import com.iiiiii.accountbook.asset.command.domain.aggregate.vo.RegisterReviewVO;
+import com.iiiiii.accountbook.review.command.domain.aggregate.vo.RegisterReviewVO;
 import com.iiiiii.accountbook.review.command.domain.aggregate.dto.StoreReviewDTO;
 import com.iiiiii.accountbook.review.command.domain.aggregate.entity.StoreReview;
 import com.iiiiii.accountbook.review.command.domain.repository.StoreReviewRepository;
@@ -11,7 +11,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Stream;
 
