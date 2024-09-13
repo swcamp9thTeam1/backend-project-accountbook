@@ -22,5 +22,5 @@ public class CommunityCommentDTO {
 
     private int memberCode;                 // 작성자(회원 코드)
 
-    private int parentCode;                 // 상위댓글 코드(대댓글의 경우)
+    private Integer parentCode;             // 상위댓글 코드(대댓글의 경우), nullable이기 때문에 Integer로 선언
 }
