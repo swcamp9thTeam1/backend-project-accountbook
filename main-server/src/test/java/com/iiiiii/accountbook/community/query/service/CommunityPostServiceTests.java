@@ -98,4 +98,21 @@ public class CommunityPostServiceTests {
         assertThat(foundPost).isNull();
     }
 
+    @DisplayName("회원이 작성한 커뮤니티 게시글 목록 조회 테스트")
+    @Test
+    public void selectCommunityPostsOfMember() {
+
+        // given
+        int memberCode = 2;
+        given(communityPostService.findCommunityPostsOfMember(memberCode)).willReturn(
+                        postList.stream().filter(post -> post.getMemberCode() == memberCode)
+                                .collect(Collectors.toList())
+        );
+
+        // when
+        List<CommunityPostDTO> myPostList = communityPostService.findCommunityPostsOfMember(memberCode);
+
+        // then
+        assertThat(myPostList.size()).isEqualTo(2);
+    }
 }

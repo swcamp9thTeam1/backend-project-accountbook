@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iiiiii.accountbook.community.query.repository.CommunityPostScrapMapper">
+    <resultMap id="postScrapResultMap" type="com.iiiiii.accountbook.community.query.dto.CommunityPostScrapDTO">
+        <id property="memberCode" column="MEMBER_CODE"/>
+        <id property="communityPostCode" column="COMMUNITY_POST_CODE"/>
+    </resultMap>
+
+    <select id="selectPostScrapByMemberCode" resultMap="postScrapResultMap" parameterType="_int">
+        SELECT
+               A.MEMBER_CODE
+             , A.COMMUNITY_POST_CODE
+          FROM COMMUNITY_POST_SCRAP A
+         WHERE A.MEMBER_CODE = #{memberCode}
+         ORDER BY A.COMMUNITY_POST_CODE DESC
+    </select>
+
+</mapper>

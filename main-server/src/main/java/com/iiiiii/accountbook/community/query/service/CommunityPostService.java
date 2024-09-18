@@ -30,4 +30,12 @@ public class CommunityPostService {
 
         return selectedPost;
     }
+
+    /* 회원 본인이 작성한 커뮤니티 게시글 목록 조회 */
+    public List<CommunityPostDTO> findCommunityPostsOfMember(int memberCode) {
+
+        List<CommunityPostDTO> myPostList = communityPostMapper.selectCommunityPostsByMemberCode(memberCode);
+
+        return myPostList;
+    }
 }
