@@ -32,4 +32,15 @@
          WHERE A.CODE = #{postCode}
     </select>
 
+    <select id="selectCommunityPostsByMemberCode" resultMap="communityPostResultMap" parameterType="_int">
+        SELECT
+               A.CODE
+             , A.CREATED_AT
+             , A.TITLE
+             , A.MEMBER_CODE
+          FROM COMMUNITY_POST A
+         WHERE A.MEMBER_CODE = #{memberCode}
+         ORDER BY A.CODE DESC
+    </select>
+
 </mapper>

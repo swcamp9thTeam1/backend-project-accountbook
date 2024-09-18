@@ -11,4 +11,6 @@ public interface CommunityPostMapper {
     List<CommunityPostDTO> selectAllCommunityPosts();
 
     CommunityPostDTO selectOneCommunityPost(int postCode);
+
+    List<CommunityPostDTO> selectCommunityPostsByMemberCode(int memberCode);
 }
