@@ -128,22 +128,10 @@ public class AccbookService {
         Long afterAmount = modifyAccbook.getAmount();
 
         // 기존의 자산 복구
-        if (beforeFinanceType == InOrOutOrTransfer.O) {
-            changeAsset(InOrOutOrTransfer.I, beforeAssetCode, beforeAmount, null);
-        } else if (beforeFinanceType == InOrOutOrTransfer.I) {
-            changeAsset(InOrOutOrTransfer.O, beforeAssetCode, beforeAmount, null);
-        } else if (beforeFinanceType == InOrOutOrTransfer.T) {
-            changeAsset(InOrOutOrTransfer.T, accbook.getInAssetCode(), beforeAmount, beforeAssetCode); // 반대로 이체해서 복구
-        }
+        applyAssetChanges(beforeFinanceType, beforeAssetCode, beforeAmount, accbook);
 
         // 수정된 내역으로 자산 업데이트
-        if (afterFinanceType == InOrOutOrTransfer.O) {
-            changeAsset(afterFinanceType, afterAssetCode, afterAmount, null);
-        } else if (afterFinanceType == InOrOutOrTransfer.I) {
-            changeAsset(afterFinanceType, afterAssetCode, afterAmount, null);
-        } else if (afterFinanceType == InOrOutOrTransfer.T) {
-            changeAsset(afterFinanceType, afterAssetCode, afterAmount, modifyAccbook.getInAssetCode());
-        }
+        applyAssetChanges(modifyAccbook, afterFinanceType, afterAssetCode, afterAmount);
 
         accbook.setAccCategoryCode(modifyAccbook.getAccCategoryCode());
         accbook.setAssetCode(modifyAccbook.getAssetCode());
@@ -152,10 +140,14 @@ public class AccbookService {
         // 트랜젝션 커밋 시 JPA가 자동으로 변경된 엔티티를 DB에 반영 (Dirty Checking)
         return accbook;
     }
-    
+
     @Transactional
     public void removeAccbook(Integer accbookCode) {
         Accbook accbook = accbookRepository.findById(accbookCode).orElseThrow(IllegalArgumentException::new);
+
+        // 기존의 자산 복구
+        applyAssetChanges(accbook.getFinanceType(), accbook.getAssetCode(), accbook.getAmount(), accbook);
+
         accbookRepository.delete(accbook);
     }
 
@@ -211,7 +203,29 @@ public class AccbookService {
         return (Integer) responseStoreCodeVO.getResult().get("storeCode");
 
     }
-    
+
+    /* 자산 복구 메서드 */
+    private void applyAssetChanges(InOrOutOrTransfer beforeFinanceType, Integer beforeAssetCode, Long beforeAmount, Accbook accbook) {
+        if (beforeFinanceType == InOrOutOrTransfer.O) {
+            changeAsset(InOrOutOrTransfer.I, beforeAssetCode, beforeAmount, null);
+        } else if (beforeFinanceType == InOrOutOrTransfer.I) {
+            changeAsset(InOrOutOrTransfer.O, beforeAssetCode, beforeAmount, null);
+        } else if (beforeFinanceType == InOrOutOrTransfer.T) {
+            changeAsset(InOrOutOrTransfer.T, accbook.getInAssetCode(), beforeAmount, beforeAssetCode); // 반대로 이체해서 복구
+        }
+    }
+
+    /* 자산 사용 메서드 */
+    private void applyAssetChanges(RequestRegistAccbookDTO modifyAccbook, InOrOutOrTransfer afterFinanceType, Integer afterAssetCode, Long afterAmount) {
+        if (afterFinanceType == InOrOutOrTransfer.O) {
+            changeAsset(afterFinanceType, afterAssetCode, afterAmount, null);
+        } else if (afterFinanceType == InOrOutOrTransfer.I) {
+            changeAsset(afterFinanceType, afterAssetCode, afterAmount, null);
+        } else if (afterFinanceType == InOrOutOrTransfer.T) {
+            changeAsset(afterFinanceType, afterAssetCode, afterAmount, modifyAccbook.getInAssetCode());
+        }
+    }
+
     private void changeAsset(InOrOutOrTransfer financeType, Integer assetCode, Long amount, Integer inAssetCode) {
         if (financeType == InOrOutOrTransfer.I) {           // 수입인 경우
             assetServiceClient.modifyAssetByIn(assetCode, amount);
@@ -222,5 +236,4 @@ public class AccbookService {
             assetServiceClient.modifyAssetByIn(inAssetCode, amount);    // 입금 자산에서 +
         }
     }
-
 }
