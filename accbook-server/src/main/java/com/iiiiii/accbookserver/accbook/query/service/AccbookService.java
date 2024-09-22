@@ -1,9 +1,6 @@
 package com.iiiiii.accbookserver.accbook.query.service;
 
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookCategoryStatsDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookDetailDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookTop3CategoryDTO;
+import com.iiiiii.accbookserver.accbook.query.dto.*;
 import com.iiiiii.accbookserver.accbook.query.repository.AccbookMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -49,4 +46,8 @@ public class AccbookService {
     }
 
 
+    public List<AccbookMonthlyEvalDTO> findAccbookMonthlyEvalBy(Integer memberCode, String findDate) {
+        Integer budget = 20000;     // TODO. feign client 통신 필요
+        return accbookMapper.selectMonthlyEvalBy(memberCode, findDate, budget);
+    }
 }
