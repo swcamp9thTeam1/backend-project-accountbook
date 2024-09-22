@@ -115,38 +115,34 @@ public class AccbookService {
             // '방문한 가게'가 가게DB에 존재하지 않는 경우, Store DB에 등록 후 storeCode 저장
             if (storeCode == null) {
                 storeCode = registNotExistStore(modifyAccbook, accbook);
+                accbook.setStoreCode(storeCode);
             }
         }
 
         // 3. 자산이 변경된 경우
-        /* 경우의 수
-         * 3-1. 카테고리가 변경된 경우 (ex. 지출 -> 수입)
-         * 3-2. 사용한 자산이 변경된 경우 (ex. 국민카드 -> 신한카드)
-         * 3-3. 사용 금액만 변경된 경우 (ex. 1000원 지출 -> 3000원 지출)
-         * 3-4. 혼합
-         * */
-        InOrOutOrTransfer beforeFinanceType = accCategoryServiceClient.findOneAccCategory(accbook.getAccCategoryCode()).getFinanceType();
-        InOrOutOrTransfer afterFinanceType = accCategoryServiceClient.findOneAccCategory(modifyAccbook.getAccCategoryCode()).getFinanceType();
+        InOrOutOrTransfer beforeFinanceType = accbook.getFinanceType();
+        InOrOutOrTransfer afterFinanceType = modifyAccbook.getFinanceType();
         Integer beforeAssetCode = accbook.getAssetCode();
         Integer afterAssetCode = modifyAccbook.getAssetCode();
+        Long beforeAmount = accbook.getAmount();
+        Long afterAmount = modifyAccbook.getAmount();
 
-        if (beforeFinanceType == afterFinanceType) {    // 수입/지출이 변경되지 않은 경우
-            /*
-             * 1000 지출 -> 2000 지출: 지출 1000원
-             * 2000 지출 -> 1000 지출: 지출 -1000원
-             * 1000 수입 -> 2000 수입: 수입 1000원
-             * 2000 수입 -> 1000 수입: 수입 -1000원
-             * - 내역을 저장한다면 어떻게 저장해야 할 것인지 고려 필요
-             * */
-            if (beforeAssetCode == afterAssetCode) {    // 자산 코드가 변경되지 않은 경우
-                changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount() - accbook.getAmount(), null);
-            } else {    // 자산 코드가 변경된 경우
-                changeAsset(beforeFinanceType, beforeAssetCode, -accbook.getAmount(), null);      // 기존의 자산 복구
-                changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount(), null);   // 변경된 자산 변동
-            }
-        } else {        // 수입/지출이 변경된 경우
-            changeAsset(beforeFinanceType, beforeAssetCode, -accbook.getAmount(), null);          // 기존의 자산 복구
-            changeAsset(afterFinanceType, afterAssetCode, modifyAccbook.getAmount(), null);       // 변경된 자산 변동
+        // 기존의 자산 복구
+        if (beforeFinanceType == InOrOutOrTransfer.O) {
+            changeAsset(InOrOutOrTransfer.I, beforeAssetCode, beforeAmount, null);
+        } else if (beforeFinanceType == InOrOutOrTransfer.I) {
+            changeAsset(InOrOutOrTransfer.O, beforeAssetCode, beforeAmount, null);
+        } else if (beforeFinanceType == InOrOutOrTransfer.T) {
+            changeAsset(InOrOutOrTransfer.T, accbook.getInAssetCode(), beforeAmount, beforeAssetCode); // 반대로 이체해서 복구
+        }
+
+        // 수정된 내역으로 자산 업데이트
+        if (afterFinanceType == InOrOutOrTransfer.O) {
+            changeAsset(afterFinanceType, afterAssetCode, afterAmount, null);
+        } else if (afterFinanceType == InOrOutOrTransfer.I) {
+            changeAsset(afterFinanceType, afterAssetCode, afterAmount, null);
+        } else if (afterFinanceType == InOrOutOrTransfer.T) {
+            changeAsset(afterFinanceType, afterAssetCode, afterAmount, modifyAccbook.getInAssetCode());
         }
 
         accbook.setAccCategoryCode(modifyAccbook.getAccCategoryCode());
@@ -221,9 +217,9 @@ public class AccbookService {
             assetServiceClient.modifyAssetByIn(assetCode, amount);
         } else if (financeType == InOrOutOrTransfer.O) {    // 지출인 경우
             assetServiceClient.modifyAssetByOut(assetCode, amount);
-        } else if (financeType == InOrOutOrTransfer.T) {
-            assetServiceClient.modifyAssetByOut(assetCode, amount);
-            assetServiceClient.modifyAssetByIn(inAssetCode, amount);
+        } else if (financeType == InOrOutOrTransfer.T) {    // 이체인 경우
+            assetServiceClient.modifyAssetByOut(assetCode, amount);     // 출금 자산에서 -
+            assetServiceClient.modifyAssetByIn(inAssetCode, amount);    // 입금 자산에서 +
         }
     }
 
