@@ -57,6 +57,13 @@
                     select="selectAccCommentBy" column="CODE"/>
     </resultMap>
 
+    <resultMap id="accbookMonthlyEvalResultMap" type="com.iiiiii.accbookserver.accbook.query.dto.AccbookMonthlyEvalDTO">
+        <result property="dailyDate" column="DAILY_DATE"/>
+        <result property="totalOAmount" column="TOTAL_O_AMOUNT"/>
+        <result property="totalIAmount" column="TOTAL_I_AMOUNT"/>
+        <result property="evaluation" column="EVALUATION"/>
+    </resultMap>
+
     <!-- query -->
     <select id="selectDailyAccbookBy" resultMap="accbookResultMap">
         SELECT
@@ -185,5 +192,27 @@
                          LEFT JOIN asset D ON A.asset_code = D.code
                          LEFT JOIN asset E ON A.in_asset_code = E.code
          WHERE A.code = #{ accbookCode };
+    </select>
+
+    <select id="selectMonthlyEvalBy" resultMap="accbookMonthlyEvalResultMap">
+        WITH RECURSIVE Calendar AS (SELECT DATE(CONCAT(#{ findDate }, '-01')) As daily_date
+                                    UNION ALL
+                                    SELECT DATE_ADD(daily_date, INTERVAL 1 DAY)
+                                    FROM Calendar
+                                    WHERE DATE_ADD(daily_date, INTERVAL 1 DAY) <![CDATA[<=]]> LAST_DAY(CONCAT(#{ findDate }, '-01')))
+        SELECT
+               A.daily_date
+             , COALESCE(SUM(IF(B.finance_type = 'O', B.amount, 0)), 0) AS total_O_amount
+             , COALESCE(SUM(IF(B.finance_type = 'I', B.amount, 0)), 0) AS total_I_amount
+             , CASE
+                   WHEN COALESCE(SUM(IF(B.finance_type = 'O', B.amount, 0)), 0) <![CDATA[<=]]> #{ budget }
+                        AND A.daily_date <![CDATA[<=]]> CURDATE() THEN 'Good'
+                   WHEN COALESCE(SUM(IF(B.finance_type = 'O', B.amount, 0)), 0) <![CDATA[>]]> #{ budget }
+                        AND A.daily_date <![CDATA[<=]]> CURDATE() THEN 'Bad'
+                   ELSE null
+             END AS 'evaluation'
+         FROM Calendar A LEFT JOIN accbook B ON DATE(B.created_at) = A.daily_date AND B.member_code = #{ memberCode }
+        GROUP BY A.daily_date
+        ORDER BY A.daily_date;
     </select>
 </mapper>

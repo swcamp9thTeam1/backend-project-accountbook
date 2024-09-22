@@ -1,9 +1,6 @@
 package com.iiiiii.accbookserver.accbook.query.repository;
 
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookCategoryStatsDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookDetailDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookTop3CategoryDTO;
+import com.iiiiii.accbookserver.accbook.query.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Date;
@@ -22,4 +19,6 @@ public interface AccbookMapper {
     List<AccbookCategoryStatsDTO> selectMonthlyCategoryStats(Integer memberCode, String findDate);
 
     AccbookDetailDTO selectAccbookDetailBy(Integer accbookCode);
+
+    List<AccbookMonthlyEvalDTO> selectMonthlyEvalBy(Integer memberCode, String findDate, Integer budget);
 }

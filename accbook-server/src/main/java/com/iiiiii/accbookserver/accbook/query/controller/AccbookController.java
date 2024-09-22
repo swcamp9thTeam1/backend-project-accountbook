@@ -1,11 +1,9 @@
 package com.iiiiii.accbookserver.accbook.query.controller;
 
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookCategoryStatsDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookDetailDTO;
-import com.iiiiii.accbookserver.accbook.query.dto.AccbookTop3CategoryDTO;
+import com.iiiiii.accbookserver.accbook.query.dto.*;
 import com.iiiiii.accbookserver.accbook.query.service.AccbookService;
 import com.iiiiii.accbookserver.common.ResponseMessageGeneric;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/accbook")
+@Slf4j
 public class AccbookController {
 
     private final AccbookService accbookService;
@@ -75,6 +74,16 @@ public class AccbookController {
         AccbookDetailDTO foundAccbook = accbookService.findAccbookDetailBy(accbookCode);
         return ResponseEntity.ok(new ResponseMessageGeneric<>(foundAccbook));
     }
+
+    @GetMapping("monthly-eval/{memberCode}/{findDate}")
+    ResponseEntity<ResponseMessageGeneric<List<AccbookMonthlyEvalDTO>>> findAccbookMonthlyEvalBy(
+            @PathVariable("memberCode") Integer memberCode,
+            @PathVariable("findDate") String findDate) {
+
+        List<AccbookMonthlyEvalDTO> monthlyEval = accbookService.findAccbookMonthlyEvalBy(memberCode, findDate);
+        return ResponseEntity.ok(new ResponseMessageGeneric<>(monthlyEval));
+    }
+
 
     @GetMapping("/health")
     public String healthCheck() {
